@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Ki Jankari – Free GST & ITR Info, Tax Updates, Calculators & Assisted Filing Services</title>
+    <meta name="description" content="Tax Ki Jankari (taxkijankari.com) provides free GST & ITR guides, compliance due dates, tax calculators, and expert assistance for GST Registration, GST Returns, ITR Filing, and Tax Consultation. Helpline: 7544065151.">
+    <meta name="keywords" content="Tax Ki Jankari, taxkijankari.com, GST registration, GST return filing, ITR filing, income tax calculator, GST calculator, GST due dates, tax consultant India">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Tax Ki Jankari – Smart Tax Solutions & Compliance Guidance">
+    <meta property="og:description" content="Free GST & ITR Information, Tax Updates, Due Dates, Calculators and Expert Assisted Filing Services. Call/WhatsApp 7544065151.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://taxkijankari.com">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: {
+                            50: '#fff8f1',
+                            100: '#feede0',
+                            200: '#fcd6be',
+                            300: '#f9b590',
+                            400: '#f68759',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                        navy: {
+                            800: '#0f2b48',
+                            900: '#0a1e3f',
+                            950: '#07152b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- =========================================================================
+         TOP STATUTORY DISCLAIMER & HELPLINE BAR
+         ========================================================================= -->
+    <div class="bg-navy-950 text-slate-300 text-xs py-2 px-4 border-b border-navy-800">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-center md:text-left">
+                <span class="inline-block w-2 h-2 rounded-full bg-saffron-500 flex-shrink-0 animate-ping"></span>
+                <p class="text-[11px] sm:text-xs">
+                    <strong class="text-saffron-400">Notice:</strong> Tax Ki Jankari (<a href="https://taxkijankari.com" class="text-white underline">taxkijankari.com</a>) is a <strong>private tax consultancy & informational platform</strong>. We are not a government website or affiliated with GSTN/Income Tax Dept.
+                </p>
+            </div>
+            <div class="flex items-center gap-4 flex-shrink-0 text-[11px] sm:text-xs">
+                <a href="tel:+917544065151" class="hover:text-saffron-400 flex items-center gap-1 font-semibold text-white transition-colors">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5 text-saffron-400"></i>
+                    <span>Call: +91 7544065151</span>
+                </a>
+                <span class="text-slate-600">|</span>
+                <a href="https://wa.me/917544065151" target="_blank" class="hover:text-emerald-400 flex items-center gap-1 font-semibold text-emerald-400 transition-colors">
+                    <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <span class="text-slate-600 hidden sm:inline">|</span>
+                <a href="mailto:gsc@taxkijankari.com" class="hover:text-saffron-400 hidden sm:flex items-center gap-1 transition-colors">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-saffron-400"></i>
+                    <span>gsc@taxkijankari.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         PRIMARY HEADER & NAVIGATION
+         ========================================================================= -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-saffron-500 to-orange-600 text-white flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition-transform">
+                        <i data-lucide="landmark" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black tracking-tight text-navy-950 flex items-center gap-1">
+                            TAX KI <span class="text-saffron-600">JANKARI</span>
+                        </div>
+                        <div class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase">
+                            Aapki Tax Jankari, Hamari Zimmedari
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2">
+                    <a href="#home" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Home</a>
+                    <a href="#gst" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">GST Hub</a>
+                    <a href="#itr" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">ITR Hub</a>
+                    <a href="#services" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Services</a>
+                    <a href="#updates" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Due Dates & Updates</a>
+                    <a href="#calculators" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Calculators</a>
+                    <a href="#faq" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">FAQs</a>
+                    <a href="#contact" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Desktop Action Buttons -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20need%20tax%20assistance." target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold flex items-center gap-1.5 transition-colors">
+                        <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+                        <span>WhatsApp 7544065151</span>
+                    </a>
+                    <a href="#contact" class="px-4 py-2.5 rounded-xl bg-gradient-saffron hover:opacity-95 text-white text-xs font-bold shadow-md shadow-orange-500/20 flex items-center gap-1.5 transition-all hover:shadow-lg">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                        <span>Get Consultation</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-2 lg:hidden">
+                    <a href="tel:+917544065151" class="p-2 rounded-lg bg-orange-50 text-saffron-600 border border-orange-200">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </a>
+                    <button id="mobile-menu-toggle" type="button" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Open Navigation">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide-Over Navigation Drawer -->
+    <div id="mobile-backdrop" class="fixed inset-0 bg-slate-900/60 z-50 hidden transition-opacity"></div>
+    <div id="mobile-nav-drawer" class="fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
+        <div>
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-saffron-500 text-white flex items-center justify-center font-bold">
+                        <i data-lucide="landmark" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-extrabold text-navy-950 text-base">Tax Ki Jankari</span>
+                </div>
+                <button id="mobile-menu-close" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <nav class="p-4 space-y-1">
+                <a href="#home" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Home</a>
+                <a href="#gst" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">GST Information Hub</a>
+                <a href="#itr" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">ITR & Income Tax Hub</a>
+                <a href="#services" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Paid Filing Services</a>
+                <a href="#updates" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Due Dates & Tax Updates</a>
+                <a href="#calculators" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Income Tax & GST Calculators</a>
+                <a href="#faq" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Frequently Asked Questions</a>
+                <a href="#contact" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Contact & Consultation</a>
+            </nav>
+        </div>
+        <div class="p-5 border-t border-slate-100 bg-slate-50 space-y-3">
+            <div class="text-xs text-slate-500">
+                Direct Helpline: <a href="tel:+917544065151" class="font-bold text-navy-900 block text-sm mt-0.5">+91 7544065151</a>
+            </div>
+            <a href="https://wa.me/917544065151" target="_blank" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> Chat on WhatsApp
+            </a>
+            <a href="#contact" class="w-full py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i> Send Online Inquiry
+            </a>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         MAIN VIEW CONTAINER
+         ========================================================================= -->
+    <main class="flex-grow">
+
+        <!-- =====================================================================
+             VIEW 1: HOME PAGE
+             ===================================================================== -->
+        <section id="view-home" class="view-section">
+            
+            <!-- Hero Section -->
+            <div class="bg-navy-hero text-white relative overflow-hidden py-16 lg:py-24 border-b border-navy-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <!-- Left Hero Column -->
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-saffron-500/20 border border-saffron-500/40 text-saffron-400 text-xs font-bold">
+                                <span class="w-2 h-2 rounded-full bg-saffron-400"></span>
+                                <span>India's Dedicated Tax & Compliance Portal</span>
+                            </div>
+
+                            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+                                Smart Tax Guidance & <br class="hidden sm:block">
+                                <span class="text-gradient-saffron">Hassle-Free Assisted Filing</span> for India
+                            </h1>
+
+                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                Get free GST rules, ITR filing guides, live compliance calendar, tax calculators, and expert assistance for <strong>GST Registration, GST Returns, ITR, Amendments & Tax Notices</strong>.
+                            </p>
+
+                            <!-- CTA Buttons -->
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                                <a href="#contact" class="px-6 py-3.5 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-xl text-sm shadow-xl shadow-orange-500/30 flex items-center gap-2 transition-all hover:scale-105">
+                                    <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+                                    <span>Get Assisted Filing</span>
+                                </a>
+                                <a href="#calculators" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl text-sm backdrop-blur transition-all flex items-center gap-2">
+                                    <i data-lucide="calculator" class="w-4 h-4 text-saffron-400"></i>
+                                    <span>Calculate Tax Free</span>
+                                </a>
+                                <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20want%20to%20consult%20about%20my%20tax%20filing." target="_blank" class="px-5 py-3.5 bg-emerald-600/90 hover:bg-emerald-600 text-white font-bold rounded-xl text-sm flex items-center gap-2 transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                    <span>WhatsApp 7544065151</span>
+                                </a>
+                            </div>
+
+                            <!-- Trust Badges -->
+                            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 text-center lg:text-left">
+                                <div>
+                                    <div class="text-xl sm:text-2xl font-black text-saffron-400">5,000+</div>
+                                    <div class="text-[11px] text-slate-400">Returns Assisted</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl sm:text-2xl font-black text-emerald-400">100% Online</div>
+                                    <div class="text-[11px] text-slate-400">Doorstep Digital Service</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl sm:text-2xl font-black text-white">4.9 ★★★★★</div>
+                                    <div class="text-[11px] text-slate-400">Client Satisfaction</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Quick Lead Capture Card -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+                                <div class="absolute -top-3 right-6 px-3 py-1 bg-emerald-600 text-white text-[11px] font-extrabold rounded-full uppercase tracking-wider shadow">
+                                    Quick Response (30 Mins)
+                                </div>
+
+                                <h3 class="text-xl font-extrabold text-navy-950 mb-1">Request Free Consultation</h3>
+                                <p class="text-xs text-slate-500 mb-5">Fill this short form & our tax expert will connect with you.</p>
+
+                                <form class="tkj-lead-form" name="tax-lead-form" method="POST" data-netlify="true" space-y-3.5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+                                        <input type="text" name="name" required placeholder="e.g. Rahul Sharma" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number *</label>
+                                            <input type="tel" name="mobile" required placeholder="10-digit Mobile" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-700 mb-1">Email Address *</label>
+                                            <input type="email" name="email" required placeholder="name@email.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Service Needed *</label>
+                                        <select name="service" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50 font-medium">
+                                            <option value="">-- Select Required Service --</option>
+                                            <option value="GST Registration">GST Registration (New Regular / Composition)</option>
+                                            <option value="GST Return Filing">GST Return Filing (GSTR-1, 3B, Annual 9)</option>
+                                            <option value="ITR Filing (Salaried / Business)">ITR Filing (Salaried, Freelance, Business)</option>
+                                            <option value="GST Amendment / Cancellation">GST Amendment / Cancellation / Surrender</option>
+                                            <option value="Tax Notice Consultation">Tax Consultation & Notice Advisory</option>
+                                            <option value="Other Tax Inquiry">Other Tax & Accounting Inquiry</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">City / State (Optional)</label>
+                                        <input type="text" name="city" placeholder="e.g. Mumbai, Maharashtra" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Message / Specific Requirement</label>
+                                        <textarea name="message" rows="2" placeholder="Tell us briefly about your requirement or tax query..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50 resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full py-3 bg-gradient-saffron hover:opacity-95 text-white font-extrabold rounded-xl text-xs sm:text-sm shadow-md transition-all">
+                                        Submit Inquiry & Get Callback →
+                                    </button>
+                                    <p class="text-[10px] text-center text-slate-400">
+                                        🔒 100% Privacy Protected. Leads notified to <span class="text-slate-600 font-semibold">gsc@taxkijankari.com</span> & consultant desk.
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Compliance Due Dates Ticker Strip -->
+            <div class="bg-amber-50 border-b border-amber-200 py-4 px-4">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <span class="p-1.5 bg-saffron-600 text-white rounded-lg">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </span>
+                        <div>
+                            <span class="text-xs font-extrabold text-navy-950 uppercase tracking-wider block">Upcoming Due Dates</span>
+                            <span class="text-[11px] text-slate-500">Never miss a statutory deadline</span>
+                        </div>
+                    </div>
+
+                    <div id="due-dates-ticker" class="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <a href="#updates" class="flex-shrink-0 text-xs font-bold text-saffron-700 hover:text-saffron-900 underline flex items-center gap-1">
+                        Full Calendar →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Core Paid Services Grid Section -->
+            <div class="py-16 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Our Professional Services</span>
+                        <h2 class="text-3xl font-black text-navy-950 mt-2 mb-3">Expert Tax Solutions & Filing Assistance</h2>
+                        <p class="text-slate-600 text-sm">Professional, timely, and 100% online assisted filing services handled by seasoned tax practitioners.</p>
+                    </div>
+
+                    <div id="services-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Populated by app.js -->
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <a href="#services" class="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 hover:bg-navy-800 text-white text-xs sm:text-sm font-bold rounded-xl transition-colors">
+                            <span>View All Service Details, Documents & Pricing</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Free Interactive Tools Promo Section -->
+            <div class="py-14 bg-gradient-to-r from-navy-900 to-navy-950 text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <span class="px-3 py-1 bg-saffron-500/20 text-saffron-400 rounded-full text-xs font-bold uppercase tracking-wider">Free Tax Tools</span>
+                            <h2 class="text-2xl sm:text-3xl font-black mt-2 mb-3">Calculate Your Tax & GST in Seconds</h2>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Compare <strong>Old vs New Income Tax Regime</strong> with the latest budget slabs (₹75k standard deduction & 87A rebate), or calculate exact <strong>CGST, SGST, IGST</strong> amounts with our free calculators.
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="#calculators" class="px-5 py-3 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-xl text-xs flex items-center gap-2">
+                                    <i data-lucide="calculator" class="w-4 h-4"></i> Launch Income Tax Calculator
+                                </a>
+                                <a href="#calculators" class="px-5 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl text-xs flex items-center gap-2">
+                                    <i data-lucide="percent" class="w-4 h-4 text-emerald-400"></i> Launch GST Calculator
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur">
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div class="text-2xl font-black text-saffron-400">₹7.75 L</div>
+                                    <div class="text-xs text-slate-300 font-semibold mt-1">Zero Tax for Salaried</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Under New Regime (FY 24-25)</div>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div class="text-2xl font-black text-emerald-400">₹75,000</div>
+                                    <div class="text-xs text-slate-300 font-semibold mt-1">Standard Deduction</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Increased under New Regime</div>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div class="text-2xl font-black text-amber-400">₹1.5 Lakhs</div>
+                                    <div class="text-xs text-slate-300 font-semibold mt-1">Section 80C Limit</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">PPF, EPF, ELSS (Old Regime)</div>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div class="text-2xl font-black text-blue-400">GSTR-2B</div>
+                                    <div class="text-xs text-slate-300 font-semibold mt-1">Automated Matching</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Zero ITC Loss Guarantee</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us Section -->
+            <div class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">Why Tax Ki Jankari</span>
+                        <h2 class="text-3xl font-black text-navy-950 mt-2 mb-3">Your Dependable Tax Companion</h2>
+                        <p class="text-slate-600 text-sm">We combine deep regulatory expertise with modern digital convenience to keep your taxes 100% compliant.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-saffron-300 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-orange-100 text-saffron-700 flex items-center justify-center font-bold text-xl mb-4">
+                                <i data-lucide="shield-check"></i>
+                            </div>
+                            <h3 class="font-bold text-base text-slate-900 mb-2">100% Data Confidentiality</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Your PAN, financial records, and credentials are handled with strict privacy protocols and never shared.</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-saffron-300 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xl mb-4">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <h3 class="font-bold text-base text-slate-900 mb-2">Experienced Practitioners</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Returns and applications are reviewed by seasoned professionals to ensure zero errors and maximize refunds.</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-saffron-300 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-4">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <h3 class="font-bold text-base text-slate-900 mb-2">Zero Late Fee Focus</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Timely reminders and rapid processing ensure your GST and ITR returns are filed well before cutoff dates.</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-saffron-300 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xl mb-4">
+                                <i data-lucide="phone-forwarded"></i>
+                            </div>
+                            <h3 class="font-bold text-base text-slate-900 mb-2">Direct WhatsApp & Call</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Direct support via 7544065151. No robotic phone menus – speak directly with tax advisors.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Reviews Section -->
+            <div class="py-16 bg-slate-100/70 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase">Real Client Experiences</span>
+                        <h2 class="text-3xl font-black text-navy-950 mt-2 mb-2">Trusted Across India</h2>
+                        <p class="text-xs text-slate-600">See what small business owners and salaried professionals say about our services.</p>
+                    </div>
+
+                    <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Populated by app.js -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =====================================================================
+             VIEW 2: GST HUB
+             ===================================================================== -->
+        <section id="view-gst" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- GST Header -->
+                <div class="bg-gradient-to-r from-navy-900 to-navy-950 text-white rounded-3xl p-8 lg:p-12 mb-10 relative overflow-hidden shadow-xl">
+                    <div class="max-w-3xl space-y-4">
+                        <span class="px-3.5 py-1.5 rounded-full bg-saffron-500/20 border border-saffron-500/30 text-saffron-400 text-xs font-bold">
+                            Goods & Services Tax (GST) Guide
+                        </span>
+                        <h1 class="text-3xl sm:text-4xl font-black">Complete GST Knowledge & Compliance Portal</h1>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Learn everything about GST registration limits, regular vs composition schemes, monthly returns (GSTR-1, 3B), e-invoicing, and Input Tax Credit (ITC) reconciliation.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <a href="#/service/gst-registration" class="px-5 py-2.5 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-xl text-xs shadow">
+                                Apply for GST Registration (₹999*)
+                            </a>
+                            <a href="#/service/gst-returns" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl text-xs">
+                                File GST Returns (₹499*/mo)
+                            </a>
+                            <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20have%20a%20GST%20query." target="_blank" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i> GST Help on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GST Threshold & Rules Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-orange-100 text-saffron-700 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="bar-chart-3"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-navy-950 mb-2">Turnover Threshold Limits</h3>
+                        <ul class="text-xs text-slate-600 space-y-2">
+                            <li class="flex items-start"><span class="text-saffron-500 font-bold mr-1.5">•</span> <strong>Goods:</strong> ₹40 Lakhs/year (₹20L in Special Category States)</li>
+                            <li class="flex items-start"><span class="text-saffron-500 font-bold mr-1.5">•</span> <strong>Services:</strong> ₹20 Lakhs/year (₹10L in Special Category States)</li>
+                            <li class="flex items-start"><span class="text-saffron-500 font-bold mr-1.5">•</span> <strong>Inter-state:</strong> Mandatory regardless of turnover limit</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="shopping-bag"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-navy-950 mb-2">Mandatory GST Triggers</h3>
+                        <ul class="text-xs text-slate-600 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-1.5">•</span> E-Commerce Sellers (Amazon, Flipkart, Meesho)</li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-1.5">•</span> Reverse Charge Mechanism (RCM) taxpayers</li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-1.5">•</span> Non-Resident / Casual Taxable Entities</li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-1.5">•</span> Input Service Distributors (ISD)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="check-circle-2"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-navy-950 mb-2">Composition Scheme</h3>
+                        <ul class="text-xs text-slate-600 space-y-2">
+                            <li class="flex items-start"><span class="text-emerald-500 font-bold mr-1.5">•</span> Turnover limit up to ₹1.5 Crore (₹75L in Special States)</li>
+                            <li class="flex items-start"><span class="text-emerald-500 font-bold mr-1.5">•</span> 1% flat tax for Traders/Manufacturers, 5% for Restaurants</li>
+                            <li class="flex items-start"><span class="text-emerald-500 font-bold mr-1.5">•</span> No monthly GSTR-1/3B; only quarterly CMP-08</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Regular vs Composition Scheme Comparison Table -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-12 overflow-x-auto">
+                    <h3 class="text-xl font-bold text-navy-950 mb-4">Regular Scheme vs Composition Scheme Comparison</h3>
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-navy-900 font-bold border-b border-slate-200">
+                                <th class="p-3">Feature</th>
+                                <th class="p-3">Regular GST Scheme</th>
+                                <th class="p-3">Composition Scheme</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-800">Turnover Eligibility</td>
+                                <td class="p-3 text-slate-600">Any turnover</td>
+                                <td class="p-3 text-slate-600">Up to ₹1.5 Cr (Goods), ₹50L (Services)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-800">Tax Collection from Buyer</td>
+                                <td class="p-3 text-emerald-700 font-bold">Yes (Can issue Tax Invoice)</td>
+                                <td class="p-3 text-red-600 font-semibold">No (Must issue Bill of Supply)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-800">Input Tax Credit (ITC)</td>
+                                <td class="p-3 text-emerald-700 font-bold">Yes (Full ITC allowed on purchases)</td>
+                                <td class="p-3 text-red-600 font-semibold">No ITC available</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-800">Return Frequency</td>
+                                <td class="p-3 text-slate-600">Monthly (GSTR-1 & 3B) or QRMP</td>
+                                <td class="p-3 text-slate-600">Quarterly (CMP-08) + Annual GSTR-4</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-800">Interstate Supply</td>
+                                <td class="p-3 text-emerald-700 font-semibold">Allowed without restriction</td>
+                                <td class="p-3 text-red-600 font-semibold">Not allowed (Intrastate only)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Embedded GST Calculator Section -->
+                <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 mb-12">
+                    <div class="max-w-2xl mb-8">
+                        <span class="px-3 py-1 bg-saffron-500/20 text-saffron-400 rounded-full text-xs font-bold uppercase">Quick Tool</span>
+                        <h3 class="text-2xl font-black mt-2">GST Amount & Split Calculator</h3>
+                        <p class="text-xs text-slate-300">Quickly calculate Base Price, GST Amount, CGST, SGST & IGST.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-6 space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Enter Amount (₹)</label>
+                                <input type="number" id="gst-amount" value="10000" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white font-bold text-sm focus:outline-none focus:border-saffron-500">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">GST Rate (%)</label>
+                                <div class="grid grid-cols-5 gap-2">
+                                    <button type="button" data-rate="5" class="gst-rate-btn py-2 rounded-lg bg-slate-800 hover:bg-saffron-600 text-xs font-bold transition-colors">5%</button>
+                                    <button type="button" data-rate="12" class="gst-rate-btn py-2 rounded-lg bg-slate-800 hover:bg-saffron-600 text-xs font-bold transition-colors">12%</button>
+                                    <button type="button" data-rate="18" class="gst-rate-btn py-2 rounded-lg bg-saffron-600 text-white text-xs font-bold transition-colors">18%</button>
+                                    <button type="button" data-rate="28" class="gst-rate-btn py-2 rounded-lg bg-slate-800 hover:bg-saffron-600 text-xs font-bold transition-colors">28%</button>
+                                    <input type="number" id="gst-custom-rate" placeholder="Custom" class="py-2 px-2 rounded-lg bg-slate-800 border border-slate-700 text-xs font-bold text-center text-white focus:outline-none focus:border-saffron-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Calculation Type</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" id="gst-mode-exclusive" class="py-2.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-bold text-white transition-colors">GST Exclusive (Price + GST)</button>
+                                    <button type="button" id="gst-mode-inclusive" class="py-2.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition-colors">GST Inclusive (Price includes GST)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Card -->
+                        <div class="lg:col-span-6 bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
+                            <div class="flex justify-between items-center text-xs text-slate-300 pb-2 border-b border-slate-700">
+                                <span>Net Base Amount:</span>
+                                <span id="gst-res-base" class="font-extrabold text-white text-sm">₹10,000</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-slate-300 pb-2 border-b border-slate-700">
+                                <span>Total GST (Tax):</span>
+                                <span id="gst-res-tax" class="font-extrabold text-saffron-400 text-sm">₹1,800</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-slate-300 pb-2 border-b border-slate-700">
+                                <span>CGST (Central Tax 50%):</span>
+                                <span id="gst-res-cgst" class="font-semibold text-slate-200">₹900</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-slate-300 pb-2 border-b border-slate-700">
+                                <span>SGST / UTGST (State Tax 50%):</span>
+                                <span id="gst-res-sgst" class="font-semibold text-slate-200">₹900</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-slate-300 pb-2 border-b border-slate-700">
+                                <span>OR IGST (Interstate Supply 100%):</span>
+                                <span id="gst-res-igst" class="font-semibold text-slate-200">₹1,800</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 text-sm text-emerald-400 font-extrabold">
+                                <span>Total Gross Invoice Value:</span>
+                                <span id="gst-res-total" class="text-xl font-black">₹11,800</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action Banner -->
+                <div class="bg-gradient-saffron text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg">
+                    <div>
+                        <h3 class="text-xl font-extrabold mb-1">Need Assistance with GST Registration or Filing?</h3>
+                        <p class="text-xs text-orange-100">Our tax consultants handle document preparation, ARN tracking, and return submission smoothly.</p>
+                    </div>
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                        <a href="tel:+917544065151" class="px-4 py-2.5 bg-navy-950 hover:bg-navy-900 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+                            <i data-lucide="phone" class="w-4 h-4"></i> Call 7544065151
+                        </a>
+                        <a href="#contact" class="px-4 py-2.5 bg-white text-saffron-700 hover:bg-orange-50 font-bold rounded-xl text-xs">
+                            Submit Inquiry Online
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 3: ITR HUB
+             ===================================================================== -->
+        <section id="view-itr" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- ITR Header -->
+                <div class="bg-gradient-to-r from-navy-900 to-navy-950 text-white rounded-3xl p-8 lg:p-12 mb-10 relative overflow-hidden shadow-xl">
+                    <div class="max-w-3xl space-y-4">
+                        <span class="px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                            Income Tax Return (ITR) Portal
+                        </span>
+                        <h1 class="text-3xl sm:text-4xl font-black">Income Tax Filing & Regime Optimization</h1>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Understand Old vs New Tax Regime, discover which ITR form you need (ITR-1, 2, 3, 4), maximize deductions under Chapter VI-A, and get professional assistance to claim maximum refund.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <a href="#/service/itr-filing" class="px-5 py-2.5 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-xl text-xs shadow">
+                                Book ITR Filing Assistance (₹499*)
+                            </a>
+                            <a href="#calculators" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl text-xs">
+                                Compare Regimes on Calculator
+                            </a>
+                            <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20want%20to%20file%20my%20ITR." target="_blank" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 7544065151
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old vs New Tax Regime Comparison Guide -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 bg-saffron-100 text-saffron-800 text-xs font-extrabold rounded-full">Default Regime</span>
+                            <span class="text-xs font-semibold text-emerald-600">Zero Tax up to ₹7.75 Lakhs (Salaried)</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-navy-950 mb-2">New Tax Regime (Section 115BAC)</h3>
+                        <p class="text-xs text-slate-600 mb-4">Lower slab rates with simple structure. Standard deduction for salaried is ₹75,000. Full tax rebate under Sec 87A if taxable income is up to ₹7,00,000.</p>
+                        
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>Up to ₹3,00,000:</span><span class="font-bold text-slate-800">NIL</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹3,00,001 to ₹7,00,000:</span><span class="font-bold text-slate-800">5% (Tax free via 87A Rebate)</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹7,00,001 to ₹10,00,000:</span><span class="font-bold text-slate-800">10%</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹10,00,001 to ₹12,00,000:</span><span class="font-bold text-slate-800">15%</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹12,00,001 to ₹15,00,000:</span><span class="font-bold text-slate-800">20%</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>Above ₹15,00,000:</span><span class="font-bold text-slate-800">30%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-extrabold rounded-full">Optional Regime</span>
+                            <span class="text-xs font-semibold text-blue-600">Great if high Deductions & Home Loan</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-navy-950 mb-2">Old Tax Regime</h3>
+                        <p class="text-xs text-slate-600 mb-4">Allows claiming all Chapter VI-A deductions (80C, 80D, 80E), HRA, LTA, and Section 24(b) Home Loan interest up to ₹2 Lakhs.</p>
+                        
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>Up to ₹2,50,000 (Basic Exemption):</span><span class="font-bold text-slate-800">NIL</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹2,50,001 to ₹5,00,000:</span><span class="font-bold text-slate-800">5% (Tax free via 87A Rebate)</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>₹5,00,001 to ₹10,00,000:</span><span class="font-bold text-slate-800">20%</span></div>
+                            <div class="flex justify-between p-2 bg-slate-50 rounded"><span>Above ₹10,00,000:</span><span class="font-bold text-slate-800">30%</span></div>
+                            <div class="p-2.5 bg-blue-50/80 rounded border border-blue-100 text-blue-950 text-[11px] mt-2">
+                                💡 <strong>Tip:</strong> If your total eligible deductions exceed ₹3.75 - ₹4 Lakhs, the Old Regime usually yields higher tax savings!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Which ITR Form Should You File? -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-12">
+                    <h3 class="text-2xl font-bold text-navy-950 mb-2">Which ITR Form Should You File?</h3>
+                    <p class="text-xs text-slate-600 mb-6">Select the right form based on your income sources to prevent defective return notices.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                            <div class="text-saffron-600 font-black text-lg mb-1">ITR-1 (Sahaj)</div>
+                            <div class="text-[11px] font-bold text-slate-500 uppercase mb-2">Salaried & Pensioners</div>
+                            <p class="text-xs text-slate-600 leading-relaxed">For resident individuals with total income up to ₹50 Lakhs from Salary, 1 House Property, and Other Sources (Interest/Dividend).</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                            <div class="text-saffron-600 font-black text-lg mb-1">ITR-2</div>
+                            <div class="text-[11px] font-bold text-slate-500 uppercase mb-2">Capital Gains & Multi-Property</div>
+                            <p class="text-xs text-slate-600 leading-relaxed">For individuals & HUFs having income from Capital Gains (Shares, Mutual Funds, Crypto, Real Estate) or multiple house properties.</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                            <div class="text-saffron-600 font-black text-lg mb-1">ITR-3</div>
+                            <div class="text-[11px] font-bold text-slate-500 uppercase mb-2">Business & Profession (Books)</div>
+                            <p class="text-xs text-slate-600 leading-relaxed">For individuals and HUFs having income from proprietary business or profession maintaining regular books of accounts.</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+                            <div class="text-saffron-600 font-black text-lg mb-1">ITR-4 (Sugam)</div>
+                            <div class="text-[11px] font-bold text-slate-500 uppercase mb-2">Presumptive Business / Freelance</div>
+                            <p class="text-xs text-slate-600 leading-relaxed">For small businesses under Section 44AD (6%/8% profit) and professionals/freelancers under Section 44ADA (50% profit).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Deductions Checklist -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-12">
+                    <h3 class="text-xl font-bold text-navy-950 mb-4">Key Deductions Checklist (Old Tax Regime)</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">Section 80C (Max ₹1.5 Lakhs)</strong>
+                            <p class="text-slate-600">EPF, PPF, ELSS Mutual Funds, Life Insurance Premium, Children's Tuition Fees, Principal Home Loan repayment.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">Section 80D (Health Insurance)</strong>
+                            <p class="text-slate-600">Up to ₹25,000 for self & family + up to ₹50,000 for senior citizen parents (Total up to ₹75k-1L).</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">Section 24(b) (Home Loan Interest)</strong>
+                            <p class="text-slate-600">Deduction up to ₹2,00,000 for interest paid on self-occupied residential property loan.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">Section 80CCD(1B) (NPS Extra ₹50k)</strong>
+                            <p class="text-slate-600">Additional deduction of up to ₹50,000 for voluntary contribution to National Pension System.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">HRA Exemption (House Rent)</strong>
+                            <p class="text-slate-600">Exemption calculated based on rent paid, salary component, and city of residence.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                            <strong class="text-emerald-950 font-bold block mb-1">Section 80TTA / 80TTB (Interest)</strong>
+                            <p class="text-slate-600">Up to ₹10,000 savings interest for general, up to ₹50,000 FD/Savings interest for senior citizens.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 4: SERVICES
+             ===================================================================== -->
+        <section id="view-services" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Assisted Tax Services</span>
+                    <h1 class="text-3xl sm:text-4xl font-black text-navy-950 mt-2 mb-3">Our Paid Professional Services</h1>
+                    <p class="text-slate-600 text-sm">Clear pricing, comprehensive document guidance, dedicated tax expert handling, and zero stress.</p>
+                </div>
+
+                <div id="services-full-list-container">
+                    <!-- Populated by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 5: UPDATES & DUE DATES CALENDAR
+             ===================================================================== -->
+        <section id="view-updates" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Tax Calendar & Circulars</span>
+                    <h1 class="text-3xl sm:text-4xl font-black text-navy-950 mt-2 mb-3">Statutory Due Dates & Tax Updates</h1>
+                    <p class="text-slate-600 text-sm">Stay ahead of compliance cutoffs. Filter by category to view your specific deadlines.</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+                    <button onclick="App.filterDueDates('ALL', this)" class="due-date-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-navy-900 text-white shadow-sm transition-all">All Deadlines</button>
+                    <button onclick="App.filterDueDates('GST', this)" class="due-date-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">GST Returns</button>
+                    <button onclick="App.filterDueDates('ITR', this)" class="due-date-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Income Tax (ITR)</button>
+                    <button onclick="App.filterDueDates('TDS', this)" class="due-date-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">TDS Compliance</button>
+                </div>
+
+                <!-- Due Dates Grid -->
+                <div id="due-dates-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Tax News & Regulatory Updates -->
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <span class="px-3 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full uppercase">Latest Notifications</span>
+                        <h2 class="text-2xl font-black text-navy-950 mt-2">CBDT & GST Council Bulletins</h2>
+                    </div>
+
+                    <div id="tax-updates-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 6: CALCULATORS
+             ===================================================================== -->
+        <section id="view-calculators" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Free Tax Tools</span>
+                    <h1 class="text-3xl sm:text-4xl font-black text-navy-950 mt-2 mb-3">Live Income Tax & GST Calculators</h1>
+                    <p class="text-slate-600 text-sm">Updated for FY 2024-25 & FY 2025-26 (AY 2025-26 / 2026-27). Instant comparison between Old vs New Tax Regime.</p>
+                </div>
+
+                <!-- Income Tax Calculator Card -->
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl mb-16">
+                    <div class="flex items-center gap-3 pb-6 mb-6 border-b border-slate-100">
+                        <div class="w-12 h-12 rounded-xl bg-orange-100 text-saffron-700 flex items-center justify-center font-bold text-xl">
+                            <i data-lucide="calculator"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-navy-950">Income Tax Regime Comparison Calculator</h2>
+                            <p class="text-xs text-slate-500">Find out which tax regime saves you the maximum hard-earned money.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Inputs Column -->
+                        <div class="lg:col-span-5 space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Annual Gross Income (₹) *</label>
+                                <input type="number" id="calc-income" value="850000" step="10000" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-bold form-input-focus bg-slate-50">
+                                <div class="flex items-center justify-between text-[11px] text-slate-400 mt-1">
+                                    <span>Includes Salary, Business Profit, Interest, etc.</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-1.5 pt-2">
+                                    <span class="text-[10px] font-bold text-slate-400 mr-1">Quick Select:</span>
+                                    <button type="button" data-income="500000" class="income-preset-btn px-2.5 py-1 rounded-lg bg-slate-100 text-[11px] font-bold text-slate-700 hover:bg-saffron-600 hover:text-white transition-colors">₹5 Lakh</button>
+                                    <button type="button" data-income="775000" class="income-preset-btn px-2.5 py-1 rounded-lg bg-emerald-100 text-[11px] font-extrabold text-emerald-800 border border-emerald-300 hover:bg-saffron-600 hover:text-white transition-colors">₹7.75 Lakh (Tax-Free!)</button>
+                                    <button type="button" data-income="1000000" class="income-preset-btn px-2.5 py-1 rounded-lg bg-slate-100 text-[11px] font-bold text-slate-700 hover:bg-saffron-600 hover:text-white transition-colors">₹10 Lakh</button>
+                                    <button type="button" data-income="1200000" class="income-preset-btn px-2.5 py-1 rounded-lg bg-slate-100 text-[11px] font-bold text-slate-700 hover:bg-saffron-600 hover:text-white transition-colors">₹12 Lakh</button>
+                                    <button type="button" data-income="1500000" class="income-preset-btn px-2.5 py-1 rounded-lg bg-slate-100 text-[11px] font-bold text-slate-700 hover:bg-saffron-600 hover:text-white transition-colors">₹15 Lakh</button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Taxpayer Category</label>
+                                    <select id="calc-age" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50 font-medium">
+                                        <option value="general">Individual (&lt; 60 yrs)</option>
+                                        <option value="senior">Senior (60-80 yrs)</option>
+                                        <option value="super-senior">Super Senior (80+ yrs)</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center pt-5">
+                                    <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                                        <input type="checkbox" id="calc-salaried" checked class="w-4 h-4 text-saffron-600 rounded border-slate-300">
+                                        <span>Salaried / Pensioner</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Old Regime Deductions Group -->
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                                <div class="text-xs font-extrabold text-navy-950 uppercase tracking-wider flex items-center justify-between">
+                                    <span>Old Regime Deductions:</span>
+                                    <span class="text-[10px] text-saffron-600 lowercase font-normal">optional</span>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Section 80C (PPF, EPF, ELSS, LIC - Max 1.5L)</label>
+                                    <input type="number" id="calc-80c" value="150000" placeholder="0" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white form-input-focus">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Section 80D (Health Insurance Premium)</label>
+                                    <input type="number" id="calc-80d" value="25000" placeholder="0" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white form-input-focus">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Section 24(b) (Home Loan Interest - Max 2L)</label>
+                                    <input type="number" id="calc-24b" value="0" placeholder="0" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white form-input-focus">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">HRA Exemption</label>
+                                        <input type="number" id="calc-hra" value="0" placeholder="0" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white form-input-focus">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Other (80E, 80CCD)</label>
+                                        <input type="number" id="calc-other" value="0" placeholder="0" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white form-input-focus">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" id="calculate-tax-btn" class="w-full py-3 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-xl text-xs shadow-md">
+                                Re-Calculate Tax Comparison
+                            </button>
+                        </div>
+
+                        <!-- Results Side-by-Side Column -->
+                        <div class="lg:col-span-7 space-y-6">
+                            
+                            <!-- Recommendation Banner -->
+                            <div id="tax-recommendation-banner" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900">
+                                <!-- Dynamic -->
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                
+                                <!-- New Regime Box -->
+                                <div class="bg-slate-50 rounded-2xl p-5 border-2 border-saffron-300 relative">
+                                    <span class="absolute -top-3 right-4 px-2.5 py-0.5 bg-saffron-600 text-white text-[10px] font-bold rounded-full">
+                                        Default Regime
+                                    </span>
+                                    <h4 class="font-extrabold text-navy-950 text-base mb-3">New Tax Regime</h4>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Gross Income:</span>
+                                            <span id="res-new-gross" class="font-bold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Standard Deduction:</span>
+                                            <span id="res-new-deductions" class="font-bold text-emerald-700">- ₹75,000</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500 pb-2 border-b border-slate-200">
+                                            <span>Net Taxable Income:</span>
+                                            <span id="res-new-taxable" class="font-extrabold text-slate-900">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Calculated Slab Tax:</span>
+                                            <span id="res-new-slabtax" class="font-semibold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Section 87A Rebate:</span>
+                                            <span id="res-new-rebate" class="font-semibold text-emerald-600">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500 pb-2 border-b border-slate-200">
+                                            <span>Health & Edu Cess (4%):</span>
+                                            <span id="res-new-cess" class="font-semibold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between items-center pt-2">
+                                            <span class="font-bold text-slate-900 text-sm">Total Tax Payable:</span>
+                                            <span id="res-new-total" class="text-xl font-black text-saffron-600">₹0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Old Regime Box -->
+                                <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+                                    <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-bold rounded-md mb-1">
+                                        With Deductions
+                                    </span>
+                                    <h4 class="font-extrabold text-navy-950 text-base mb-3">Old Tax Regime</h4>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Gross Income:</span>
+                                            <span id="res-old-gross" class="font-bold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Total Deductions:</span>
+                                            <span id="res-old-deductions" class="font-bold text-emerald-700">- ₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500 pb-2 border-b border-slate-200">
+                                            <span>Net Taxable Income:</span>
+                                            <span id="res-old-taxable" class="font-extrabold text-slate-900">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Calculated Slab Tax:</span>
+                                            <span id="res-old-slabtax" class="font-semibold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500">
+                                            <span>Section 87A Rebate:</span>
+                                            <span id="res-old-rebate" class="font-semibold text-emerald-600">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-500 pb-2 border-b border-slate-200">
+                                            <span>Health & Edu Cess (4%):</span>
+                                            <span id="res-old-cess" class="font-semibold text-slate-800">₹0</span>
+                                        </div>
+                                        <div class="flex justify-between items-center pt-2">
+                                            <span class="font-bold text-slate-900 text-sm">Total Tax Payable:</span>
+                                            <span id="res-old-total" class="text-xl font-black text-navy-900">₹0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="p-4 bg-orange-50 rounded-xl border border-orange-100 flex items-center justify-between">
+                                <div class="text-xs text-slate-700">
+                                    <strong>Need Help Filing Accurately?</strong> Let our experts verify and file your return.
+                                </div>
+                                <a href="#contact" class="px-4 py-2 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-lg text-xs flex-shrink-0">
+                                    File with Expert
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 7: FAQ
+             ===================================================================== -->
+        <section id="view-faq" class="view-section hidden py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Help & Answers</span>
+                    <h1 class="text-3xl sm:text-4xl font-black text-navy-950 mt-2 mb-3">Frequently Asked Questions</h1>
+                    <p class="text-slate-600 text-sm">Find quick answers to common questions regarding GST, ITR, notices, and our assisted services.</p>
+                </div>
+
+                <!-- FAQ Search Bar -->
+                <div class="relative mb-8">
+                    <input type="text" id="faq-search-input" oninput="App.renderFAQs(this.value)" placeholder="Search any question e.g. GST limit, New Regime, late fees..." class="w-full px-5 py-3.5 pl-12 rounded-2xl border border-slate-200 text-sm form-input-focus shadow-sm bg-white">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-4"></i>
+                </div>
+
+                <!-- FAQ Accordion Container -->
+                <div id="faqs-container">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Still have questions CTA -->
+                <div class="mt-12 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 text-center space-y-4">
+                    <h3 class="text-xl font-bold text-navy-950">Have a Specific Tax Question Not Listed Here?</h3>
+                    <p class="text-xs text-slate-600 max-w-md mx-auto">Connect directly with our tax consultants via WhatsApp or phone call for immediate clarification.</p>
+                    <div class="flex flex-wrap items-center justify-center gap-3">
+                        <a href="tel:+917544065151" class="px-5 py-2.5 bg-navy-900 hover:bg-navy-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+                            <i data-lucide="phone" class="w-4 h-4"></i> Call Helpline 7544065151
+                        </a>
+                        <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20have%20a%20tax%20question." target="_blank" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 7544065151
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 8: CONTACT US
+             ===================================================================== -->
+        <section id="view-contact" class="view-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="px-3.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold uppercase tracking-wider">Get In Touch</span>
+                    <h1 class="text-3xl sm:text-4xl font-black text-navy-950 mt-2 mb-3">Contact Tax Ki Jankari Desk</h1>
+                    <p class="text-slate-600 text-sm">Reach out for assisted filings, notice resolution, consultation, or custom business compliance inquiries.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Left: Contact Details & Action Cards -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <!-- Call Card -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-saffron-400 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-orange-100 text-saffron-700 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i data-lucide="phone-call"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-navy-950">Direct Phone Helpline</h3>
+                                <p class="text-xs text-slate-500 mb-2">Speak directly with our tax consultants</p>
+                                <a href="tel:+917544065151" class="text-lg font-black text-saffron-600 hover:text-saffron-700 block">
+                                    +91 7544065151
+                                </a>
+                                <span class="text-[11px] text-slate-400">Mon - Sat: 9:30 AM to 7:30 PM</span>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp Card -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-emerald-400 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i data-lucide="message-circle"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-navy-950">WhatsApp Assistance</h3>
+                                <p class="text-xs text-slate-500 mb-2">Share documents & queries instantly</p>
+                                <a href="https://wa.me/917544065151" target="_blank" class="text-lg font-black text-emerald-600 hover:text-emerald-700 block">
+                                    7544065151
+                                </a>
+                                <span class="text-[11px] text-emerald-700 font-semibold">Online & Fast Response</span>
+                            </div>
+                        </div>
+
+                        <!-- Email Card -->
+                        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-blue-400 transition-all">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-navy-950">Email Support</h3>
+                                <p class="text-xs text-slate-500 mb-2">Send official queries and notices</p>
+                                <a href="mailto:gsc@taxkijankari.com" class="text-sm font-bold text-slate-900 hover:text-saffron-600 block">
+                                    gsc@taxkijankari.com
+                                </a>
+                                <span class="text-[11px] text-slate-400">Response within 2-4 hours</span>
+                            </div>
+                        </div>
+
+                        <!-- Mandatory Disclaimer Box -->
+                        <div class="bg-amber-50 rounded-2xl p-5 border border-amber-200">
+                            <div class="flex items-center gap-2 text-xs font-bold text-amber-900 mb-1">
+                                <i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+                                <span>Statutory Notice</span>
+                            </div>
+                            <p class="text-[11px] text-amber-800 leading-relaxed">
+                                Tax Ki Jankari (<strong>taxkijankari.com</strong>) is an independent private tax consultancy and assistance website. We are <strong>not</strong> a government body, government portal, or affiliated with the Income Tax Department or GSTN.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Full Lead Generation Form -->
+                    <div class="lg:col-span-7" id="contact-form-container">
+                        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
+                            <h2 class="text-2xl font-black text-navy-950 mb-1">Send a Message / Request Service</h2>
+                            <p class="text-xs text-slate-500 mb-6">Fill the details below to receive expert advice or get your filing initiated.</p>
+
+                            <form class="tkj-lead-form" name="tax-lead-form" method="POST" data-netlify="true" space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+                                        <input type="text" name="name" required placeholder="e.g. Ramesh Kumar" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number *</label>
+                                        <input type="tel" name="mobile" required placeholder="10-digit Mobile (e.g. 9876543210)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Email Address *</label>
+                                        <input type="email" name="email" required placeholder="name@domain.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">City / State</label>
+                                        <input type="text" name="city" placeholder="e.g. Jaipur, Rajasthan" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Select Service Needed *</label>
+                                    <select name="service" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50 font-medium">
+                                        <option value="">-- Choose from our Services --</option>
+                                        <option value="GST Registration (New Application)">GST Registration (New Regular / Composition / E-commerce)</option>
+                                        <option value="GST Return Filing (GSTR-1 / 3B / Annual 9)">GST Return Filing (Monthly GSTR-1, 3B, CMP-08, 9)</option>
+                                        <option value="ITR Filing (Income Tax Return)">Income Tax Return (ITR-1, 2, 3, 4)</option>
+                                        <option value="GST Amendment & Cancellation">GST Amendment / Address Change / Surrender</option>
+                                        <option value="Tax Notice Consultation">Tax Consultation & Notice Advisory (143(1), ASMT-10)</option>
+                                        <option value="General Tax Guidance">General Tax & Accounting Inquiry</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Your Query / Message</label>
+                                    <textarea name="message" rows="4" placeholder="Please describe your query or document details..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs form-input-focus bg-slate-50"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 bg-gradient-saffron hover:opacity-95 text-white font-extrabold rounded-xl text-sm shadow-lg transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Submit Request to Tax Ki Jankari</span>
+                                </button>
+
+                                <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2">
+                                    <span>📩 Notification routed to <strong class="text-slate-600">gsc@taxkijankari.com</strong></span>
+                                    <span>📞 Helpline: <strong class="text-slate-600">7544065151</strong></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 9: DISCLAIMER (LEGAL)
+             ===================================================================== -->
+        <section id="view-disclaimer" class="view-section hidden py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-6">
+                    <span class="px-3 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full uppercase">Legal Disclosure</span>
+                    <h1 class="text-3xl font-black text-navy-950">Statutory Disclaimer & Non-Government Declaration</h1>
+                    
+                    <div class="p-4 bg-amber-50 rounded-2xl border border-amber-200 text-amber-950 text-xs font-semibold leading-relaxed">
+                        Tax Ki Jankari (accessible at <strong>taxkijankari.com</strong>) is an independent, privately owned tax assistance, facilitation, and informational platform. We are NOT associated, affiliated, authorized, endorsed by, or in any way officially connected with the Goods and Services Tax Network (GSTN), the Central Board of Indirect Taxes and Customs (CBIC), the Central Board of Direct Taxes (CBDT), or the Income Tax Department of India, or any of their subsidiaries or affiliates.
+                    </div>
+
+                    <div class="text-xs text-slate-700 space-y-4 leading-relaxed">
+                        <h3 class="text-base font-bold text-navy-950">1. Nature of Services</h3>
+                        <p>
+                            The information provided on taxkijankari.com is for general educational and informational purposes only. While we endeavor to keep all statutory due dates, tax slabs, and legal guides accurate and up-to-date, tax laws and notifications in India are subject to frequent government amendments.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">2. Professional Consultancy</h3>
+                        <p>
+                            Our assisted filing services are provided on a fee-for-service consultancy model where our team acts as authorized tax practitioners/consultants on behalf of the client based upon documentation and figures provided by the taxpayer. The final legal responsibility for the accuracy of financial declarations rests with the respective taxpayer.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">3. Official Government Portals</h3>
+                        <p>
+                            Taxpayers may also directly access official government portals free of consultancy charges:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Official GST Portal: <a href="https://www.gst.gov.in" target="_blank" rel="noopener noreferrer" class="text-saffron-600 underline">www.gst.gov.in</a></li>
+                            <li>Official Income Tax e-Filing Portal: <a href="https://www.incometax.gov.in" target="_blank" rel="noopener noreferrer" class="text-saffron-600 underline">www.incometax.gov.in</a></li>
+                            <li>Central Board of Direct Taxes: <a href="https://incometaxindia.gov.in" target="_blank" rel="noopener noreferrer" class="text-saffron-600 underline">incometaxindia.gov.in</a></li>
+                        </ul>
+
+                        <h3 class="text-base font-bold text-navy-950">4. Contact</h3>
+                        <p>
+                            For questions regarding this disclaimer, please contact us at <a href="mailto:gsc@taxkijankari.com" class="text-saffron-600 font-bold">gsc@taxkijankari.com</a> or call <a href="tel:+917544065151" class="text-saffron-600 font-bold">+91 7544065151</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 10: PRIVACY POLICY
+             ===================================================================== -->
+        <section id="view-privacy" class="view-section hidden py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-6">
+                    <span class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-full uppercase">Client Data Protection</span>
+                    <h1 class="text-3xl font-black text-navy-950">Privacy Policy</h1>
+                    <p class="text-xs text-slate-500">Effective Date: 2026 | Tax Ki Jankari (taxkijankari.com)</p>
+
+                    <div class="text-xs text-slate-700 space-y-4 leading-relaxed">
+                        <h3 class="text-base font-bold text-navy-950">1. Information We Collect</h3>
+                        <p>
+                            When you request tax consultation or assisted return filing, we collect details necessary to prepare and lodge your returns, including Name, Mobile Number, Email Address, PAN Card number, Aadhaar details, bank account numbers, salary slips/Form 16, and sales/purchase invoices.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">2. How We Use Your Information</h3>
+                        <p>
+                            Your information is strictly used for:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Preparing and submitting your GST applications or Income Tax Returns on official government portals.</li>
+                            <li>Sending you compliance due date reminders, computation sheets, and official acknowledgment receipts.</li>
+                            <li>Communicating with you regarding clarifications raised by tax departments.</li>
+                        </ul>
+
+                        <h3 class="text-base font-bold text-navy-950">3. Non-Disclosure & Security</h3>
+                        <p>
+                            We maintain strict confidentiality. We do not sell, rent, or trade your personal or financial data to any third-party marketing companies. All communications and lead submissions are encrypted and routed directly to our designated management email (<a href="mailto:gsc@taxkijankari.com" class="text-saffron-600 font-bold">gsc@taxkijankari.com</a>) and verified consultant phones.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">4. Contacting Data Officer</h3>
+                        <p>
+                            For any privacy concerns or request for deletion of data, please email <a href="mailto:gsc@taxkijankari.com" class="text-saffron-600 font-bold">gsc@taxkijankari.com</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 11: TERMS & CONDITIONS
+             ===================================================================== -->
+        <section id="view-terms" class="view-section hidden py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-6">
+                    <span class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-full uppercase">Terms of Service</span>
+                    <h1 class="text-3xl font-black text-navy-950">Terms and Conditions</h1>
+                    <p class="text-xs text-slate-500">Tax Ki Jankari (taxkijankari.com)</p>
+
+                    <div class="text-xs text-slate-700 space-y-4 leading-relaxed">
+                        <h3 class="text-base font-bold text-navy-950">1. Acceptance of Terms</h3>
+                        <p>
+                            By accessing taxkijankari.com or utilizing our assisted tax filing and consultation services, you agree to comply with and be bound by these terms.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">2. Taxpayer Responsibility</h3>
+                        <p>
+                            The client agrees to provide true, accurate, and complete financial records, bank statements, and deduction proofs. Tax Ki Jankari acts as a professional intermediary to file your forms on the respective portals based on data provided by you.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">3. Fee & Payment Terms</h3>
+                        <p>
+                            Our service fees are transparently communicated before commencement of filing work. Government statutory fees (such as registration fees or challan tax liabilities) are payable directly to the government treasury via authorized portal gateways.
+                        </p>
+
+                        <h3 class="text-base font-bold text-navy-950">4. Limitation of Liability</h3>
+                        <p>
+                            While our consultants take utmost professional care to adhere to all statutory guidelines, Tax Ki Jankari shall not be held liable for statutory interest or penalties arising from taxpayer non-disclosure, delayed document submission by the client, or departmental portal downtime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================================
+         FOOTER SECTION
+         ========================================================================= -->
+    <footer class="bg-navy-950 text-white border-t border-navy-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                
+                <!-- Column 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-saffron-500 text-white flex items-center justify-center font-bold text-lg">
+                            <i data-lucide="landmark" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-2xl font-black tracking-tight">TAX KI <span class="text-saffron-500">JANKARI</span></span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed max-w-sm">
+                        taxkijankari.com is India's modern tax education, compliance tracking, and assisted filing platform for GST Registration, Return Filing, ITR Filing, and Notice Advisory.
+                    </p>
+                    
+                    <div class="p-3 rounded-xl bg-navy-900 border border-navy-800 text-[11px] text-slate-300">
+                        <strong class="text-saffron-400">Disclaimer:</strong> Private consultancy website. Not affiliated with Government or Income Tax / GST Departments.
+                    </div>
+
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="tel:+917544065151" class="px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-navy-800 text-white text-xs font-semibold flex items-center gap-1.5 border border-navy-700">
+                            <i data-lucide="phone" class="w-3.5 h-3.5 text-saffron-400"></i> +91 7544065151
+                        </a>
+                        <a href="https://wa.me/917544065151" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-900/60 hover:bg-emerald-900 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 border border-emerald-700/60">
+                            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-xs font-extrabold text-saffron-400 uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home Page</a></li>
+                        <li><a href="#gst" class="hover:text-white transition-colors">GST Information Hub</a></li>
+                        <li><a href="#itr" class="hover:text-white transition-colors">ITR & Slab Guide</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Paid Services & Pricing</a></li>
+                        <li><a href="#updates" class="hover:text-white transition-colors">Due Dates Calendar</a></li>
+                        <li><a href="#calculators" class="hover:text-white transition-colors">Tax Calculators</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h4 class="text-xs font-extrabold text-saffron-400 uppercase tracking-wider mb-4">Our Services</h4>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li><a href="#/service/gst-registration" class="hover:text-white transition-colors">GST Registration</a></li>
+                        <li><a href="#/service/gst-returns" class="hover:text-white transition-colors">GST Return Filing</a></li>
+                        <li><a href="#/service/itr-filing" class="hover:text-white transition-colors">ITR Filing (Salaried/Business)</a></li>
+                        <li><a href="#/service/gst-amendment" class="hover:text-white transition-colors">GST Amendment & Surrender</a></li>
+                        <li><a href="#/service/tax-consultation" class="hover:text-white transition-colors">Notice Reply & Advisory</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Legal -->
+                <div>
+                    <h4 class="text-xs font-extrabold text-saffron-400 uppercase tracking-wider mb-4">Contact & Legal</h4>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact Support</a></li>
+                        <li><a href="mailto:gsc@taxkijankari.com" class="hover:text-white transition-colors">gsc@taxkijankari.com</a></li>
+                        <li><a href="tel:+917544065151" class="hover:text-white transition-colors">+91 7544065151</a></li>
+                        <li class="pt-2 border-t border-navy-800"><a href="#disclaimer" class="text-saffron-300 hover:text-white transition-colors">Government Disclaimer</a></li>
+                        <li><a href="#privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#terms" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Statutory Line -->
+            <div class="pt-8 border-t border-navy-900 text-center text-xs text-slate-400 space-y-2">
+                <p>© 2026 Tax Ki Jankari (<strong>taxkijankari.com</strong>). All Rights Reserved.</p>
+                <p class="text-[11px] text-slate-500 max-w-4xl mx-auto">
+                    Disclaimer: Tax Ki Jankari is an independent private consultancy portal and is not a government agency. GST is administered by CBIC/GSTN and Income Tax by CBDT.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================================
+         FLOATING WHATSAPP BUTTON (DESKTOP & TABLET)
+         ========================================================================= -->
+    <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20need%20tax%20assistance." target="_blank" class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full p-4 flex items-center gap-2.5 shadow-2xl wa-float-btn pulse-ring group" aria-label="Chat on WhatsApp">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+        <span class="hidden sm:inline text-xs font-extrabold pr-1">WhatsApp 7544065151</span>
+    </a>
+
+    <!-- =========================================================================
+         MOBILE STICKY ACTION BAR
+         ========================================================================= -->
+    <div class="mobile-sticky-action-bar md:hidden flex items-center justify-between p-2.5 bg-white border-t border-slate-200">
+        <a href="tel:+917544065151" class="flex-1 py-2 px-2 mx-1 rounded-xl bg-slate-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-saffron-400"></i>
+            <span>Call Now</span>
+        </a>
+        <a href="https://wa.me/917544065151?text=Hello%20Tax%20Ki%20Jankari,%20I%20need%20tax%20assistance." target="_blank" class="flex-1 py-2 px-2 mx-1 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="#contact" class="flex-1 py-2 px-2 mx-1 rounded-xl bg-saffron-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Inquire</span>
+        </a>
+    </div>
+
+    <!-- =========================================================================
+         SERVICE DETAILS POPUP MODAL
+         ========================================================================= -->
+    <div id="service-detail-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="App.closeServiceModal()" class="absolute top-5 right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="mb-4">
+                <span class="service-modal-tat text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200"></span>
+            </div>
+
+            <h3 class="service-modal-title text-2xl font-extrabold text-navy-950"></h3>
+            <h4 class="service-modal-hindi text-xs font-bold text-saffron-600 mb-4"></h4>
+            <p class="service-modal-desc text-xs sm:text-sm text-slate-600 leading-relaxed mb-6"></p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <h5 class="text-xs font-bold text-navy-950 mb-2 uppercase">Included in Service:</h5>
+                    <ul class="service-modal-features space-y-1.5"></ul>
+                </div>
+                <div class="p-4 bg-amber-50/60 rounded-xl border border-amber-100">
+                    <h5 class="text-xs font-bold text-amber-900 mb-2 uppercase">Required Documents:</h5>
+                    <ul class="service-modal-docs space-y-1.5"></ul>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs text-slate-400 block">Fee starting from</span>
+                    <span class="service-modal-price text-2xl font-black text-navy-950"></span>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <a href="#" target="_blank" class="service-modal-wa-btn flex-1 sm:flex-none px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Booking
+                    </a>
+                    <button class="service-modal-apply-btn flex-1 sm:flex-none px-4 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold">
+                        Apply Online
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         LEAD SUBMISSION SUCCESS MODAL
+         ========================================================================= -->
+    <div id="lead-success-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl relative">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold text-navy-950 mb-1">Inquiry Received!</h3>
+            <p class="text-xs text-slate-500 mb-4">
+                Thank you <strong class="modal-lead-name text-slate-900"></strong>. Your request for <strong class="modal-lead-service text-saffron-600"></strong> has been submitted.
+            </p>
+
+            <div class="bg-slate-50 rounded-xl p-3.5 text-xs text-slate-600 mb-6 border border-slate-100 text-left space-y-1">
+                <div class="flex justify-between">
+                    <span>Reference ID:</span>
+                    <strong class="modal-lead-id text-navy-950 font-bold"></strong>
+                </div>
+                <div class="flex justify-between">
+                    <span>Notification Sent to:</span>
+                    <span class="text-slate-800 font-medium">gsc@taxkijankari.com</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Estimated Callback:</span>
+                    <span class="text-emerald-700 font-bold">Within 30-60 Minutes</span>
+                </div>
+            </div>
+
+            <div class="space-y-2.5">
+                <a href="#" target="_blank" class="modal-whatsapp-btn w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> Fast-Track on WhatsApp (7544065151)
+                </a>
+                <a href="#" class="modal-call-btn w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2">
+                    <i data-lucide="phone" class="w-4 h-4 text-saffron-400"></i> Call Helpline Now (+91 7544065151)
+                </a>
+                <button onclick="LeadManager.closeSuccessModal()" class="w-full py-2 text-slate-400 hover:text-slate-700 text-xs font-semibold">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/tax-calculator.js"></script>
+    <script src="js/lead-form.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Re-initialize lucide icons on load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
+

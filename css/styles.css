@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Tax Ki Jankari (taxkijankari.com) - Custom Stylesheet
+   Modern Indian Financial Consultancy Aesthetic (Trust Navy & Saffron)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-navy: #0A1E3F;
+    --navy-dark: #07152B;
+    --navy-light: #162E5B;
+    --saffron: #FF8C00;
+    --saffron-dark: #E65100;
+    --saffron-light: #FFF3E0;
+    --emerald-trust: #059669;
+    --slate-bg: #F8FAFC;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1E293B;
+    background-color: #F8FAFC;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Custom Saffron Gradient */
+.bg-gradient-saffron {
+    background: linear-gradient(135deg, #FF8C00 0%, #FF5722 100%);
+}
+
+.text-gradient-saffron {
+    background: linear-gradient(135deg, #FF8C00 0%, #FF5722 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-navy-gradient {
+    background: linear-gradient(135deg, #0A1E3F 0%, #061124 100%);
+}
+
+.bg-navy-hero {
+    background: radial-gradient(circle at 80% 20%, rgba(255, 140, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
+                #07152B;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FF8C00;
+}
+
+/* Floating WhatsApp Button Animation */
+.wa-float-btn {
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5), 0 8px 10px -6px rgba(16, 185, 129, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-float-btn:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 20px 30px -10px rgba(16, 185, 129, 0.6);
+}
+
+.pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 14px rgba(16, 185, 129, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Card Glow Effect */
+.card-hover-saffron {
+    transition: all 0.3s ease;
+}
+.card-hover-saffron:hover {
+    border-color: rgba(255, 140, 0, 0.4);
+    box-shadow: 0 12px 30px -10px rgba(255, 140, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* Glassmorphism Navigation */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Form Inputs Styling */
+.form-input-focus:focus {
+    outline: none;
+    border-color: #FF8C00;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.15);
+}
+
+/* Responsive Sticky Footer for Mobile */
+@media (max-width: 768px) {
+    .mobile-sticky-action-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 45;
+        background: #FFFFFF;
+        border-top: 1px solid #E2E8F0;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    }
+    body {
+        padding-bottom: 72px;
+    }
+}
+
+/* Printing styles */
+@media print {
+    .no-print, header, footer, .wa-float-btn, .mobile-sticky-action-bar {
+        display: none !important;
+    }
+}
