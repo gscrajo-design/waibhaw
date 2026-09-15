@@ -1,13 +1,10 @@
 /**
  * Tax Ki Jankari (taxkijankari.com) - Lead Generation & Contact System
- * Handles lead capture, validation, email notification (gsc@taxkijankari.com),
- * WhatsApp handoff (7544065151), and Call triggers (7544065151).
+ * Handles lead capture, validation, and email notification (gsc@taxkijankari.com).
  */
 
 const LeadManager = {
     notificationEmail: "gsc@taxkijankari.com",
-    helplinePhone: "7544065151",
-    whatsappPhone: "917544065151",
 
     init: function() {
         const self = this;
@@ -123,7 +120,7 @@ const LeadManager = {
                 form.reset();
                 self.showSuccessModal(data);
                 if (window.showToast) {
-                    window.showToast("Inquiry submitted successfully! Email alert sent to gsc@taxkijankari.com.", "success");
+                    window.showToast("Inquiry submitted successfully! Notification sent to gsc@taxkijankari.com.", "success");
                 }
             })
             .catch(err => {
@@ -208,20 +205,6 @@ const LeadManager = {
         return Promise.all(promises).then(() => true);
     },
 
-    buildWhatsAppUrl: function(lead) {
-        const text = `*New Inquiry via TaxKiJankari.com* 📋%0A%0A` +
-            `*Lead ID:* ${lead.leadId || 'Direct'}%0A` +
-            `*Name:* ${encodeURIComponent(lead.name || '')}%0A` +
-            `*Mobile:* ${encodeURIComponent(lead.cleanPhone || lead.mobile || '')}%0A` +
-            `*Email:* ${encodeURIComponent(lead.email || '')}%0A` +
-            `*Service Needed:* ${encodeURIComponent(lead.service || '')}%0A` +
-            (lead.city ? `*City/State:* ${encodeURIComponent(lead.city)}%0A` : '') +
-            (lead.message ? `*Query:* ${encodeURIComponent(lead.message)}%0A` : '') +
-            `%0APlease connect with me for assistance.`;
-
-        return `https://wa.me/${this.whatsappPhone}?text=${text}`;
-    },
-
     buildMailtoUrl: function(lead) {
         const subject = encodeURIComponent(`Tax Assistance Request - ${lead.service} [${lead.name}]`);
         const body = encodeURIComponent(
@@ -243,22 +226,17 @@ const LeadManager = {
         const modal = document.getElementById('lead-success-modal');
         if (!modal) return;
 
-        const whatsappLink = this.buildWhatsAppUrl(lead);
         const mailtoLink = this.buildMailtoUrl(lead);
 
         // Populate modal data
         const leadIdEl = modal.querySelector('.modal-lead-id');
         const nameEl = modal.querySelector('.modal-lead-name');
         const serviceEl = modal.querySelector('.modal-lead-service');
-        const waBtn = modal.querySelector('.modal-whatsapp-btn');
-        const callBtn = modal.querySelector('.modal-call-btn');
         const mailtoBtn = modal.querySelector('.modal-mailto-btn');
 
         if (leadIdEl) leadIdEl.textContent = lead.leadId;
         if (nameEl) nameEl.textContent = lead.name;
         if (serviceEl) serviceEl.textContent = lead.service;
-        if (waBtn) waBtn.href = whatsappLink;
-        if (callBtn) callBtn.href = `tel:+91${this.helplinePhone}`;
         if (mailtoBtn) mailtoBtn.href = mailtoLink;
 
         modal.classList.remove('hidden');

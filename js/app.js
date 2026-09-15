@@ -239,12 +239,12 @@ const App = {
                                 </div>
                             </div>
                             <div class="space-y-2.5">
-                                <a href="https://wa.me/${TaxData.businessInfo.whatsapp}?text=${encodeURIComponent(s.whatsappMessage)}" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs flex items-center justify-center gap-2 transition-colors shadow-md">
-                                    <i data-lucide="message-circle" class="w-4 h-4"></i> Book via WhatsApp (${TaxData.businessInfo.phoneRaw})
-                                </a>
-                                <button onclick="App.openConsultationForService('${s.title}')" class="w-full py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-lg text-xs transition-colors">
-                                    Request Callback Online
+                                <button onclick="App.openConsultationForService('${s.title}')" class="w-full py-3 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-lg text-xs transition-colors shadow-md flex items-center justify-center gap-2">
+                                    <i data-lucide="send" class="w-4 h-4"></i> Request Service Online
                                 </button>
+                                <a href="mailto:gsc@taxkijankari.com?subject=Tax Inquiry: ${encodeURIComponent(s.title)}" class="w-full py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5 border border-white/20">
+                                    <i data-lucide="mail" class="w-4 h-4 text-saffron-400"></i> Email Inquiry Desk
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -252,7 +252,9 @@ const App = {
             `).join('');
         }
 
-        if (window.lucide) lucide.createIcons();
+        if (window.lucide) {
+            try { lucide.createIcons(); } catch(e) {}
+        }
     },
 
     openServiceModal: function(serviceId) {
@@ -282,9 +284,9 @@ const App = {
             </li>
         `).join('');
 
-        const waBtn = modal.querySelector('.service-modal-wa-btn');
-        if (waBtn) {
-            waBtn.href = `https://wa.me/${TaxData.businessInfo.whatsapp}?text=${encodeURIComponent(service.whatsappMessage)}`;
+        const emailBtn = modal.querySelector('.service-modal-email-btn');
+        if (emailBtn) {
+            emailBtn.href = `mailto:gsc@taxkijankari.com?subject=Tax Inquiry: ${encodeURIComponent(service.title)}`;
         }
 
         const applyBtn = modal.querySelector('.service-modal-apply-btn');

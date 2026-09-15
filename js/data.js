@@ -8,10 +8,7 @@ const TaxData = {
         name: "Tax Ki Jankari",
         tagline: "Aapki Tax Jankari, Hamari Zimmedari",
         domain: "taxkijankari.com",
-        phone: "+91 7544065151",
-        phoneRaw: "7544065151",
         email: "gsc@taxkijankari.com",
-        whatsapp: "917544065151",
         workingHours: "Mon - Sat: 9:30 AM - 7:30 PM (IST)",
         disclaimer: "Tax Ki Jankari (taxkijankari.com) is a private tax assistance, consultancy, and information portal. We are NOT affiliated with, sponsored by, or endorsed by the Goods and Services Tax Network (GSTN), Central Board of Indirect Taxes & Customs (CBIC), Central Board of Direct Taxes (CBDT), or the Income Tax Department of India."
     },
@@ -338,7 +335,7 @@ const TaxData = {
         {
             category: "Services",
             q: "How does the paid filing assistance work on Tax Ki Jankari?",
-            a: "1) You submit your inquiry via our lead form, WhatsApp (7544065151), or Call. 2) Our tax expert connects with you, understands your case, and provides a document checklist. 3) You share documents securely via WhatsApp/Email. 4) We draft your computation/application, get your confirmation, file it on the official portal, and deliver official acknowledgment/certificate."
+            a: "1) You submit your inquiry via our online lead form or Email (gsc@taxkijankari.com). 2) Our tax expert connects with you, understands your case, and provides a document checklist. 3) You share documents securely via Email. 4) We draft your computation/application, get your confirmation, file it on the official portal, and deliver official acknowledgment/certificate."
         },
         {
             category: "Services",
