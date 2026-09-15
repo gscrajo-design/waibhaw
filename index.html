@@ -1456,12 +1456,12 @@
     </div>
 
     <!-- =========================================================================
-         SERVICE DETAILS POPUP MODAL
+         SERVICE DETAIL MODAL (POPUP)
          ========================================================================= -->
     <div id="service-detail-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="App.closeServiceModal()" class="absolute top-5 right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600">
-                <i data-lucide="x" class="w-5 h-5"></i>
+            <button type="button" onclick="App.closeServiceModal()" class="close-service-modal-btn absolute top-5 right-5 p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-red-600 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
             <div class="mb-4">
@@ -1492,7 +1492,7 @@
                     <a href="#" target="_blank" class="service-modal-wa-btn flex-1 sm:flex-none px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow">
                         <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Booking
                     </a>
-                    <button class="service-modal-apply-btn flex-1 sm:flex-none px-4 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold">
+                    <button type="button" class="service-modal-apply-btn flex-1 sm:flex-none px-4 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold">
                         Apply Online
                     </button>
                 </div>
@@ -1505,6 +1505,10 @@
          ========================================================================= -->
     <div id="lead-success-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl relative">
+            <button type="button" onclick="LeadManager.closeSuccessModal()" class="close-lead-modal-btn absolute top-5 right-5 p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-red-600 transition-colors" aria-label="Close">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
             <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="check-circle" class="w-10 h-10"></i>
             </div>
@@ -1536,8 +1540,8 @@
                 <a href="#" class="modal-call-btn w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2">
                     <i data-lucide="phone" class="w-4 h-4 text-saffron-400"></i> Call Helpline Now (+91 7544065151)
                 </a>
-                <button onclick="LeadManager.closeSuccessModal()" class="w-full py-2 text-slate-400 hover:text-slate-700 text-xs font-semibold">
-                    Close Window
+                <button type="button" onclick="LeadManager.closeSuccessModal()" class="close-lead-modal-btn w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition-colors">
+                    Close Window (बंद करें)
                 </button>
             </div>
         </div>

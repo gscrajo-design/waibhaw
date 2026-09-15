@@ -10,9 +10,25 @@ const LeadManager = {
     whatsappPhone: "917544065151",
 
     init: function() {
+        const self = this;
         // Bind all forms with class 'tkj-lead-form'
         document.querySelectorAll('.tkj-lead-form').forEach(form => {
             form.addEventListener('submit', (e) => this.handleSubmit(e, form));
+        });
+
+        // Close modal on backdrop click
+        const modal = document.getElementById('lead-success-modal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    self.closeSuccessModal();
+                }
+            });
+        }
+
+        // Close modal on any close button click
+        document.querySelectorAll('.close-lead-modal-btn').forEach(btn => {
+            btn.addEventListener('click', () => self.closeSuccessModal());
         });
     },
 
@@ -251,12 +267,16 @@ const LeadManager = {
 
     closeSuccessModal: function() {
         const modal = document.getElementById('lead-success-modal');
-        if (!modal) {
+        if (modal) {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
     }
 };
+
+if (typeof window !== 'undefined') {
+    window.LeadManager = LeadManager;
+}
 
 // Initialize when DOM is ready
 if (typeof document !== 'undefined') {

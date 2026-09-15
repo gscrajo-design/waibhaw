@@ -374,3 +374,7 @@ const TaxData = {
         }
     ]
 };
+
+if (typeof window !== 'undefined') {
+    window.TaxData = TaxData;
+}

@@ -163,3 +163,7 @@ const TaxCalculator = {
         };
     }
 };
+
+if (typeof window !== 'undefined') {
+    window.TaxCalculator = TaxCalculator;
+}

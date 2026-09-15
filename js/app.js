@@ -7,15 +7,21 @@ const App = {
     currentRoute: 'home',
 
     init: function() {
-        this.bindNavigation();
-        this.renderServicesGrid();
-        this.renderDueDates();
-        this.renderTaxUpdates();
-        this.renderFAQs();
-        this.renderTestimonials();
-        this.initCalculatorsUI();
-        this.initMobileMenu();
-        this.handleRoute();
+        try {
+            this.bindNavigation();
+            this.initModals();
+            this.initMobileMenu();
+            this.renderServicesGrid();
+            this.renderDueDates();
+            this.renderTaxUpdates();
+            this.renderFAQs();
+            this.renderTestimonials();
+            this.initCalculatorsUI();
+            this.handleRoute();
+        } catch (err) {
+            console.warn("App initialization notice:", err);
+            this.handleRoute();
+        }
 
         // Listen to hash changes
         window.addEventListener('hashchange', () => this.handleRoute());
@@ -25,35 +31,36 @@ const App = {
     },
 
     bindNavigation: function() {
+        const self = this;
         document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const target = link.getAttribute('href');
+            link.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if (!target || target === '#') return;
+
                 if (target.startsWith('#/service/')) {
                     e.preventDefault();
                     const serviceId = target.replace('#/service/', '');
-                    this.openServiceModal(serviceId);
+                    self.showView('services');
+                    self.openServiceModal(serviceId);
                     return;
                 }
+
                 // Normal view navigation
                 const route = target.replace('#', '');
-                if (['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer'].includes(route)) {
-                    // Handled by hashchange
-                    this.closeMobileMenu();
+                const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer'];
+                if (validViews.includes(route)) {
+                    e.preventDefault();
+                    window.location.hash = route;
+                    self.showView(route);
+                    self.closeMobileMenu();
                 }
             });
         });
     },
 
-    handleRoute: function() {
-        let hash = window.location.hash.replace('#', '') || 'home';
-        if (hash.startsWith('/service/')) {
-            const serviceId = hash.replace('/service/', '');
-            hash = 'services';
-            this.openServiceModal(serviceId);
-        }
-
+    showView: function(viewName) {
         const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer'];
-        const activeView = validViews.includes(hash) ? hash : 'home';
+        const activeView = validViews.includes(viewName) ? viewName : 'home';
         this.currentRoute = activeView;
 
         // Hide all views and show active
@@ -76,6 +83,52 @@ const App = {
             } else {
                 link.classList.remove('text-saffron-600', 'font-bold', 'border-b-2', 'border-saffron-500');
                 link.classList.add('text-slate-700');
+            }
+        });
+
+        if (window.lucide) {
+            try { lucide.createIcons(); } catch(e) {}
+        }
+    },
+
+    handleRoute: function() {
+        let hash = window.location.hash.replace('#', '') || 'home';
+        if (hash.startsWith('/service/')) {
+            const serviceId = hash.replace('/service/', '');
+            this.showView('services');
+            this.openServiceModal(serviceId);
+            return;
+        }
+
+        this.showView(hash);
+    },
+
+    initModals: function() {
+        const self = this;
+
+        // Service modal close on backdrop click
+        const serviceModal = document.getElementById('service-detail-modal');
+        if (serviceModal) {
+            serviceModal.addEventListener('click', function(e) {
+                if (e.target === serviceModal) {
+                    self.closeServiceModal();
+                }
+            });
+        }
+
+        // Close buttons for service modal
+        document.querySelectorAll('.close-service-modal-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                self.closeServiceModal();
+            });
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                self.closeServiceModal();
+                if (window.LeadManager) window.LeadManager.closeSuccessModal();
+                self.closeMobileMenu();
             }
         });
     },
@@ -469,12 +522,17 @@ const App = {
             const isSalaried = salariedCheck ? salariedCheck.checked : true;
             const age = ageSelect ? ageSelect.value : 'general';
 
+            const getVal = function(id) {
+                const el = document.getElementById(id);
+                return el ? el.value : 0;
+            };
+
             const deductions = {
-                sec80C: document.getElementById('calc-80c')?.value || 0,
-                sec80D: document.getElementById('calc-80d')?.value || 0,
-                sec24b: document.getElementById('calc-24b')?.value || 0,
-                hra: document.getElementById('calc-hra')?.value || 0,
-                other: document.getElementById('calc-other')?.value || 0
+                sec80C: getVal('calc-80c'),
+                sec80D: getVal('calc-80d'),
+                sec24b: getVal('calc-24b'),
+                hra: getVal('calc-hra'),
+                other: getVal('calc-other')
             };
 
             const newRegime = TaxCalculator.calculateNewRegime(income, isSalaried);
@@ -676,6 +734,10 @@ const App = {
         }, 4000);
     }
 };
+
+if (typeof window !== 'undefined') {
+    window.App = App;
+}
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
