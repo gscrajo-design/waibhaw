@@ -8,6 +8,7 @@ const App = {
 
     init: function() {
         try {
+            this.initTheme();
             this.bindNavigation();
             this.initModals();
             this.initMobileMenu();
@@ -16,7 +17,9 @@ const App = {
             this.renderTaxUpdates();
             this.renderFAQs();
             this.renderTestimonials();
+            this.renderHsnList();
             this.initCalculatorsUI();
+            this.initChatbot();
             this.handleRoute();
         } catch (err) {
             console.warn("App initialization notice:", err);
@@ -708,11 +711,345 @@ const App = {
         }
     },
 
-    closeMobileMenu: function() {
-        const menu = document.getElementById('mobile-nav-drawer');
-        const backdrop = document.getElementById('mobile-backdrop');
-        if (menu) menu.classList.add('-translate-x-full');
-        if (backdrop) backdrop.classList.add('hidden');
+    // ==========================================
+    // THEME SWITCHER ENGINE (LIGHT / DARK)
+    // ==========================================
+    currentTheme: 'light',
+
+    initTheme: function() {
+        const saved = localStorage.getItem('tkj_theme');
+        if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            this.setTheme('dark');
+        } else {
+            this.setTheme('light');
+        }
+    },
+
+    setTheme: function(theme) {
+        this.currentTheme = theme;
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        try { localStorage.setItem('tkj_theme', theme); } catch(e) {}
+        this.updateThemeIcons();
+    },
+
+    toggleTheme: function() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+        this.showToast(newTheme === 'dark' ? '🌙 Dark Mode Activated' : '☀️ Light Mode Activated');
+    },
+
+    updateThemeIcons: function() {
+        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+            const isDark = this.currentTheme === 'dark';
+            btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+            btn.innerHTML = isDark 
+                ? '<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>'
+                : '<svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>';
+        });
+    },
+
+    // ==========================================
+    // GST HSN & SAC FINDER ENGINE
+    // ==========================================
+    hsnCurrentType: 'all',
+    hsnCurrentRate: 'all',
+    hsnCurrentSearch: '',
+
+    renderHsnList: function() {
+        const container = document.getElementById('hsn-results-container');
+        const countBadge = document.getElementById('hsn-count-badge');
+        if (!container || !TaxData.hsnCodes) return;
+
+        let list = TaxData.hsnCodes;
+
+        // Type filter
+        if (this.hsnCurrentType !== 'all') {
+            list = list.filter(item => item.type === this.hsnCurrentType);
+        }
+
+        // Rate filter
+        if (this.hsnCurrentRate !== 'all') {
+            const numRate = Number(this.hsnCurrentRate);
+            list = list.filter(item => item.rate === numRate);
+        }
+
+        // Search query
+        if (this.hsnCurrentSearch.trim() !== '') {
+            const q = this.hsnCurrentSearch.toLowerCase().trim();
+            list = list.filter(item => 
+                item.code.toLowerCase().includes(q) ||
+                item.title.toLowerCase().includes(q) ||
+                item.category.toLowerCase().includes(q) ||
+                item.desc.toLowerCase().includes(q) ||
+                (item.keywords && item.keywords.toLowerCase().includes(q))
+            );
+        }
+
+        if (countBadge) countBadge.textContent = `${list.length} Records Found`;
+
+        if (list.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+                    <div class="text-3xl mb-2">🔍</div>
+                    <h4 class="font-bold text-slate-800 text-sm">No HSN / SAC Codes Found</h4>
+                    <p class="text-xs text-slate-500 mt-1">Try searching with other keywords (e.g. mobile, cloth, software) or reset filters.</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = list.map(item => `
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-saffron-300 transition-all flex flex-col justify-between group">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold ${
+                            item.type === 'services' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-saffron-800'
+                        }">
+                            ${item.type === 'services' ? 'SAC (Service)' : 'HSN (Goods)'}
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded-md text-xs font-black ${
+                            item.rate === 0 ? 'bg-emerald-100 text-emerald-800' :
+                            item.rate <= 5 ? 'bg-blue-100 text-blue-800' :
+                            item.rate <= 12 ? 'bg-indigo-100 text-indigo-800' :
+                            item.rate <= 18 ? 'bg-saffron-100 text-saffron-800' : 'bg-red-100 text-red-800'
+                        }">
+                            ${item.rate}% GST
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="font-mono text-lg font-black text-navy-950">${item.code}</span>
+                        <button type="button" onclick="App.copyHsnCode('${item.code}', this)" class="p-1 rounded text-slate-400 hover:text-saffron-600 hover:bg-slate-100 transition-colors" title="Copy Code">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-1">${item.title}</h4>
+                    <p class="text-[11px] text-slate-500 mb-3 line-clamp-2">${item.desc}</p>
+                </div>
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">${item.category}</span>
+                    <button type="button" onclick="App.useHsnInCalc(${item.rate})" class="text-[11px] font-bold text-saffron-600 hover:text-saffron-700 flex items-center gap-1">
+                        Calc GST <span>→</span>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    },
+
+    filterHsnType: function(type, btn) {
+        this.hsnCurrentType = type;
+        document.querySelectorAll('.hsn-type-btn').forEach(b => {
+            b.classList.remove('bg-navy-900', 'text-white');
+            b.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        if (btn) {
+            btn.classList.add('bg-navy-900', 'text-white');
+            btn.classList.remove('bg-slate-100', 'text-slate-700');
+        }
+        this.renderHsnList();
+    },
+
+    filterHsnRate: function(rate, btn) {
+        this.hsnCurrentRate = rate;
+        document.querySelectorAll('.hsn-rate-filter-btn').forEach(b => {
+            b.classList.remove('bg-saffron-600', 'text-white');
+            b.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        if (btn) {
+            btn.classList.add('bg-saffron-600', 'text-white');
+            btn.classList.remove('bg-slate-100', 'text-slate-700');
+        }
+        this.renderHsnList();
+    },
+
+    searchHsn: function(query) {
+        this.hsnCurrentSearch = query;
+        this.renderHsnList();
+    },
+
+    copyHsnCode: function(code, btn) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(() => {
+                this.showToast(`HSN Code ${code} copied!`);
+                if (btn) {
+                    const original = btn.innerHTML;
+                    btn.innerHTML = '<span class="text-emerald-600 text-xs font-bold">✓</span>';
+                    setTimeout(() => btn.innerHTML = original, 1500);
+                }
+            });
+        }
+    },
+
+    useHsnInCalc: function(rate) {
+        this.showView('calculators');
+        setTimeout(() => {
+            const rateBtn = document.querySelector(`.gst-rate-btn[data-rate="${rate}"]`);
+            if (rateBtn) {
+                rateBtn.click();
+            } else {
+                const customRate = document.getElementById('gst-custom-rate');
+                if (customRate) {
+                    customRate.value = rate;
+                    customRate.dispatchEvent(new Event('input'));
+                }
+            }
+            window.scrollTo({ top: 500, behavior: 'smooth' });
+        }, 150);
+    },
+
+    // ==========================================
+    // AI TAX ASSISTANT CHATBOT ("TAX MITRA")
+    // ==========================================
+    initChatbot: function() {
+        const toggleBtn = document.getElementById('tax-chatbot-toggle');
+        const closeBtn = document.getElementById('tax-chatbot-close');
+        const sendBtn = document.getElementById('tax-chatbot-send');
+        const inputEl = document.getElementById('tax-chatbot-input');
+        const clearBtn = document.getElementById('tax-chatbot-clear');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => this.toggleChatbot());
+        }
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.toggleChatbot(false));
+        }
+        if (sendBtn && inputEl) {
+            sendBtn.addEventListener('click', () => {
+                const text = inputEl.value.trim();
+                if (text) {
+                    this.sendChatMessage(text);
+                    inputEl.value = '';
+                }
+            });
+        }
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const text = inputEl.value.trim();
+                    if (text) {
+                        this.sendChatMessage(text);
+                        inputEl.value = '';
+                    }
+                }
+            });
+        }
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => this.clearChat());
+        }
+
+        // Quick prompt chips
+        document.querySelectorAll('.chat-prompt-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                const text = pill.getAttribute('data-prompt') || pill.textContent.trim();
+                this.sendChatMessage(text);
+            });
+        });
+    },
+
+    toggleChatbot: function(forceState) {
+        const win = document.getElementById('tax-chatbot-window');
+        if (!win) return;
+        if (forceState === false) {
+            win.classList.add('hidden');
+        } else if (forceState === true) {
+            win.classList.remove('hidden');
+        } else {
+            win.classList.toggle('hidden');
+        }
+    },
+
+    sendChatMessage: function(query) {
+        const messagesContainer = document.getElementById('tax-chatbot-messages');
+        if (!messagesContainer) return;
+
+        // Escape helper
+        const safeQuery = query.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+
+        // Add user bubble
+        const userMsg = document.createElement('div');
+        userMsg.className = 'flex justify-end mb-3';
+        userMsg.innerHTML = `
+            <div class="chat-bubble-user max-w-[80%] px-4 py-2.5 rounded-2xl text-xs font-medium leading-relaxed shadow-sm">
+                ${safeQuery}
+            </div>
+        `;
+        messagesContainer.appendChild(userMsg);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Find Bot response from knowledge base
+        const botResponse = this.findBotResponse(query);
+
+        // Simulate typing animation
+        const typingEl = document.createElement('div');
+        typingEl.className = 'flex justify-start mb-3 chat-typing-indicator';
+        typingEl.innerHTML = `
+            <div class="chat-bubble-bot px-4 py-2.5 rounded-2xl text-xs text-slate-500 font-semibold flex items-center gap-1.5">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-saffron-500 animate-bounce"></span>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-saffron-500 animate-bounce" style="animation-delay: 0.15s"></span>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-saffron-500 animate-bounce" style="animation-delay: 0.3s"></span>
+                <span>Tax Mitra typing...</span>
+            </div>
+        `;
+        messagesContainer.appendChild(typingEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        setTimeout(() => {
+            typingEl.remove();
+            const botMsg = document.createElement('div');
+            botMsg.className = 'flex justify-start mb-3';
+            botMsg.innerHTML = `
+                <div class="chat-bubble-bot max-w-[85%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
+                    ${botResponse}
+                </div>
+            `;
+            messagesContainer.appendChild(botMsg);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 400);
+    },
+
+    findBotResponse: function(query) {
+        const q = query.toLowerCase();
+        if (!TaxData.chatbotKnowledge) {
+            return "Hello! How can I assist you with your GST, ITR, or tax filing questions today?";
+        }
+
+        // Match against knowledge base
+        for (let i = 0; i < TaxData.chatbotKnowledge.length; i++) {
+            const item = TaxData.chatbotKnowledge[i];
+            for (let j = 0; j < item.keywords.length; j++) {
+                if (q.includes(item.keywords[j].toLowerCase())) {
+                    return item.answer;
+                }
+            }
+        }
+
+        // Default intelligent fallback
+        return `
+            <strong>Thanks for your question!</strong><br>
+            I can help you with:<br>
+            • <a href="#calculators" class="text-saffron-600 font-bold underline">Income Tax Old vs New Calculator</a><br>
+            • <a href="#view-gst" class="text-saffron-600 font-bold underline">GST HSN Code & Rate Finder</a><br>
+            • <a href="#updates" class="text-saffron-600 font-bold underline">Statutory Return Due Dates</a><br>
+            • <a href="#services" class="text-saffron-600 font-bold underline">Paid Filing Services (GST/ITR)</a><br><br>
+            For personalized assistance, send your query to <a href="mailto:gsc@taxkijankari.com" class="text-saffron-600 font-bold">gsc@taxkijankari.com</a> or <a href="#contact" class="text-saffron-600 font-bold underline">Submit Inquiry Online</a>.
+        `;
+    },
+
+    clearChat: function() {
+        const messagesContainer = document.getElementById('tax-chatbot-messages');
+        if (messagesContainer) {
+            messagesContainer.innerHTML = `
+                <div class="flex justify-start mb-3">
+                    <div class="chat-bubble-bot max-w-[85%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
+                        👋 <strong>Namaste! Main hoon Tax Mitra.</strong><br>
+                        Aapka AI Tax & Compliance Assistant. GST, ITR, HSN codes ya tax slabs ke baare me koi bhi sawal poochiye!
+                    </div>
+                </div>
+            `;
+        }
     },
 
     showToast: function(message, type = 'success') {

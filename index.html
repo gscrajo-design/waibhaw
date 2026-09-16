@@ -17,6 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -103,15 +104,20 @@
                     <a href="#gst" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">GST Hub</a>
                     <a href="#itr" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">ITR Hub</a>
                     <a href="#services" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Services</a>
-                    <a href="#updates" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Due Dates & Updates</a>
+                    <a href="#updates" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Due Dates</a>
                     <a href="#calculators" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Calculators</a>
                     <a href="#faq" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">FAQs</a>
                     <a href="#contact" class="nav-link px-3 py-2 text-sm font-semibold text-slate-700 hover:text-saffron-600 transition-colors">Contact</a>
                 </nav>
 
                 <!-- Desktop Action Buttons -->
-                <div class="hidden lg:flex items-center gap-3">
-                    <a href="mailto:gsc@taxkijankari.com" class="px-3.5 py-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors">
+                <div class="hidden lg:flex items-center gap-2.5">
+                    <!-- Light / Dark Mode Toggle Button -->
+                    <button type="button" onclick="App.toggleTheme()" class="theme-toggle-btn p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center shadow-xs" aria-label="Toggle Theme" title="Toggle Light / Dark Mode">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+
+                    <a href="mailto:gsc@taxkijankari.com" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors">
                         <i data-lucide="mail" class="w-4 h-4 text-saffron-600"></i>
                         <span>gsc@taxkijankari.com</span>
                     </a>
@@ -121,8 +127,11 @@
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
+                <!-- Mobile Menu Button & Theme Switch -->
                 <div class="flex items-center gap-2 lg:hidden">
+                    <button type="button" onclick="App.toggleTheme()" class="theme-toggle-btn p-2 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
                     <a href="#contact" class="p-2 rounded-lg bg-orange-50 text-saffron-600 border border-orange-200 text-xs font-bold flex items-center gap-1">
                         <i data-lucide="send" class="w-4 h-4"></i>
                         <span>Inquire</span>
@@ -221,15 +230,15 @@
                             <!-- Trust Badges -->
                             <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 text-center lg:text-left">
                                 <div>
-                                    <div class="text-xl sm:text-2xl font-black text-saffron-400">5,000+</div>
-                                    <div class="text-[11px] text-slate-400">Returns Assisted</div>
+                                    <div class="text-lg sm:text-xl font-black text-saffron-400">100% Online</div>
+                                    <div class="text-[11px] text-slate-400">Digital Doorstep Desk</div>
                                 </div>
                                 <div>
-                                    <div class="text-xl sm:text-2xl font-black text-emerald-400">100% Online</div>
-                                    <div class="text-[11px] text-slate-400">Doorstep Digital Service</div>
+                                    <div class="text-lg sm:text-xl font-black text-emerald-400">Zero Late Fee</div>
+                                    <div class="text-[11px] text-slate-400">On-Time Filing Focus</div>
                                 </div>
                                 <div>
-                                    <div class="text-xl sm:text-2xl font-black text-white">4.9 ★★★★★</div>
+                                    <div class="text-lg sm:text-xl font-black text-white">4.9 ★★★★★</div>
                                     <div class="text-[11px] text-slate-400">Client Satisfaction</div>
                                 </div>
                             </div>
@@ -622,6 +631,58 @@
                                 <span id="gst-res-total" class="text-xl font-black">₹11,800</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- GST HSN / SAC Code Finder Tool -->
+                <div id="hsn-finder-section" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-10">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-3 py-1 bg-saffron-50 text-saffron-700 font-bold text-xs rounded-full border border-saffron-200">
+                                    Live Directory
+                                </span>
+                                <span id="hsn-count-badge" class="text-xs font-semibold text-slate-500">40+ Records</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-navy-950">GST HSN & SAC Code Finder (खोजें और दरें जानें)</h3>
+                            <p class="text-xs text-slate-500 mt-1">Search goods and services tax rates, 4 to 8 digit HSN/SAC classification codes with 1-click tax calculator sync.</p>
+                        </div>
+                    </div>
+
+                    <!-- Search and Filters Bar -->
+                    <div class="pt-6 space-y-4">
+                        <!-- Search Box -->
+                        <div class="relative">
+                            <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="hsn-search-input" oninput="App.searchHsn(this.value)" placeholder="Search by HSN code, product, service name, or category (e.g., 9983, Mobile, Cloth, Software, Hotel)..." class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:bg-white transition-all shadow-inner">
+                        </div>
+
+                        <!-- Filter Controls -->
+                        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pt-2">
+                            <!-- Type Filters -->
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-bold text-slate-500 mr-1">Category:</span>
+                                <button type="button" onclick="App.filterHsnType('all', this)" class="hsn-type-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-navy-900 text-white transition-all">All Items</button>
+                                <button type="button" onclick="App.filterHsnType('goods', this)" class="hsn-type-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Goods (HSN)</button>
+                                <button type="button" onclick="App.filterHsnType('services', this)" class="hsn-type-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Services (SAC)</button>
+                            </div>
+
+                            <!-- Rate Filters -->
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                <span class="text-xs font-bold text-slate-500 mr-1">GST Rate:</span>
+                                <button type="button" onclick="App.filterHsnRate('all', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-saffron-600 text-white transition-all">All</button>
+                                <button type="button" onclick="App.filterHsnRate('0', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">0%</button>
+                                <button type="button" onclick="App.filterHsnRate('5', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">5%</button>
+                                <button type="button" onclick="App.filterHsnRate('12', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">12%</button>
+                                <button type="button" onclick="App.filterHsnRate('18', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">18%</button>
+                                <button type="button" onclick="App.filterHsnRate('28', this)" class="hsn-rate-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">28%</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HSN Results Grid -->
+                    <div id="hsn-results-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        <!-- Populated dynamically via App.renderHsnList() -->
                     </div>
                 </div>
 
@@ -1522,6 +1583,78 @@
         </div>
     </div>
 
+    <!-- =========================================================================
+         AI TAX ASSISTANT CHATBOT ("TAX MITRA")
+         ========================================================================= -->
+    <!-- Floating Chatbot Launcher Button -->
+    <div id="tax-chatbot-container" class="fixed bottom-6 right-6 z-50">
+        <button id="tax-chatbot-toggle" type="button" class="group flex items-center gap-2.5 px-4 py-3.5 bg-gradient-to-r from-saffron-500 to-orange-600 hover:from-saffron-600 hover:to-orange-700 text-white font-bold text-sm rounded-full shadow-2xl hover:scale-105 transition-all duration-200" aria-label="Open Tax AI Assistant">
+            <div class="relative flex items-center justify-center">
+                <span class="text-xl leading-none">🤖</span>
+                <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+            </div>
+            <span class="hidden sm:inline font-bold">Ask Tax Mitra AI</span>
+            <span class="sm:hidden font-bold">Ask AI</span>
+        </button>
+    </div>
+
+    <!-- Chatbot Window Panel -->
+    <div id="tax-chatbot-window" class="fixed bottom-20 right-4 sm:right-6 w-[94vw] sm:w-96 max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 z-50 hidden flex-col overflow-hidden transition-all duration-200" style="height: 520px; max-height: 80vh;">
+        <!-- Chatbot Header -->
+        <div class="bg-gradient-to-r from-navy-900 to-navy-950 p-4 text-white flex items-center justify-between flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-saffron-500 text-white flex items-center justify-center text-lg font-black shadow">
+                    🤖
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h4 class="font-extrabold text-sm leading-tight text-white">Tax Mitra</h4>
+                        <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[9px]">ONLINE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300">AI Tax, GST & ITR Assistant</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-1">
+                <button id="tax-chatbot-clear" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Clear Chat">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+                <button id="tax-chatbot-close" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Close">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Prompts Bar -->
+        <div class="px-3 py-2 bg-slate-50 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto flex-shrink-0">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">Quick:</span>
+            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What are the latest GST return due dates?">Due Dates</button>
+            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What is the difference between Old and New tax regime?">Old vs New ITR</button>
+            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to find HSN / SAC codes and GST rate?">HSN Codes</button>
+            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to apply for GST registration and what documents are required?">GST Registration</button>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div id="tax-chatbot-messages" class="flex-1 p-4 overflow-y-auto space-y-2 bg-slate-50/50">
+            <div class="flex justify-start mb-3">
+                <div class="chat-bubble-bot max-w-[85%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
+                    👋 <strong>Namaste! Main hoon Tax Mitra.</strong><br>
+                    Aapka AI Tax & Compliance Assistant. GST, ITR, HSN codes ya tax slabs ke baare me koi bhi sawal poochiye!
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="p-3 bg-white border-t border-slate-100 flex items-center gap-2 flex-shrink-0">
+            <input type="text" id="tax-chatbot-input" placeholder="Type your question in Hindi/English..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:bg-white transition-all">
+            <button id="tax-chatbot-send" type="button" class="p-2.5 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-white font-bold transition-colors shadow flex items-center justify-center" aria-label="Send Message">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/data.js"></script>
     <script src="js/tax-calculator.js"></script>
@@ -1537,6 +1670,7 @@
     </script>
 </body>
 </html>
+
 
 
 

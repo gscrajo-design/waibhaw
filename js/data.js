@@ -369,6 +369,84 @@ const TaxData = {
             rating: 5,
             comment: "I had received a GST notice regarding ITC mismatch. The team drafted a professional reply and got it resolved without penalty. Genuine and trustworthy consultancy."
         }
+    ],
+
+    hsnCodes: [
+        // Services (SAC)
+        { code: "998314", title: "IT Design & Software Development Services", category: "Information Technology", type: "services", rate: 18, desc: "Custom software development, website designing, mobile app programming, and system integration.", keywords: "software web design developer app code IT" },
+        { code: "998313", title: "IT Infrastructure & Web Hosting Services", category: "Information Technology", type: "services", rate: 18, desc: "Cloud computing, cloud servers, website hosting, domain registration, and network management.", keywords: "hosting cloud server domain AWS server" },
+        { code: "998222", title: "Accounting, Auditing & Bookkeeping Services", category: "Professional Services", type: "services", rate: 18, desc: "Commercial accounting, tax consultancy, statutory audits, payroll processing, and financial statements preparation.", keywords: "accounting CA audit tax return filing accounts" },
+        { code: "998211", title: "Legal & Advisory Services", category: "Professional Services", type: "services", rate: 18, desc: "Legal advisory, documentation, contract drafting, and representation by advocates / law firms.", keywords: "legal lawyer advocate agreement court" },
+        { code: "998311", title: "Management Consulting & Business Advisory", category: "Professional Services", type: "services", rate: 18, desc: "Strategic business management, financial advisory, operational guidance, and corporate planning.", keywords: "consulting advisory business strategy" },
+        { code: "998361", title: "Advertising, Digital Marketing & PR Services", category: "Marketing & Media", type: "services", rate: 18, desc: "Online advertising, Google/Facebook Ads, SEO marketing, billboard advertising, and public relations.", keywords: "digital marketing SEO ads promotion social media" },
+        { code: "996331", title: "Restaurant, Cafe & Food Delivery Services", category: "Hospitality", type: "services", rate: 5, desc: "Standalone restaurants, cloud kitchens, cafes, food takeaway, and food delivery platforms (without ITC).", keywords: "restaurant food cafe delivery dining kitchen" },
+        { code: "996311", title: "Hotel & Guest House Room Accommodation", category: "Hospitality", type: "services", rate: 12, desc: "Hotel room tariff up to ₹7,500 per night is 12%. Tariffs above ₹7,500 per day attract 18% GST.", keywords: "hotel room stay lodge resort accommodation" },
+        { code: "996511", title: "Goods Transport Agency (GTA) Freight", category: "Logistics", type: "services", rate: 5, desc: "Road transportation of commercial goods by transport operators (5% without ITC or 12% with ITC).", keywords: "transport logistics truck courier freight shipping" },
+        { code: "997212", title: "Commercial Property Rental & Leasing", category: "Real Estate", type: "services", rate: 18, desc: "Renting or leasing of commercial shops, office spaces, warehouses, and industrial land.", keywords: "rent commercial shop office warehouse lease" },
+        { code: "998711", title: "Maintenance, Repair & Servicing of Electronics", category: "Technical Services", type: "services", rate: 18, desc: "AMC and repair services for computers, appliances, electrical machinery, and electronic goods.", keywords: "repair maintenance servicing AMC electronics" },
+        { code: "997133", title: "Banking, Financial & Loan Processing Services", category: "Banking & Finance", type: "services", rate: 18, desc: "Bank processing fees, transaction charges, insurance premiums, and financial intermediation.", keywords: "bank insurance loan processing fee finance" },
+        { code: "999311", title: "Pre-school, Primary & Higher School Education", category: "Education", type: "services", rate: 0, desc: "Curriculum education provided by recognized educational institutions/schools is 100% GST exempt.", keywords: "school college education tuition free exempt" },
+        { code: "999312", title: "Private Coaching & Skill Training Centers", category: "Education", type: "services", rate: 18, desc: "Commercial coaching classes, competitive exam prep, computer training institutes, and vocational skills.", keywords: "coaching tuition institute training classes" },
+        { code: "999313", title: "Hospital, Clinical & Doctor Health Services", category: "Healthcare", type: "services", rate: 0, desc: "Medical treatments, doctor consultations, nursing care, and emergency medical ambulance services (Exempt).", keywords: "hospital doctor clinic treatment medical health exempt" },
+
+        // Goods (HSN)
+        { code: "8517", title: "Smartphones, Mobile Phones & Wireless Tech", category: "Electronics", type: "goods", rate: 18, desc: "Cellular phones, smartphones, wireless communication devices, and network modems.", keywords: "mobile phone smartphone iphone android" },
+        { code: "8471", title: "Laptops, Desktops, Computers & Tablets", category: "Electronics", type: "goods", rate: 18, desc: "Portable computers, laptops, CPU towers, servers, and computing peripheral devices.", keywords: "laptop computer PC desktop tablet monitor" },
+        { code: "8504", title: "Mobile Chargers, Power Adapters & Inverters", category: "Electronics", type: "goods", rate: 18, desc: "Electrical transformers, static converters, mobile fast-chargers, and power supplies.", keywords: "charger adapter power supply inverter" },
+        { code: "8528", title: "LED / LCD Television Sets (>32 inch)", category: "Electronics", type: "goods", rate: 28, desc: "Smart TVs, high-definition television sets exceeding 32 inches (32 inch or below is 18%).", keywords: "TV television smart tv LED display" },
+        { code: "6109", title: "T-Shirts, Singlets & Knitted Cotton Garments", category: "Textiles & Apparel", type: "goods", rate: 5, desc: "Cotton T-shirts, polo shirts, and knitted vests with sale value up to ₹1,000 per piece (12% if > ₹1,000).", keywords: "tshirt t-shirt clothes cloth garment cotton" },
+        { code: "6203", title: "Men's Suits, Trousers, Jackets & Shirts", category: "Textiles & Apparel", type: "goods", rate: 5, desc: "Woven garments, formal shirts, pants, and suits (5% if price <= ₹1,000; 12% if > ₹1,000).", keywords: "shirt pants suit blazer trouser formal wear" },
+        { code: "6403", title: "Footwear, Leather Shoes & Sports Sneakers", category: "Footwear", type: "goods", rate: 12, desc: "Leather shoes, formal footwear, and sports shoes (5% if price <= ₹1,000; 18% if > ₹1,000).", keywords: "shoes footwear chappal sneakers leather" },
+        { code: "1006", title: "Rice, Basmati & Paddy (Loose / Unbranded)", category: "Agriculture & Food", type: "goods", rate: 0, desc: "Loose unbranded rice is 0% exempt. Pre-packaged and labeled rice packets attract 5% GST.", keywords: "rice basmati chawal grain food exempt" },
+        { code: "1101", title: "Wheat Flour / Atta / Maida / Suji", category: "Agriculture & Food", type: "goods", rate: 0, desc: "Loose unbranded wheat flour is 0% exempt. Pre-packaged branded packs attract 5% GST.", keywords: "atta wheat flour maida suji food" },
+        { code: "0401", title: "Fresh Liquid Milk & Raw Paneer (Unpackaged)", category: "Dairy", type: "goods", rate: 0, desc: "Fresh unflavored milk and loose curd/paneer are 0% exempt. Branded tetra packs attract 5%.", keywords: "milk curd paneer dairy fresh exempt" },
+        { code: "0402", title: "Desi Ghee, Butter & Processed Cheese", category: "Dairy", type: "goods", rate: 12, desc: "Clarified butter (Ghee), butter packs, and packaged cheese slices.", keywords: "ghee butter cheese dairy product" },
+        { code: "0902", title: "Tea Leaves, Green Tea & Black Tea", category: "Beverages", type: "goods", rate: 5, desc: "Processed tea leaves, orthodox tea, and green tea packets.", keywords: "tea chai green tea beverage" },
+        { code: "0901", title: "Coffee Beans, Ground Coffee & Roast", category: "Beverages", type: "goods", rate: 5, desc: "Coffee beans, roasted ground coffee, and instant coffee powder.", keywords: "coffee espresso instant coffee" },
+        { code: "3004", title: "Essential Medicines & Pharmaceuticals", category: "Healthcare", type: "goods", rate: 12, desc: "Allopathic prescription medicines, formulations, capsules, tablets, and medical drugs.", keywords: "medicine tablet capsule pharma drug pharmacy" },
+        { code: "3304", title: "Cosmetics, Skincare & Beauty Creams", category: "Personal Care", type: "goods", rate: 18, desc: "Face creams, sunscreen, moisturizers, makeup cosmetics, lipsticks, and personal beauty items.", keywords: "cosmetics cream lotion beauty makeup perfume" },
+        { code: "2523", title: "Portland Cement & Construction Cement", category: "Building Materials", type: "goods", rate: 28, desc: "All varieties of Portland cement, aluminous cement, and slag cement bags.", keywords: "cement construction building material concrete" },
+        { code: "7214", title: "TMT Steel Rebars & Iron Rods", category: "Building Materials", type: "goods", rate: 18, desc: "Thermo-mechanically treated (TMT) steel bars, construction iron rods, and reinforced bars.", keywords: "steel TMT iron rod sariya construction" },
+        { code: "6907", title: "Ceramic & Vitrified Floor Tiles", category: "Building Materials", type: "goods", rate: 18, desc: "Glazed ceramic floor tiles, vitrified tiles, porcelain tiles, and wall tiles.", keywords: "tiles ceramic vitrified flooring marble" },
+        { code: "8703", title: "Motor Cars & Passenger Automobiles", category: "Automobile", type: "goods", rate: 28, desc: "Passenger cars, SUVs, and sedans (28% GST + applicable Compensation Cess).", keywords: "car automobile motor vehicle suv sedan" },
+        { code: "8711", title: "Motorcycles, Scooters & Two-Wheelers", category: "Automobile", type: "goods", rate: 28, desc: "Two-wheeled motor vehicles, petrol scooters, and commuter motorcycles.", keywords: "bike motorcycle scooter scooty 2 wheeler" },
+        { code: "8708", title: "Automobile Spare Parts & Components", category: "Automobile", type: "goods", rate: 28, desc: "Brakes, gear boxes, suspension systems, clutch plates, and vehicular spares.", keywords: "spare parts auto parts brakes engine parts" },
+        { code: "9403", title: "Office & Home Furniture (Wooden / Steel)", category: "Furniture", type: "goods", rate: 18, desc: "Office desks, executive chairs, wooden wardrobes, dining tables, and beds.", keywords: "furniture desk chair table bed sofa wardrobe" },
+        { code: "4820", title: "Paper Stationery, Registers & Notebooks", category: "Stationery", type: "goods", rate: 12, desc: "Exercise notebooks, registers, bill books, and office paper stationery.", keywords: "notebook copy register stationery paper diary" },
+        { code: "4901", title: "Printed Books, Newspapers & Textbooks", category: "Stationery", type: "goods", rate: 0, desc: "Educational textbooks, novels, newspapers, and printed periodicals (Exempt).", keywords: "books textbook novel study material exempt" },
+        { code: "9503", title: "Children Toys, Educational Puzzles & Games", category: "Toys & Games", type: "goods", rate: 12, desc: "Electronic toys, plastic toy figures, wooden puzzles, and indoor board games.", keywords: "toys games puzzles children play" },
+        { code: "2201", title: "Packaged Drinking Mineral Water Bottles", category: "Beverages", type: "goods", rate: 18, desc: "Purified bottled mineral water, 20L water cans, and packaged drinking water.", keywords: "water bottle mineral water drinking water can" }
+    ],
+
+    chatbotKnowledge: [
+        {
+            keywords: ["old", "new", "regime", "difference", "compare", "slab", "tax slab", "which is better"],
+            answer: "<strong>Old vs New Tax Regime Comparison:</strong><br>• <strong>New Regime (Default):</strong> Lowest tax slab rates, ₹75,000 standard deduction for salaried, and <strong>₹0 Tax up to ₹7.75 Lakhs</strong> (via Sec 87A rebate).<br>• <strong>Old Regime:</strong> Best if you have high deductions (80C ₹1.5L, 80D ₹25k, HRA, Home Loan interest ₹2L).<br>👉 Use our <a href='#calculators' class='text-saffron-600 font-bold underline'>Tax Calculator</a> to compare your exact tax in 5 seconds!"
+        },
+        {
+            keywords: ["hsn", "sac", "rate", "gst rate", "code", "find hsn"],
+            answer: "<strong>GST HSN & SAC Codes:</strong><br>• <strong>HSN</strong> (Harmonized System of Nomenclature) is used for Goods.<br>• <strong>SAC</strong> (Services Accounting Code) is used for Services.<br>Common Rates: Essential Food/Health (0-5%), Footwear/Apparel (5-12%), IT/Electronics/Consulting (18%), Luxury/Auto/Cement (28%).<br>👉 Use our built-in <a href='#view-gst' class='text-saffron-600 font-bold underline'>HSN Code Finder Tool</a> to search any product/service!"
+        },
+        {
+            keywords: ["due date", "calendar", "gstr1", "gstr-1", "gstr3b", "gstr-3b", "cmp-08", "itr due date", "deadline"],
+            answer: "<strong>Key Tax Due Dates:</strong><br>• <strong>GSTR-1:</strong> 11th of every month (Monthly)<br>• <strong>GSTR-3B:</strong> 20th of every month<br>• <strong>CMP-08 (Composition):</strong> 18th following quarter end<br>• <strong>ITR (Non-Audit):</strong> 31st July of Assessment Year<br>👉 Check live countdowns in our <a href='#updates' class='text-saffron-600 font-bold underline'>Compliance Calendar</a>."
+        },
+        {
+            keywords: ["registration", "gst registration", "new gst", "limit", "turnover limit", "40 lakh"],
+            answer: "<strong>GST Registration Thresholds:</strong><br>• <strong>Goods:</strong> ₹40 Lakhs annual turnover (₹20L in Special Category States).<br>• <strong>Services:</strong> ₹20 Lakhs annual turnover (₹10L in Special Category States).<br>• <strong>Mandatory for:</strong> E-commerce sellers (Amazon/Flipkart), Interstate sellers, RCM taxpayers.<br>👉 We assist full GST Registration at ₹999*. <a href='#contact' class='text-saffron-600 font-bold underline'>Apply Online Here</a>."
+        },
+        {
+            keywords: ["itr1", "itr-1", "itr2", "itr-2", "itr3", "itr-3", "itr4", "itr-4", "form"],
+            answer: "<strong>Which ITR Form to File:</strong><br>• <strong>ITR-1 (Sahaj):</strong> Salaried/Pensioners with 1 house property & income up to ₹50L.<br>• <strong>ITR-2:</strong> Capital Gains (Stocks/Mutual Funds/Crypto/Real Estate) or >1 house property.<br>• <strong>ITR-3 / 4:</strong> Business profit, Freelancers, Presumptive taxation (44AD/44ADA).<br>👉 We file your ITR accurately starting at ₹499*. <a href='#contact' class='text-saffron-600 font-bold underline'>Book Filing Help</a>."
+        },
+        {
+            keywords: ["fee", "price", "pricing", "cost", "charge"],
+            answer: "<strong>Our Assistance Fees:</strong><br>• <strong>GST Registration:</strong> ₹999* (Fast 3-7 Days)<br>• <strong>GST Return Filing:</strong> ₹499*/month<br>• <strong>ITR Filing (Salaried/Business):</strong> ₹499*<br>• <strong>GST Amendment / Cancellation:</strong> ₹799*<br>• <strong>Tax Notice Advisory:</strong> ₹499*<br>👉 <a href='#services' class='text-saffron-600 font-bold underline'>View Full Services & Apply</a>."
+        },
+        {
+            keywords: ["contact", "email", "support", "help", "consult"],
+            answer: "<strong>Contact Tax Ki Jankari:</strong><br>• <strong>Official Email:</strong> <a href='mailto:gsc@taxkijankari.com' class='text-saffron-600 font-bold'>gsc@taxkijankari.com</a><br>• <strong>Working Hours:</strong> Mon - Sat: 9:30 AM to 7:30 PM (IST)<br>• <strong>Response Time:</strong> 2-4 hours.<br>👉 You can also fill the <a href='#contact' class='text-saffron-600 font-bold underline'>Online Inquiry Form</a> to get an expert callback."
+        }
     ]
 };
 
