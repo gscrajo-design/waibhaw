@@ -20,6 +20,7 @@ const App = {
             this.renderHsnList();
             this.initCalculatorsUI();
             this.initChatbot();
+            this.renderAdminLogs();
             this.handleRoute();
         } catch (err) {
             console.warn("App initialization notice:", err);
@@ -50,7 +51,7 @@ const App = {
 
                 // Normal view navigation
                 const route = target.replace('#', '');
-                const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer'];
+                const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin'];
                 if (validViews.includes(route)) {
                     e.preventDefault();
                     window.location.hash = route;
@@ -62,7 +63,7 @@ const App = {
     },
 
     showView: function(viewName) {
-        const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer'];
+        const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin'];
         const activeView = validViews.includes(viewName) ? viewName : 'home';
         this.currentRoute = activeView;
 
@@ -982,6 +983,9 @@ const App = {
         // Find Bot response from knowledge base
         const botResponse = this.findBotResponse(query);
 
+        // Record chat log to Admin Inbox Storage
+        this.recordChatLog(query, botResponse);
+
         // Simulate typing animation
         const typingEl = document.createElement('div');
         typingEl.className = 'flex justify-start mb-3 chat-typing-indicator';
@@ -1003,11 +1007,151 @@ const App = {
             botMsg.innerHTML = `
                 <div class="chat-bubble-bot max-w-[85%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
                     ${botResponse}
+                    <div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between">
+                        <span class="text-[10px] text-slate-500 font-medium">Need personal help?</span>
+                        <button type="button" onclick="App.openChatLeadPrompt('${encodeURIComponent(query)}')" class="text-[10px] font-bold text-saffron-700 hover:text-saffron-800 bg-orange-100/80 hover:bg-orange-200/80 px-2 py-0.5 rounded border border-orange-300/60 transition-colors">
+                            ✉️ Send Query to Admin
+                        </button>
+                    </div>
                 </div>
             `;
             messagesContainer.appendChild(botMsg);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }, 400);
+    },
+
+    recordChatLog: function(userQuery, botReply) {
+        try {
+            const logs = JSON.parse(localStorage.getItem('tkj_visitor_chats') || '[]');
+            logs.unshift({
+                id: 'CHAT-' + Date.now().toString().slice(-6),
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                date: new Date().toLocaleDateString(),
+                timestamp: Date.now(),
+                query: userQuery,
+                reply: typeof botReply === 'string' ? botReply.replace(/<[^>]*>?/gm, ' ') : ''
+            });
+            // Keep last 100 messages
+            if (logs.length > 100) logs.pop();
+            localStorage.setItem('tkj_visitor_chats', JSON.stringify(logs));
+            this.renderAdminLogs();
+        } catch (e) {
+            console.warn("Storage notice:", e);
+        }
+    },
+
+    openChatLeadPrompt: function(encodedQuery) {
+        const query = decodeURIComponent(encodedQuery);
+        const messagesContainer = document.getElementById('tax-chatbot-messages');
+        if (!messagesContainer) return;
+
+        const safeQuery = query.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+
+        const promptBox = document.createElement('div');
+        promptBox.className = 'flex justify-start mb-3 animate-in fade-in';
+        promptBox.innerHTML = `
+            <div class="chat-bubble-bot w-[92%] p-3.5 rounded-2xl text-xs bg-orange-50 border border-saffron-300 shadow-md">
+                <div class="font-extrabold text-navy-950 mb-1 flex items-center gap-1.5">
+                    <span>📩</span> Direct Consultation Desk Forwarding
+                </div>
+                <p class="text-[11px] text-slate-600 mb-2.5">
+                    Aapka question hamare tax expert (<strong class="text-saffron-700">gsc@taxkijankari.com</strong>) ko directly bhej diya jayega:
+                </p>
+                <div class="space-y-2 mb-2.5">
+                    <input type="text" id="chat-lead-name" placeholder="Aapka Name (Your Name)" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-800 font-medium focus:ring-1 focus:ring-saffron-500">
+                    <input type="text" id="chat-lead-contact" placeholder="Email ya Mobile Number" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-800 font-medium focus:ring-1 focus:ring-saffron-500">
+                    <textarea id="chat-lead-msg" rows="2" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-800 font-medium focus:ring-1 focus:ring-saffron-500" placeholder="Aapka Sawal / Detail">${safeQuery}</textarea>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="App.submitChatLead(this)" class="flex-1 py-2 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-lg text-xs shadow text-center">
+                        Send Message to Admin (भेजें)
+                    </button>
+                    <button type="button" onclick="this.closest('.animate-in').remove()" class="px-2.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg text-xs">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        `;
+        messagesContainer.appendChild(promptBox);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    },
+
+    submitChatLead: function(btn) {
+        const nameEl = document.getElementById('chat-lead-name');
+        const contactEl = document.getElementById('chat-lead-contact');
+        const msgEl = document.getElementById('chat-lead-msg');
+
+        const name = nameEl ? nameEl.value.trim() : 'Website Visitor';
+        const contact = contactEl ? contactEl.value.trim() : '';
+        const msg = msgEl ? msgEl.value.trim() : '';
+
+        if (!contact) {
+            alert('Kripya apna email ya phone number darj karein taaki hum aapse contact kar sakein.');
+            if (contactEl) contactEl.focus();
+            return;
+        }
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = 'Sending query...';
+        }
+
+        const inquiryData = {
+            id: 'LEAD-' + Date.now().toString().slice(-6),
+            name: name,
+            contact: contact,
+            query: msg,
+            date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+            source: 'Tax Mitra AI Chatbot'
+        };
+
+        // 1. Save to local storage for Admin Logs
+        try {
+            const leads = JSON.parse(localStorage.getItem('tkj_admin_inquiries') || '[]');
+            leads.unshift(inquiryData);
+            localStorage.setItem('tkj_admin_inquiries', JSON.stringify(leads));
+        } catch(e) {}
+
+        // 2. Dispatch via FormSubmit AJAX API to gsc@taxkijankari.com
+        fetch('https://formsubmit.co/ajax/gsc@taxkijankari.com', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _subject: `New Visitor Inquiry from Tax Mitra AI: ${name}`,
+                Name: name,
+                Contact: contact,
+                Message: msg,
+                Time: new Date().toLocaleString(),
+                Platform: 'taxkijankari.com'
+            })
+        }).catch(err => {
+            console.warn("API Dispatch note:", err);
+        });
+
+        // 3. Update Chat UI
+        const container = btn.closest('.animate-in');
+        if (container) {
+            container.innerHTML = `
+                <div class="chat-bubble-bot w-[92%] p-3.5 rounded-2xl text-xs bg-emerald-50 border border-emerald-300 shadow">
+                    <div class="font-extrabold text-emerald-900 mb-1 flex items-center gap-1.5">
+                        <span>✅</span> Query Sent to Admin / Tax Desk!
+                    </div>
+                    <p class="text-[11px] text-emerald-800 leading-relaxed mb-2">
+                        Dhanyawad <strong>${name}</strong>! Aapka question desk (<strong class="underline">gsc@taxkijankari.com</strong>) ko dispatch kar diya gaya hai. Ref ID: <strong>${inquiryData.id}</strong>.
+                    </p>
+                    <a href="mailto:gsc@taxkijankari.com?subject=Inquiry Ref ${inquiryData.id}&body=Name: ${encodeURIComponent(name)}%0D%0AContact: ${encodeURIComponent(contact)}%0D%0AQuestion: ${encodeURIComponent(msg)}" class="inline-block px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] transition-colors">
+                        Direct Email Send karein ✉️
+                    </a>
+                </div>
+            `;
+        }
+
+        this.showToast('Query successfully sent to Admin & recorded in logs!');
+        this.renderAdminLogs();
     },
 
     findBotResponse: function(query) {
@@ -1049,6 +1193,93 @@ const App = {
                     </div>
                 </div>
             `;
+        }
+    },
+
+    // ==========================================
+    // ADMIN CHAT & INQUIRY VIEWER
+    // ==========================================
+    renderAdminLogs: function() {
+        const chatLogsContainer = document.getElementById('admin-chat-logs-container');
+        const inquiryLogsContainer = document.getElementById('admin-inquiry-logs-container');
+        const chatCountBadge = document.getElementById('admin-chat-count');
+        const inquiryCountBadge = document.getElementById('admin-inquiry-count');
+
+        const chats = JSON.parse(localStorage.getItem('tkj_visitor_chats') || '[]');
+        const inquiries = JSON.parse(localStorage.getItem('tkj_admin_inquiries') || '[]');
+
+        if (chatCountBadge) chatCountBadge.textContent = `${chats.length} Visitor Chats`;
+        if (inquiryCountBadge) inquiryCountBadge.textContent = `${inquiries.length} Forwarded Inquiries`;
+
+        // Render Inquiries
+        if (inquiryLogsContainer) {
+            if (inquiries.length === 0) {
+                inquiryLogsContainer.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-xs">
+                        No forwarded inquiries yet. Messages sent via chatbot or contact form will appear here.
+                    </div>
+                `;
+            } else {
+                inquiryLogsContainer.innerHTML = inquiries.map((item, idx) => `
+                    <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-saffron-400 transition-all space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded bg-saffron-100 text-saffron-800 text-[10px] font-bold">${item.id || 'LEAD'}</span>
+                                <strong class="text-xs font-bold text-navy-950">${item.name || 'Visitor'}</strong>
+                            </div>
+                            <span class="text-[10px] text-slate-400">${item.date} ${item.time}</span>
+                        </div>
+                        <div class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <strong>Contact:</strong> <span class="text-saffron-700 font-bold">${item.contact}</span><br>
+                            <strong>Message:</strong> ${item.query || item.message || '-'}
+                        </div>
+                        <div class="flex items-center justify-between pt-1 text-[11px]">
+                            <span class="text-[10px] text-slate-400">Source: ${item.source || 'Website'}</span>
+                            <a href="mailto:${item.contact.includes('@') ? item.contact : 'gsc@taxkijankari.com'}?subject=Re: Tax Consultation Inquiry ${item.id}" class="text-saffron-600 hover:text-saffron-700 font-bold">
+                                Reply via Email →
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Render Visitor Chats
+        if (chatLogsContainer) {
+            if (chats.length === 0) {
+                chatLogsContainer.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-xs">
+                        No visitor chat history yet. When someone asks Tax Mitra a question, it will be logged here live!
+                    </div>
+                `;
+            } else {
+                chatLogsContainer.innerHTML = chats.map((chat, idx) => `
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-all space-y-1.5">
+                        <div class="flex items-center justify-between text-[11px]">
+                            <span class="font-bold text-navy-900 flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                Visitor Question #${chats.length - idx}
+                            </span>
+                            <span class="text-[10px] text-slate-400">${chat.date} ${chat.time}</span>
+                        </div>
+                        <div class="text-xs font-semibold text-slate-800 bg-white p-2 rounded-lg border border-slate-200/80">
+                            💬 "${chat.query}"
+                        </div>
+                        <div class="text-[11px] text-slate-500 line-clamp-2">
+                            🤖 <strong>Bot Response:</strong> ${chat.reply}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+    },
+
+    clearAdminLogs: function() {
+        if (confirm('Are you sure you want to clear all stored chat logs and inquiries on this device?')) {
+            localStorage.removeItem('tkj_visitor_chats');
+            localStorage.removeItem('tkj_admin_inquiries');
+            this.renderAdminLogs();
+            this.showToast('Admin logs cleared successfully.');
         }
     },
 
