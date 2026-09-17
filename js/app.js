@@ -1005,19 +1005,100 @@ const App = {
             const botMsg = document.createElement('div');
             botMsg.className = 'flex justify-start mb-3';
             botMsg.innerHTML = `
-                <div class="chat-bubble-bot max-w-[85%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
-                    ${botResponse}
-                    <div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between">
-                        <span class="text-[10px] text-slate-500 font-medium">Need personal help?</span>
-                        <button type="button" onclick="App.openChatLeadPrompt('${encodeURIComponent(query)}')" class="text-[10px] font-bold text-saffron-700 hover:text-saffron-800 bg-orange-100/80 hover:bg-orange-200/80 px-2 py-0.5 rounded border border-orange-300/60 transition-colors">
-                            ✉️ Send Query to Admin
-                        </button>
+                <div class="chat-bubble-bot max-w-[88%] px-4 py-3 rounded-2xl text-xs leading-relaxed border border-slate-200/50 shadow-sm">
+                    <div>${botResponse}</div>
+
+                    <!-- Live Human Consultation Option (Yes / No Prompt) -->
+                    <div class="mt-3.5 pt-2.5 border-t border-slate-200/70">
+                        <div class="p-2.5 rounded-xl bg-orange-50/90 border border-saffron-200 text-navy-950 space-y-2">
+                            <div class="text-[11px] font-extrabold flex items-center gap-1.5 text-navy-900">
+                                <span>👨‍💼</span> Kya aap hamare Live Tax Expert (Human) se seedha baat karna chahte hain?
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button type="button" onclick="App.connectToTawkLive(true)" class="flex-1 py-1.5 px-2 bg-gradient-saffron hover:opacity-95 text-white font-bold rounded-lg text-[10px] shadow-sm flex items-center justify-center gap-1 transition-transform active:scale-95">
+                                    ✅ Haan (Live Chat - Tawk.to)
+                                </button>
+                                <button type="button" onclick="App.connectToTawkLive(false, this)" class="py-1.5 px-2.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold rounded-lg text-[10px] transition-colors">
+                                    ❌ Nahi (Tax Mitra Se Hi Baat Karein)
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
             messagesContainer.appendChild(botMsg);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }, 400);
+    },
+
+    connectToTawkLive: function(isLive, btnEl) {
+        const messagesContainer = document.getElementById('tax-chatbot-messages');
+        if (!messagesContainer) return;
+
+        if (isLive) {
+            // Visitor clicked YES -> Connect to Tawk.to
+            const connectMsg = document.createElement('div');
+            connectMsg.className = 'flex justify-start mb-3 animate-in fade-in';
+            connectMsg.innerHTML = `
+                <div class="chat-bubble-bot max-w-[88%] px-4 py-3 rounded-2xl text-xs leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-sm">
+                    <div class="font-extrabold flex items-center gap-1.5 mb-1">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>Connecting to Live Tax Expert on Tawk.to...</span>
+                    </div>
+                    <p class="text-[11px] leading-relaxed mb-2.5">
+                        Aapko hamare <strong>Live Human Tax Consultant</strong> se joda ja raha hai. Please 1 second wait karein...
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="App.triggerTawkMaximize()" class="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-lg text-[10px] flex items-center gap-1 shadow transition-colors">
+                            Open Tawk.to Live Window 💬
+                        </button>
+                        <button type="button" onclick="App.openChatLeadPrompt('Live Consultation Request')" class="px-2.5 py-1.5 bg-white border border-emerald-300 text-emerald-800 font-bold rounded-lg text-[10px] hover:bg-emerald-50 transition-colors">
+                            Leave Contact Details 📝
+                        </button>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(connectMsg);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Trigger Tawk.to live chat window
+            setTimeout(() => {
+                this.triggerTawkMaximize();
+            }, 600);
+
+        } else {
+            // Visitor clicked NO -> Continue with Tax Mitra
+            if (btnEl) {
+                const parentBox = btnEl.closest('.bg-orange-50\\/90') || btnEl.parentElement.parentElement;
+                if (parentBox) {
+                    parentBox.innerHTML = `
+                        <div class="text-[11px] text-slate-600 font-semibold flex items-center gap-1.5">
+                            <span>👌</span> Theek hai! Tax Mitra aapki sahayata ke liye hazir hai. GST, ITR ya kisi bhi naye tax topic par sawal poochiye!
+                        </div>
+                    `;
+                }
+            }
+        }
+    },
+
+    triggerTawkMaximize: function() {
+        if (typeof window.Tawk_API !== 'undefined') {
+            try {
+                if (typeof window.Tawk_API.showWidget === 'function') {
+                    window.Tawk_API.showWidget();
+                }
+                if (typeof window.Tawk_API.maximize === 'function') {
+                    window.Tawk_API.maximize();
+                    this.toggleChatbot(false);
+                    return;
+                }
+            } catch(e) {
+                console.warn("Tawk maximize error:", e);
+            }
+        }
+        
+        // If Tawk hasn't loaded yet
+        this.showToast('Connecting to Live Chat Agent...');
     },
 
     recordChatLog: function(userQuery, botReply) {

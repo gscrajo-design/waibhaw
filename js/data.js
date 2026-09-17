@@ -13,6 +13,11 @@ const TaxData = {
         disclaimer: "Tax Ki Jankari (taxkijankari.com) is a private tax assistance, consultancy, and information portal. We are NOT affiliated with, sponsored by, or endorsed by the Goods and Services Tax Network (GSTN), Central Board of Indirect Taxes & Customs (CBIC), Central Board of Direct Taxes (CBDT), or the Income Tax Department of India."
     },
 
+    tawkConfig: {
+        enabled: true,
+        embedUrl: "https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID"
+    },
+
     services: [
         {
             id: "gst-registration",

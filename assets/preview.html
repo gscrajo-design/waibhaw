@@ -1670,7 +1670,10 @@
                     <p class="text-[11px] text-slate-300">AI Tax, GST & ITR Assistant</p>
                 </div>
             </div>
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1.5">
+                <button type="button" onclick="App.connectToTawkLive(true)" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-extrabold flex items-center gap-1 transition-colors shadow-sm" title="Connect to Live Human Tax Expert on Tawk.to">
+                    <span>👨‍💼</span> <span>Live Expert</span>
+                </button>
                 <button id="tax-chatbot-clear" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Clear Chat">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                 </button>
@@ -1720,6 +1723,32 @@
                 lucide.createIcons();
             }
         });
+    </script>
+
+    <!-- =========================================================================
+         TAWK.TO LIVE CHAT INTEGRATION SCRIPT
+         ========================================================================= -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            // Agar aapke paas Tawk.to Property ID hai toh niche URL me daalein
+            var tawkUrl = (window.TaxData && window.TaxData.tawkConfig && window.TaxData.tawkConfig.embedUrl) 
+                ? window.TaxData.tawkConfig.embedUrl 
+                : 'https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID';
+            s1.src = tawkUrl;
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+
+        // Keep Tawk.to widget hidden initially so Tax Mitra AI button remains primary
+        Tawk_API.onLoad = function() {
+            if (typeof Tawk_API.hideWidget === 'function') {
+                Tawk_API.hideWidget();
+            }
+        };
     </script>
 </body>
 </html>
