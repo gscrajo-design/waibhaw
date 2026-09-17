@@ -15,7 +15,7 @@ const TaxData = {
 
     tawkConfig: {
         enabled: true,
-        embedUrl: "https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID"
+        embedUrl: "https://embed.tawk.to/6aab8bddf4f8c3344606889e/1k2n1kmt5"
     },
 
     services: [
