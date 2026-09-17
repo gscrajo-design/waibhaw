@@ -425,31 +425,47 @@ const TaxData = {
 
     chatbotKnowledge: [
         {
-            keywords: ["old", "new", "regime", "difference", "compare", "slab", "tax slab", "which is better"],
+            keywords: ["hi", "hello", "namaste", "hey", "hola", "shuru", "start", "kaise ho", "kaise", "pranam"],
+            answer: "👋 <strong>Namaste! Main hoon Tax Mitra.</strong><br>Main aapka AI Tax & Compliance Assistant hoon. Main GST Registration, GST Return Filing, ITR Forms (1, 2, 3, 4), Old vs New Regime calculation, aur HSN Code search karne me aapki madad kar sakta hoon.<br><br>Aap mujhse koi bhi tax sawal pooch sakte hain!"
+        },
+        {
+            keywords: ["old", "new", "regime", "difference", "compare", "slab", "tax slab", "which is better", "regime kaun sa", "kaun sa acha", "new regime", "old regime"],
             answer: "<strong>Old vs New Tax Regime Comparison:</strong><br>• <strong>New Regime (Default):</strong> Lowest tax slab rates, ₹75,000 standard deduction for salaried, and <strong>₹0 Tax up to ₹7.75 Lakhs</strong> (via Sec 87A rebate).<br>• <strong>Old Regime:</strong> Best if you have high deductions (80C ₹1.5L, 80D ₹25k, HRA, Home Loan interest ₹2L).<br>👉 Use our <a href='#calculators' class='text-saffron-600 font-bold underline'>Tax Calculator</a> to compare your exact tax in 5 seconds!"
         },
         {
-            keywords: ["hsn", "sac", "rate", "gst rate", "code", "find hsn"],
+            keywords: ["hsn", "sac", "rate", "gst rate", "code", "find hsn", "hsn code", "rate kya hai"],
             answer: "<strong>GST HSN & SAC Codes:</strong><br>• <strong>HSN</strong> (Harmonized System of Nomenclature) is used for Goods.<br>• <strong>SAC</strong> (Services Accounting Code) is used for Services.<br>Common Rates: Essential Food/Health (0-5%), Footwear/Apparel (5-12%), IT/Electronics/Consulting (18%), Luxury/Auto/Cement (28%).<br>👉 Use our built-in <a href='#view-gst' class='text-saffron-600 font-bold underline'>HSN Code Finder Tool</a> to search any product/service!"
         },
         {
-            keywords: ["due date", "calendar", "gstr1", "gstr-1", "gstr3b", "gstr-3b", "cmp-08", "itr due date", "deadline"],
+            keywords: ["due date", "calendar", "gstr1", "gstr-1", "gstr3b", "gstr-3b", "cmp-08", "itr due date", "deadline", "date", "tarikh", "last date"],
             answer: "<strong>Key Tax Due Dates:</strong><br>• <strong>GSTR-1:</strong> 11th of every month (Monthly)<br>• <strong>GSTR-3B:</strong> 20th of every month<br>• <strong>CMP-08 (Composition):</strong> 18th following quarter end<br>• <strong>ITR (Non-Audit):</strong> 31st July of Assessment Year<br>👉 Check live countdowns in our <a href='#updates' class='text-saffron-600 font-bold underline'>Compliance Calendar</a>."
         },
         {
-            keywords: ["registration", "gst registration", "new gst", "limit", "turnover limit", "40 lakh"],
-            answer: "<strong>GST Registration Thresholds:</strong><br>• <strong>Goods:</strong> ₹40 Lakhs annual turnover (₹20L in Special Category States).<br>• <strong>Services:</strong> ₹20 Lakhs annual turnover (₹10L in Special Category States).<br>• <strong>Mandatory for:</strong> E-commerce sellers (Amazon/Flipkart), Interstate sellers, RCM taxpayers.<br>👉 We assist full GST Registration at ₹999*. <a href='#contact' class='text-saffron-600 font-bold underline'>Apply Online Here</a>."
+            keywords: ["registration", "gst registration", "new gst", "limit", "turnover limit", "40 lakh", "gst number", "gst kaise", "gst apply"],
+            answer: "<strong>GST Registration Thresholds & Process:</strong><br>• <strong>Goods:</strong> ₹40 Lakhs annual turnover (₹20L in Special Category States).<br>• <strong>Services:</strong> ₹20 Lakhs annual turnover (₹10L in Special Category States).<br>• <strong>Mandatory for:</strong> E-commerce sellers (Amazon/Flipkart), Interstate sellers, RCM taxpayers.<br>👉 We assist full GST Registration at ₹999*. <a href='#contact' class='text-saffron-600 font-bold underline'>Apply Online Here</a>."
         },
         {
-            keywords: ["itr1", "itr-1", "itr2", "itr-2", "itr3", "itr-3", "itr4", "itr-4", "form"],
+            keywords: ["itr1", "itr-1", "itr2", "itr-2", "itr3", "itr-3", "itr4", "itr-4", "form", "itr kaise", "itr file", "income tax return"],
             answer: "<strong>Which ITR Form to File:</strong><br>• <strong>ITR-1 (Sahaj):</strong> Salaried/Pensioners with 1 house property & income up to ₹50L.<br>• <strong>ITR-2:</strong> Capital Gains (Stocks/Mutual Funds/Crypto/Real Estate) or >1 house property.<br>• <strong>ITR-3 / 4:</strong> Business profit, Freelancers, Presumptive taxation (44AD/44ADA).<br>👉 We file your ITR accurately starting at ₹499*. <a href='#contact' class='text-saffron-600 font-bold underline'>Book Filing Help</a>."
         },
         {
-            keywords: ["fee", "price", "pricing", "cost", "charge"],
+            keywords: ["80c", "80d", "deduction", "tax bachaye", "save tax", "lic", "ppf", "elss", "hra"],
+            answer: "<strong>Tax Saving Deductions (Old Regime):</strong><br>• <strong>Section 80C:</strong> Up to ₹1.5 Lakhs (EPF, PPF, ELSS Mutual Funds, Life Insurance, School Fees).<br>• <strong>Section 80D:</strong> Health insurance premium up to ₹25,000 (Self) + ₹50,000 (Senior Citizen Parents).<br>• <strong>Section 24(b):</strong> Home loan interest up to ₹2,00,000.<br>• <strong>HRA:</strong> House Rent Allowance exemption based on actual rent paid."
+        },
+        {
+            keywords: ["refund", "itr refund", "gst refund", "paisa wapas", "refund kab", "status"],
+            answer: "<strong>Tax Refund Information:</strong><br>• <strong>ITR Refund:</strong> Processed by CPC Bangalore within 2 to 5 weeks after e-verification. Make sure your Bank Account is validated & pre-validated on Income Tax portal.<br>• <strong>GST Refund:</strong> Filed via Form RFD-01 for inverted duty structure or export without payment of tax.<br>👉 Need assistance tracking or claiming refund? <a href='#contact' class='text-saffron-600 font-bold underline'>Contact our Experts</a>."
+        },
+        {
+            keywords: ["penalty", "late fee", "234f", "notice", "delay", "late", "challan", "fine"],
+            answer: "<strong>Late Fees & Penalties:</strong><br>• <strong>ITR Late Fee (Sec 234F):</strong> ₹1,000 (Income up to ₹5L) or ₹5,000 (Income > ₹5L) + 1% per month interest under Sec 234A.<br>• <strong>GST Late Fee:</strong> ₹50/day (Regular) or ₹20/day (Nil return) subject to maximum caps.<br>👉 Always file on or before due dates to avoid penalty. <a href='#updates' class='text-saffron-600 font-bold underline'>Check Due Dates</a>."
+        },
+        {
+            keywords: ["fee", "price", "pricing", "cost", "charge", "kitna lagega", "fees"],
             answer: "<strong>Our Assistance Fees:</strong><br>• <strong>GST Registration:</strong> ₹999* (Fast 3-7 Days)<br>• <strong>GST Return Filing:</strong> ₹499*/month<br>• <strong>ITR Filing (Salaried/Business):</strong> ₹499*<br>• <strong>GST Amendment / Cancellation:</strong> ₹799*<br>• <strong>Tax Notice Advisory:</strong> ₹499*<br>👉 <a href='#services' class='text-saffron-600 font-bold underline'>View Full Services & Apply</a>."
         },
         {
-            keywords: ["contact", "email", "support", "help", "consult"],
+            keywords: ["contact", "email", "support", "help", "consult", "baat", "phone", "number", "sampark"],
             answer: "<strong>Contact Tax Ki Jankari:</strong><br>• <strong>Official Email:</strong> <a href='mailto:gsc@taxkijankari.com' class='text-saffron-600 font-bold'>gsc@taxkijankari.com</a><br>• <strong>Working Hours:</strong> Mon - Sat: 9:30 AM to 7:30 PM (IST)<br>• <strong>Response Time:</strong> 2-4 hours.<br>👉 You can also fill the <a href='#contact' class='text-saffron-600 font-bold underline'>Online Inquiry Form</a> to get an expert callback."
         }
     ]

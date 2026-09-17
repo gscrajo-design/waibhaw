@@ -1641,7 +1641,7 @@
          ========================================================================= -->
     <!-- Floating Chatbot Launcher Button -->
     <div id="tax-chatbot-container" class="fixed bottom-6 right-6 z-50">
-        <button id="tax-chatbot-toggle" type="button" class="group flex items-center gap-2.5 px-4 py-3.5 bg-gradient-to-r from-saffron-500 to-orange-600 hover:from-saffron-600 hover:to-orange-700 text-white font-bold text-sm rounded-full shadow-2xl hover:scale-105 transition-all duration-200" aria-label="Open Tax AI Assistant">
+        <button id="tax-chatbot-toggle" type="button" onclick="App.toggleChatbot()" class="group flex items-center gap-2.5 px-4 py-3.5 bg-gradient-to-r from-saffron-500 to-orange-600 hover:from-saffron-600 hover:to-orange-700 text-white font-bold text-sm rounded-full shadow-2xl hover:scale-105 transition-all duration-200 cursor-pointer" aria-label="Open Tax AI Assistant">
             <div class="relative flex items-center justify-center">
                 <span class="text-xl leading-none">🤖</span>
                 <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
@@ -1674,10 +1674,10 @@
                 <button type="button" onclick="App.connectToTawkLive(true)" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-extrabold flex items-center gap-1 transition-colors shadow-sm" title="Connect to Live Human Tax Expert on Tawk.to">
                     <span>👨‍💼</span> <span>Live Expert</span>
                 </button>
-                <button id="tax-chatbot-clear" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Clear Chat">
+                <button id="tax-chatbot-clear" type="button" onclick="App.clearChat()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Clear Chat">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                 </button>
-                <button id="tax-chatbot-close" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Close">
+                <button id="tax-chatbot-close" type="button" onclick="App.toggleChatbot(false)" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Close">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -1686,10 +1686,10 @@
         <!-- Quick Prompts Bar -->
         <div class="px-3 py-2 bg-slate-50 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto flex-shrink-0">
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">Quick:</span>
-            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What are the latest GST return due dates?">Due Dates</button>
-            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What is the difference between Old and New tax regime?">Old vs New ITR</button>
-            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to find HSN / SAC codes and GST rate?">HSN Codes</button>
-            <button type="button" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to apply for GST registration and what documents are required?">GST Registration</button>
+            <button type="button" onclick="App.sendChatMessage(this.getAttribute('data-prompt'))" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What are the latest GST return due dates?">Due Dates</button>
+            <button type="button" onclick="App.sendChatMessage(this.getAttribute('data-prompt'))" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="What is the difference between Old and New tax regime?">Old vs New ITR</button>
+            <button type="button" onclick="App.sendChatMessage(this.getAttribute('data-prompt'))" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to find HSN / SAC codes and GST rate?">HSN Codes</button>
+            <button type="button" onclick="App.sendChatMessage(this.getAttribute('data-prompt'))" class="chat-prompt-pill px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-saffron-50 hover:border-saffron-300 hover:text-saffron-700 text-[11px] font-semibold whitespace-nowrap transition-colors" data-prompt="How to apply for GST registration and what documents are required?">GST Registration</button>
         </div>
 
         <!-- Chat Messages Area -->
@@ -1704,8 +1704,8 @@
 
         <!-- Chat Input Bar -->
         <div class="p-3 bg-white border-t border-slate-100 flex items-center gap-2 flex-shrink-0">
-            <input type="text" id="tax-chatbot-input" placeholder="Type your question in Hindi/English..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:bg-white transition-all">
-            <button id="tax-chatbot-send" type="button" class="p-2.5 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-white font-bold transition-colors shadow flex items-center justify-center" aria-label="Send Message">
+            <input type="text" id="tax-chatbot-input" onkeydown="if(event.key==='Enter'){event.preventDefault(); App.sendChatMessageFromInput();}" placeholder="Type your question in Hindi/English..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:bg-white transition-all">
+            <button id="tax-chatbot-send" type="button" onclick="App.sendChatMessageFromInput()" class="p-2.5 rounded-xl bg-saffron-600 hover:bg-saffron-700 text-white font-bold transition-colors shadow flex items-center justify-center cursor-pointer" aria-label="Send Message">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
         </div>

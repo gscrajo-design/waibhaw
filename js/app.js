@@ -912,53 +912,63 @@ const App = {
         const clearBtn = document.getElementById('tax-chatbot-clear');
 
         if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => this.toggleChatbot());
+            toggleBtn.onclick = () => this.toggleChatbot();
         }
         if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.toggleChatbot(false));
+            closeBtn.onclick = () => this.toggleChatbot(false);
         }
-        if (sendBtn && inputEl) {
-            sendBtn.addEventListener('click', () => {
-                const text = inputEl.value.trim();
-                if (text) {
-                    this.sendChatMessage(text);
-                    inputEl.value = '';
-                }
-            });
+        if (sendBtn) {
+            sendBtn.onclick = () => this.sendChatMessageFromInput();
         }
         if (inputEl) {
-            inputEl.addEventListener('keydown', (e) => {
+            inputEl.onkeydown = (e) => {
                 if (e.key === 'Enter') {
-                    const text = inputEl.value.trim();
-                    if (text) {
-                        this.sendChatMessage(text);
-                        inputEl.value = '';
-                    }
+                    e.preventDefault();
+                    this.sendChatMessageFromInput();
                 }
-            });
+            };
         }
         if (clearBtn) {
-            clearBtn.addEventListener('click', () => this.clearChat());
+            clearBtn.onclick = () => this.clearChat();
         }
 
         // Quick prompt chips
         document.querySelectorAll('.chat-prompt-pill').forEach(pill => {
-            pill.addEventListener('click', () => {
+            pill.onclick = () => {
                 const text = pill.getAttribute('data-prompt') || pill.textContent.trim();
                 this.sendChatMessage(text);
-            });
+            };
         });
+    },
+
+    sendChatMessageFromInput: function() {
+        const inputEl = document.getElementById('tax-chatbot-input');
+        if (!inputEl) return;
+        const text = inputEl.value.trim();
+        if (text) {
+            this.sendChatMessage(text);
+            inputEl.value = '';
+        }
     },
 
     toggleChatbot: function(forceState) {
         const win = document.getElementById('tax-chatbot-window');
         if (!win) return;
-        if (forceState === false) {
-            win.classList.add('hidden');
-        } else if (forceState === true) {
+        const isCurrentlyOpen = win.classList.contains('active-chat');
+        const shouldOpen = (typeof forceState === 'boolean') ? forceState : !isCurrentlyOpen;
+
+        if (shouldOpen) {
             win.classList.remove('hidden');
+            win.classList.add('active-chat');
+            win.style.display = 'flex';
+            const inputEl = document.getElementById('tax-chatbot-input');
+            if (inputEl) setTimeout(() => inputEl.focus(), 150);
+            const msgContainer = document.getElementById('tax-chatbot-messages');
+            if (msgContainer) msgContainer.scrollTop = msgContainer.scrollHeight;
         } else {
-            win.classList.toggle('hidden');
+            win.classList.remove('active-chat');
+            win.classList.add('hidden');
+            win.style.display = 'none';
         }
     },
 
@@ -1236,30 +1246,45 @@ const App = {
     },
 
     findBotResponse: function(query) {
-        const q = query.toLowerCase();
+        const q = query.toLowerCase().trim();
         if (!TaxData.chatbotKnowledge) {
-            return "Hello! How can I assist you with your GST, ITR, or tax filing questions today?";
+            return "👋 Namaste! Main Tax Mitra hoon. Main GST, ITR, Slabs aur HSN search me aapki madad kar sakta hoon.";
         }
 
-        // Match against knowledge base
+        // Tokenized score-based matching
+        let bestMatch = null;
+        let maxScore = 0;
+
         for (let i = 0; i < TaxData.chatbotKnowledge.length; i++) {
             const item = TaxData.chatbotKnowledge[i];
+            let score = 0;
             for (let j = 0; j < item.keywords.length; j++) {
-                if (q.includes(item.keywords[j].toLowerCase())) {
-                    return item.answer;
+                const kw = item.keywords[j].toLowerCase();
+                if (q === kw) {
+                    score += 15;
+                } else if (q.includes(kw)) {
+                    score += (kw.length > 3 ? 5 : 2);
                 }
+            }
+            if (score > maxScore) {
+                maxScore = score;
+                bestMatch = item.answer;
             }
         }
 
-        // Default intelligent fallback
+        if (bestMatch && maxScore > 0) {
+            return bestMatch;
+        }
+
+        // Intelligent default fallback
         return `
-            <strong>Thanks for your question!</strong><br>
-            I can help you with:<br>
+            <strong>Aapke sawal ke liye dhanyawad!</strong><br>
+            Main in pramukh vishayon par turant jankari de sakta hoon:<br>
             • <a href="#calculators" class="text-saffron-600 font-bold underline">Income Tax Old vs New Calculator</a><br>
             • <a href="#view-gst" class="text-saffron-600 font-bold underline">GST HSN Code & Rate Finder</a><br>
             • <a href="#updates" class="text-saffron-600 font-bold underline">Statutory Return Due Dates</a><br>
             • <a href="#services" class="text-saffron-600 font-bold underline">Paid Filing Services (GST/ITR)</a><br><br>
-            For personalized assistance, send your query to <a href="mailto:gsc@taxkijankari.com" class="text-saffron-600 font-bold">gsc@taxkijankari.com</a> or <a href="#contact" class="text-saffron-600 font-bold underline">Submit Inquiry Online</a>.
+            Aap upar diye gaye prompt pills par click karke ya direct sawal type karke pooch sakte hain.
         `;
     },
 
