@@ -20,7 +20,7 @@ const App = {
             this.renderHsnList();
             this.initCalculatorsUI();
             this.initChatbot();
-            this.renderAdminLogs();
+            this.initAdminAuth();
             this.initClientPortal();
             this.handleRoute();
         } catch (err) {
@@ -77,6 +77,13 @@ const App = {
         if (activeSec) {
             activeSec.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Contextual panel initialization
+        if (activeView === 'admin') {
+            this.renderAdminPanel();
+        } else if (activeView === 'portal') {
+            this.renderPortalView();
         }
 
         // Update active nav links
@@ -1381,12 +1388,121 @@ const App = {
         }
     },
 
-    clearAdminLogs: function() {
-        if (confirm('Are you sure you want to clear all stored chat logs and inquiries on this device?')) {
-            localStorage.removeItem('tkj_visitor_chats');
-            localStorage.removeItem('tkj_admin_inquiries');
+    // ==========================================
+    // ADMIN MASTER SECURITY & AUTHENTICATION
+    // ==========================================
+    initAdminAuth: function() {
+        if (!localStorage.getItem('tkj_admin_config')) {
+            localStorage.setItem('tkj_admin_config', JSON.stringify({
+                username: 'admin',
+                password: 'taxadmin@2026',
+                email: 'gsc@taxkijankari.com'
+            }));
+        }
+    },
+
+    isAdminLoggedIn: function() {
+        return sessionStorage.getItem('tkj_admin_auth') === 'true';
+    },
+
+    adminLogin: function(userInput, passInput) {
+        const u = (userInput || '').trim();
+        const p = (passInput || '').trim();
+
+        if (!u || !p) {
+            this.showToast('Kripya Admin Username aur Master Password dono bharein.', 'error');
+            return;
+        }
+
+        const config = JSON.parse(localStorage.getItem('tkj_admin_config') || '{"username":"admin","password":"taxadmin@2026"}');
+
+        if ((u.toLowerCase() === config.username.toLowerCase() || u.toLowerCase() === 'gsc@taxkijankari.com') && p === config.password) {
+            sessionStorage.setItem('tkj_admin_auth', 'true');
+            this.renderAdminPanel();
+            this.showToast('Master Admin Access Granted! Welcome to Consultant Desk.', 'success');
+        } else {
+            this.showToast('Galat Admin ID ya Password! Access Denied.', 'error');
+        }
+    },
+
+    adminLogout: function() {
+        sessionStorage.removeItem('tkj_admin_auth');
+        this.renderAdminPanel();
+        this.showToast('Logged out from Master Admin Desk.', 'info');
+    },
+
+    renderAdminPanel: function() {
+        const authGate = document.getElementById('admin-auth-gate');
+        const dashboardPanel = document.getElementById('admin-dashboard-panel');
+
+        if (this.isAdminLoggedIn()) {
+            if (authGate) authGate.classList.add('hidden');
+            if (dashboardPanel) dashboardPanel.classList.remove('hidden');
+            this.renderAdminClients();
+            this.renderAdminSalesSubmissions();
             this.renderAdminLogs();
-            this.showToast('Admin logs cleared successfully.');
+        } else {
+            if (authGate) authGate.classList.remove('hidden');
+            if (dashboardPanel) dashboardPanel.classList.add('hidden');
+            // Clear sensitive tables from DOM when logged out
+            const clientsTable = document.getElementById('admin-clients-table-body');
+            const subsTable = document.getElementById('admin-submissions-table-body');
+            if (clientsTable) clientsTable.innerHTML = '';
+            if (subsTable) subsTable.innerHTML = '';
+        }
+    },
+
+    changeAdminPassword: function() {
+        const oldPassEl = document.getElementById('admin-sec-old-pass');
+        const newPassEl = document.getElementById('admin-sec-new-pass');
+        const confirmPassEl = document.getElementById('admin-sec-confirm-pass');
+
+        const oldPass = oldPassEl ? oldPassEl.value.trim() : '';
+        const newPass = newPassEl ? newPassEl.value.trim() : '';
+        const confirmPass = confirmPassEl ? confirmPassEl.value.trim() : '';
+
+        const config = JSON.parse(localStorage.getItem('tkj_admin_config') || '{"username":"admin","password":"taxadmin@2026"}');
+
+        if (oldPass !== config.password) {
+            this.showToast('Current Master Password galat hai!', 'error');
+            if (oldPassEl) oldPassEl.focus();
+            return;
+        }
+
+        if (newPass.length < 6) {
+            this.showToast('New password kam se kam 6 characters ka hona chahiye.', 'error');
+            if (newPassEl) newPassEl.focus();
+            return;
+        }
+
+        if (newPass !== confirmPass) {
+            this.showToast('New Password aur Confirm Password match nahi ho rahe!', 'error');
+            if (confirmPassEl) confirmPassEl.focus();
+            return;
+        }
+
+        config.password = newPass;
+        localStorage.setItem('tkj_admin_config', JSON.stringify(config));
+
+        if (oldPassEl) oldPassEl.value = '';
+        if (newPassEl) newPassEl.value = '';
+        if (confirmPassEl) confirmPassEl.value = '';
+
+        this.showToast('Admin Master Password safaltapoorvak update ho gaya!', 'success');
+    },
+
+    togglePasswordVisibility: function(btn, actualPassword) {
+        const span = btn.previousElementSibling;
+        if (!span) return;
+        const isMasked = span.getAttribute('data-masked') !== 'false';
+        if (isMasked) {
+            span.textContent = actualPassword;
+            span.setAttribute('data-masked', 'false');
+            btn.innerHTML = '🙈 Hide';
+        } else {
+            span.textContent = '••••••••';
+            span.setAttribute('data-masked', 'true');
+            btn.innerHTML = '👁️ Show';
         }
     },
 
@@ -1453,8 +1569,10 @@ const App = {
         }
 
         this.renderPortalView();
-        this.renderAdminClients();
-        this.renderAdminSalesSubmissions();
+        if (this.isAdminLoggedIn()) {
+            this.renderAdminClients();
+            this.renderAdminSalesSubmissions();
+        }
     },
 
     getClientAccounts: function() {
@@ -1634,7 +1752,9 @@ const App = {
         if (notesEl) notesEl.value = '';
 
         this.renderClientHistoryTable(client.id);
-        this.renderAdminSalesSubmissions();
+        if (this.isAdminLoggedIn()) {
+            this.renderAdminSalesSubmissions();
+        }
     },
 
     renderClientHistoryTable: function(clientId) {
@@ -1682,6 +1802,7 @@ const App = {
     // ADMIN PORTAL - CLIENT & REPORT MANAGEMENT
     // ==========================================
     renderAdminClients: function() {
+        if (!this.isAdminLoggedIn()) return;
         const container = document.getElementById('admin-clients-table-body');
         const countBadge = document.getElementById('admin-clients-count');
         if (!container) return;
@@ -1707,7 +1828,12 @@ const App = {
                     <span class="block text-[10px] text-slate-400 font-normal">Owner: ${acc.ownerName || '-'}</span>
                 </td>
                 <td class="py-3 px-4 text-xs font-mono font-bold text-saffron-700 bg-saffron-50/50 px-2 rounded">${acc.username}</td>
-                <td class="py-3 px-4 text-xs font-mono font-semibold text-slate-700 bg-slate-100/60 px-2 rounded">${acc.password}</td>
+                <td class="py-3 px-4 text-xs font-mono font-semibold text-slate-700 bg-slate-100/60 px-2 rounded">
+                    <span class="inline-block mr-1.5" data-masked="true">••••••••</span>
+                    <button type="button" onclick="App.togglePasswordVisibility(this, '${acc.password}')" class="text-[10px] font-bold text-saffron-600 hover:text-saffron-800 underline">
+                        👁️ Show
+                    </button>
+                </td>
                 <td class="py-3 px-4 text-xs font-mono text-slate-600">${acc.gstin || '-'}</td>
                 <td class="py-3 px-4 text-xs text-slate-600">${acc.scheme || 'Regular'}</td>
                 <td class="py-3 px-4 text-right">
@@ -1720,6 +1846,11 @@ const App = {
     },
 
     addNewClientAccount: function() {
+        if (!this.isAdminLoggedIn()) {
+            this.showToast('Please login to Master Admin to perform this action.', 'error');
+            return;
+        }
+
         const nameEl = document.getElementById('admin-new-client-name');
         const ownerEl = document.getElementById('admin-new-client-owner');
         const userEl = document.getElementById('admin-new-client-username');
@@ -1776,6 +1907,7 @@ const App = {
     },
 
     deleteClientAccount: function(id) {
+        if (!this.isAdminLoggedIn()) return;
         if (!confirm('Are you sure you want to delete this client account?')) return;
         let accounts = this.getClientAccounts();
         accounts = accounts.filter(a => a.id !== id);
@@ -1785,6 +1917,7 @@ const App = {
     },
 
     renderAdminSalesSubmissions: function() {
+        if (!this.isAdminLoggedIn()) return;
         const container = document.getElementById('admin-submissions-table-body');
         const countBadge = document.getElementById('admin-submissions-count');
         if (!container) return;
@@ -1834,6 +1967,7 @@ const App = {
     },
 
     updateSubmissionStatus: function(recordId, newStatus) {
+        if (!this.isAdminLoggedIn()) return;
         const records = this.getSalesRecords();
         const rec = records.find(r => r.id === recordId);
         if (rec) {
@@ -1863,6 +1997,7 @@ const App = {
     },
 
     deleteSalesRecord: function(recordId) {
+        if (!this.isAdminLoggedIn()) return;
         if (!confirm('Are you sure you want to delete this sales submission record?')) return;
         let records = this.getSalesRecords();
         records = records.filter(r => r.id !== recordId);

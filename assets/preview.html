@@ -1393,28 +1393,83 @@
         </section>
 
         <!-- =====================================================================
-             VIEW 12: ADMIN MANAGEMENT & INBOX PANEL
+             VIEW 12: ADMIN MANAGEMENT & INBOX PANEL (PASSWORD PROTECTED)
              ===================================================================== -->
         <section id="view-admin" class="view-section hidden py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
+
+                <!-- 1. ADMIN MASTER AUTHENTICATION GATE (Shown when logged out) -->
+                <div id="admin-auth-gate" class="max-w-md mx-auto bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-2xl space-y-6">
+                    <div class="text-center space-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 text-saffron-400 border-2 border-saffron-500/30 flex items-center justify-center mx-auto shadow-xl">
+                            <i data-lucide="lock" class="w-8 h-8"></i>
+                        </div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-red-50 text-red-700 text-[11px] font-extrabold border border-red-200 uppercase tracking-wider">
+                            Restricted Access • गोपनीय डेस्क
+                        </span>
+                        <h2 class="text-2xl font-black text-navy-950">Master Admin Login</h2>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Ye area keval authorized <strong>Tax Consultant / Desk Owner</strong> ke liye password-protected hai. Apne master credentials darj karke access karein.
+                        </p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); App.adminLogin(document.getElementById('admin-auth-username').value, document.getElementById('admin-auth-password').value);" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Master Username / Email *</label>
+                            <input type="text" id="admin-auth-username" required placeholder="admin or gsc@taxkijankari.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-saffron-500 bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Master Password *</label>
+                            <input type="password" id="admin-auth-password" required placeholder="Enter Master Password" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-saffron-500 bg-slate-50">
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-navy-950 hover:bg-navy-900 text-white font-extrabold rounded-xl text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                            <i data-lucide="key" class="w-4 h-4 text-saffron-400"></i> Unlock Admin Workspace →
+                        </button>
+                    </form>
+
+                    <!-- Consultant Quick Info Box -->
+                    <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                        <div class="font-extrabold flex items-center gap-1 text-amber-950">
+                            <span>🔑</span> Default Master Login Key:
+                        </div>
+                        <div>Username: <strong class="font-mono text-navy-950">admin</strong></div>
+                        <div>Default Password: <strong class="font-mono text-navy-950">taxadmin@2026</strong></div>
+                        <p class="text-[10px] text-amber-700 pt-1">
+                            (Aap login karne ke baad Security Tab se Master Password kabhi bhi badal sakte hain).
+                        </p>
+                    </div>
+
+                    <div class="text-center pt-1">
+                        <a href="#home" class="text-xs font-bold text-slate-500 hover:text-navy-950 transition-colors">
+                            ← Return to Website Home
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. ADMIN AUTHENTICATED DASHBOARD (Shown ONLY when logged in) -->
+                <div id="admin-dashboard-panel" class="hidden bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
                     
-                    <!-- Admin Panel Header & Tabs -->
+                    <!-- Admin Panel Header & Status -->
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                         <div>
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="px-3 py-1 bg-navy-950 text-white text-xs font-bold rounded-full">
                                     Tax Ki Jankari – Admin Workspace
                                 </span>
-                                <span class="text-xs text-emerald-600 font-bold">● Active Controller</span>
+                                <span class="text-xs text-emerald-600 font-bold flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Master Authenticated
+                                </span>
                             </div>
                             <h1 class="text-2xl sm:text-3xl font-black text-navy-950">Tax Consultant & Client Administration</h1>
                             <p class="text-xs text-slate-500 mt-1">Manage client login credentials, inspect submitted GST sales records, update filing statuses, and view live visitor chats.</p>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
-                            <a href="#portal" class="px-4 py-2 bg-orange-50 hover:bg-orange-100 text-saffron-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-saffron-200">
-                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Open Client Portal View
+                            <a href="#portal" class="px-3.5 py-2 bg-orange-50 hover:bg-orange-100 text-saffron-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-saffron-200">
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Client Portal View
                             </a>
+                            <button type="button" onclick="App.adminLogout()" class="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-red-200">
+                                <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Logout Admin
+                            </button>
                         </div>
                     </div>
 
@@ -1428,6 +1483,9 @@
                         </button>
                         <button id="admin-tab-inbox-btn" type="button" onclick="App.switchAdminTab('inbox')" class="admin-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
                             <span>📩</span> Visitor Inquiries & Chat Logs
+                        </button>
+                        <button id="admin-tab-security-btn" type="button" onclick="App.switchAdminTab('security')" class="admin-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+                            <span>🔐</span> Master Security Settings
                         </button>
                     </div>
 
@@ -1598,7 +1656,38 @@
                         </div>
                     </div>
 
+                    <!-- TAB 4 CONTENT: Security & Master Password Management -->
+                    <div id="admin-tab-security-content" class="admin-tab-content hidden space-y-6">
+                        <div class="max-w-xl space-y-6">
+                            <div>
+                                <h2 class="text-lg font-extrabold text-navy-950 flex items-center gap-2">
+                                    <span>🔐</span> Master Admin Password Settings
+                                </h2>
+                                <p class="text-xs text-slate-500">Apne Admin Workspace ko surakshit rakhne ke liye yahan se apna Master Password badlein.</p>
+                            </div>
+
+                            <form onsubmit="event.preventDefault(); App.changeAdminPassword();" class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Current Master Password *</label>
+                                    <input type="password" id="admin-sec-old-pass" required placeholder="Enter Current Password" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">New Master Password *</label>
+                                    <input type="password" id="admin-sec-new-pass" required minlength="6" placeholder="Enter New Password (min 6 chars)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Confirm New Master Password *</label>
+                                    <input type="password" id="admin-sec-confirm-pass" required minlength="6" placeholder="Re-enter New Password" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <button type="submit" class="w-full py-3 bg-navy-900 hover:bg-navy-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shadow">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Update Master Password (पासवर्ड बदलें)
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </section>
 
@@ -1898,7 +1987,7 @@
                         <li class="pt-2 border-t border-navy-800"><a href="#disclaimer" class="text-saffron-300 hover:text-white transition-colors">Government Disclaimer</a></li>
                         <li><a href="#privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
                         <li><a href="#terms" class="hover:text-white transition-colors">Terms of Service</a></li>
-                        <li class="pt-2 border-t border-navy-800"><a href="#admin" class="text-slate-400 hover:text-saffron-400 transition-colors flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-saffron-400"></i> Admin Inbox & Chat Logs</a></li>
+                        <li class="pt-2 border-t border-navy-800"><a href="#admin" class="text-slate-400 hover:text-saffron-400 transition-colors flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-saffron-400"></i> Consultant Admin Desk (🔒 Locked)</a></li>
                     </ul>
                 </div>
 
