@@ -21,6 +21,7 @@ const App = {
             this.initCalculatorsUI();
             this.initChatbot();
             this.renderAdminLogs();
+            this.initClientPortal();
             this.handleRoute();
         } catch (err) {
             console.warn("App initialization notice:", err);
@@ -51,7 +52,7 @@ const App = {
 
                 // Normal view navigation
                 const route = target.replace('#', '');
-                const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin'];
+                const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin', 'portal'];
                 if (validViews.includes(route)) {
                     e.preventDefault();
                     window.location.hash = route;
@@ -63,7 +64,7 @@ const App = {
     },
 
     showView: function(viewName) {
-        const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin'];
+        const validViews = ['home', 'gst', 'itr', 'services', 'updates', 'faq', 'calculators', 'contact', 'privacy', 'terms', 'disclaimer', 'admin', 'portal'];
         const activeView = validViews.includes(viewName) ? viewName : 'home';
         this.currentRoute = activeView;
 
@@ -1387,6 +1388,487 @@ const App = {
             this.renderAdminLogs();
             this.showToast('Admin logs cleared successfully.');
         }
+    },
+
+    // ==========================================
+    // CLIENT PORTAL & GST SALES SUBMISSION ENGINE
+    // ==========================================
+    initClientPortal: function() {
+        // Initialize client accounts in localStorage if not set
+        if (!localStorage.getItem('tkj_client_accounts')) {
+            const defaults = (TaxData && TaxData.defaultClients) ? TaxData.defaultClients : [
+                {
+                    id: "CL-101",
+                    username: "client1",
+                    password: "tax123",
+                    businessName: "Sharma Traders & Electronics",
+                    ownerName: "Rajesh Sharma",
+                    gstin: "07AAAAA1234A1Z5",
+                    phone: "9876543210",
+                    email: "sharma.traders@example.com",
+                    scheme: "Regular (Monthly GSTR-1/3B)",
+                    createdDate: "01/10/2026"
+                },
+                {
+                    id: "CL-102",
+                    username: "guptastore",
+                    password: "gst2026",
+                    businessName: "Gupta Kirana & General Store",
+                    ownerName: "Amit Gupta",
+                    gstin: "07BBBBB5678B1Z2",
+                    phone: "9811223344",
+                    email: "gupta.store@example.com",
+                    scheme: "Composition (Quarterly CMP-08)",
+                    createdDate: "05/10/2026"
+                }
+            ];
+            localStorage.setItem('tkj_client_accounts', JSON.stringify(defaults));
+        }
+
+        // Initialize sample sales records if not set
+        if (!localStorage.getItem('tkj_client_sales_records')) {
+            const sampleRecords = [
+                {
+                    id: "REC-948102",
+                    clientId: "CL-101",
+                    clientName: "Sharma Traders & Electronics",
+                    gstin: "07AAAAA1234A1Z5",
+                    period: "September 2026",
+                    totalSales: 450000,
+                    sales5: 50000,
+                    sales12: 100000,
+                    sales18: 250000,
+                    sales28: 50000,
+                    totalPurchases: 310000,
+                    b2bCount: 18,
+                    b2cSales: 120000,
+                    estTax: 67500,
+                    notes: "All 18 B2B purchase bills sent on email, please reconcile with 2B.",
+                    status: "GSTR-1 Filed",
+                    submittedDate: "05/10/2026",
+                    submittedTime: "14:32:10"
+                }
+            ];
+            localStorage.setItem('tkj_client_sales_records', JSON.stringify(sampleRecords));
+        }
+
+        this.renderPortalView();
+        this.renderAdminClients();
+        this.renderAdminSalesSubmissions();
+    },
+
+    getClientAccounts: function() {
+        return JSON.parse(localStorage.getItem('tkj_client_accounts') || '[]');
+    },
+
+    getSalesRecords: function() {
+        return JSON.parse(localStorage.getItem('tkj_client_sales_records') || '[]');
+    },
+
+    getCurrentClient: function() {
+        const data = localStorage.getItem('tkj_current_client');
+        return data ? JSON.parse(data) : null;
+    },
+
+    renderPortalView: function() {
+        const loginCard = document.getElementById('portal-login-card');
+        const dashboardCard = document.getElementById('portal-dashboard-card');
+        const client = this.getCurrentClient();
+
+        if (!client) {
+            if (loginCard) loginCard.classList.remove('hidden');
+            if (dashboardCard) dashboardCard.classList.add('hidden');
+        } else {
+            if (loginCard) loginCard.classList.add('hidden');
+            if (dashboardCard) dashboardCard.classList.remove('hidden');
+
+            // Populate Client Details in Dashboard
+            const nameEl = document.getElementById('portal-client-name');
+            const ownerEl = document.getElementById('portal-client-owner');
+            const gstinEl = document.getElementById('portal-client-gstin');
+            const schemeEl = document.getElementById('portal-client-scheme');
+            const phoneEl = document.getElementById('portal-client-phone');
+
+            if (nameEl) nameEl.textContent = client.businessName || client.username;
+            if (ownerEl) ownerEl.textContent = client.ownerName ? `Authorized Person: ${client.ownerName}` : '';
+            if (gstinEl) gstinEl.textContent = client.gstin || 'GSTIN Pending';
+            if (schemeEl) schemeEl.textContent = client.scheme || 'Regular Scheme';
+            if (phoneEl) phoneEl.textContent = client.phone || client.email || '-';
+
+            this.renderClientHistoryTable(client.id);
+        }
+    },
+
+    clientLogin: function(usernameInput, passwordInput) {
+        const u = (usernameInput || '').trim().toLowerCase();
+        const p = (passwordInput || '').trim();
+
+        if (!u || !p) {
+            this.showToast('Please enter both Client ID/Username and Password.', 'error');
+            return;
+        }
+
+        const accounts = this.getClientAccounts();
+        const found = accounts.find(acc => 
+            (acc.username.toLowerCase() === u || acc.phone === u || (acc.gstin && acc.gstin.toLowerCase() === u)) && 
+            acc.password === p
+        );
+
+        if (found) {
+            localStorage.setItem('tkj_current_client', JSON.stringify(found));
+            this.renderPortalView();
+            this.showToast(`Welcome ${found.businessName}! You are now logged in.`, 'success');
+        } else {
+            this.showToast('Invalid Client ID or Password! Please check credentials or contact Admin.', 'error');
+        }
+    },
+
+    clientLogout: function() {
+        localStorage.removeItem('tkj_current_client');
+        this.renderPortalView();
+        this.showToast('Logged out from Client Portal.', 'info');
+    },
+
+    fillDemoLogin: function(username, password) {
+        const uEl = document.getElementById('portal-login-username');
+        const pEl = document.getElementById('portal-login-password');
+        if (uEl) uEl.value = username;
+        if (pEl) pEl.value = password;
+        this.clientLogin(username, password);
+    },
+
+    submitGstSalesData: function() {
+        const client = this.getCurrentClient();
+        if (!client) {
+            this.showToast('Please login first to submit GST details.', 'error');
+            return;
+        }
+
+        const monthEl = document.getElementById('portal-sale-month');
+        const yearEl = document.getElementById('portal-sale-year');
+        const totalSalesEl = document.getElementById('portal-total-sales');
+        const s5El = document.getElementById('portal-sales-5');
+        const s12El = document.getElementById('portal-sales-12');
+        const s18El = document.getElementById('portal-sales-18');
+        const s28El = document.getElementById('portal-sales-28');
+        const purchaseEl = document.getElementById('portal-total-purchase');
+        const b2bCountEl = document.getElementById('portal-b2b-count');
+        const b2cSalesEl = document.getElementById('portal-b2c-sales');
+        const notesEl = document.getElementById('portal-sale-notes');
+
+        const month = monthEl ? monthEl.value : 'Current';
+        const year = yearEl ? yearEl.value : '2026';
+        const totalSales = totalSalesEl ? Number(totalSalesEl.value) || 0 : 0;
+        const s5 = s5El ? Number(s5El.value) || 0 : 0;
+        const s12 = s12El ? Number(s12El.value) || 0 : 0;
+        const s18 = s18El ? Number(s18El.value) || 0 : 0;
+        const s28 = s28El ? Number(s28El.value) || 0 : 0;
+        const totalPurchases = purchaseEl ? Number(purchaseEl.value) || 0 : 0;
+        const b2bCount = b2bCountEl ? Number(b2bCountEl.value) || 0 : 0;
+        const b2cSales = b2cSalesEl ? Number(b2cSalesEl.value) || 0 : 0;
+        const notes = notesEl ? notesEl.value.trim() : '';
+
+        if (totalSales <= 0) {
+            this.showToast('Please enter a valid total taxable sales amount.', 'error');
+            if (totalSalesEl) totalSalesEl.focus();
+            return;
+        }
+
+        const estTax = (s5 * 0.05) + (s12 * 0.12) + (s18 * 0.18) + (s28 * 0.28);
+
+        const newRecord = {
+            id: 'REC-' + Date.now().toString().slice(-6),
+            clientId: client.id,
+            clientName: client.businessName,
+            gstin: client.gstin,
+            period: `${month} ${year}`,
+            totalSales: totalSales,
+            sales5: s5,
+            sales12: s12,
+            sales18: s18,
+            sales28: s28,
+            totalPurchases: totalPurchases,
+            b2bCount: b2bCount,
+            b2cSales: b2cSales,
+            estTax: estTax > 0 ? estTax : (totalSales * 0.18),
+            notes: notes,
+            status: 'Submitted (Under Review)',
+            submittedDate: new Date().toLocaleDateString(),
+            submittedTime: new Date().toLocaleTimeString()
+        };
+
+        const records = this.getSalesRecords();
+        records.unshift(newRecord);
+        localStorage.setItem('tkj_client_sales_records', JSON.stringify(records));
+
+        // Background notification to gsc@taxkijankari.com
+        fetch('https://formsubmit.co/ajax/gsc@taxkijankari.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                _subject: `New GST Sales Submission: ${client.businessName} (${month} ${year})`,
+                Client: client.businessName,
+                GSTIN: client.gstin,
+                Period: `${month} ${year}`,
+                Total_Sales: `Rs. ${totalSales.toLocaleString('en-IN')}`,
+                Total_Purchases: `Rs. ${totalPurchases.toLocaleString('en-IN')}`,
+                B2B_Bills_Count: b2bCount,
+                B2C_Cash_Sales: `Rs. ${b2cSales.toLocaleString('en-IN')}`,
+                Estimated_Tax: `Rs. ${newRecord.estTax.toLocaleString('en-IN')}`,
+                Client_Notes: notes || 'None',
+                Record_ID: newRecord.id
+            })
+        }).catch(() => {});
+
+        this.showToast(`GST details for ${month} ${year} submitted successfully! Ref: ${newRecord.id}`, 'success');
+
+        // Reset inputs
+        if (totalSalesEl) totalSalesEl.value = '';
+        if (s5El) s5El.value = '';
+        if (s12El) s12El.value = '';
+        if (s18El) s18El.value = '';
+        if (s28El) s28El.value = '';
+        if (purchaseEl) purchaseEl.value = '';
+        if (b2bCountEl) b2bCountEl.value = '';
+        if (b2cSalesEl) b2cSalesEl.value = '';
+        if (notesEl) notesEl.value = '';
+
+        this.renderClientHistoryTable(client.id);
+        this.renderAdminSalesSubmissions();
+    },
+
+    renderClientHistoryTable: function(clientId) {
+        const container = document.getElementById('portal-history-table-body');
+        const countBadge = document.getElementById('portal-history-count');
+        if (!container) return;
+
+        const allRecords = this.getSalesRecords();
+        const records = allRecords.filter(r => r.clientId === clientId);
+
+        if (countBadge) countBadge.textContent = `${records.length} Submissions`;
+
+        if (records.length === 0) {
+            container.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-8 text-slate-400 text-xs font-medium">
+                        No previous GST sales submissions found. Use the form above to submit your current month sales report!
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        container.innerHTML = records.map(r => `
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                <td class="py-3 px-4 text-xs font-bold text-navy-950">${r.period}</td>
+                <td class="py-3 px-4 text-xs font-extrabold text-slate-900">₹${Number(r.totalSales).toLocaleString('en-IN')}</td>
+                <td class="py-3 px-4 text-xs font-medium text-slate-600">₹${Number(r.totalPurchases || 0).toLocaleString('en-IN')}</td>
+                <td class="py-3 px-4 text-xs font-bold text-saffron-600">₹${Math.round(r.estTax).toLocaleString('en-IN')}</td>
+                <td class="py-3 px-4">
+                    <span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-extrabold ${
+                        r.status.includes('Filed') ? 'bg-emerald-100 text-emerald-800' :
+                        r.status.includes('Completed') ? 'bg-blue-100 text-blue-800' :
+                        'bg-amber-100 text-amber-800'
+                    }">
+                        ${r.status}
+                    </span>
+                </td>
+                <td class="py-3 px-4 text-right text-xs text-slate-400">${r.submittedDate}</td>
+            </tr>
+        `).join('');
+    },
+
+    // ==========================================
+    // ADMIN PORTAL - CLIENT & REPORT MANAGEMENT
+    // ==========================================
+    renderAdminClients: function() {
+        const container = document.getElementById('admin-clients-table-body');
+        const countBadge = document.getElementById('admin-clients-count');
+        if (!container) return;
+
+        const accounts = this.getClientAccounts();
+        if (countBadge) countBadge.textContent = `${accounts.length} Registered Clients`;
+
+        if (accounts.length === 0) {
+            container.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-8 text-slate-400 text-xs font-medium">
+                        No client accounts created yet. Click "Add New Client" to create your first client login ID & password!
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        container.innerHTML = accounts.map(acc => `
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                <td class="py-3 px-4 text-xs font-bold text-navy-950">
+                    ${acc.businessName}
+                    <span class="block text-[10px] text-slate-400 font-normal">Owner: ${acc.ownerName || '-'}</span>
+                </td>
+                <td class="py-3 px-4 text-xs font-mono font-bold text-saffron-700 bg-saffron-50/50 px-2 rounded">${acc.username}</td>
+                <td class="py-3 px-4 text-xs font-mono font-semibold text-slate-700 bg-slate-100/60 px-2 rounded">${acc.password}</td>
+                <td class="py-3 px-4 text-xs font-mono text-slate-600">${acc.gstin || '-'}</td>
+                <td class="py-3 px-4 text-xs text-slate-600">${acc.scheme || 'Regular'}</td>
+                <td class="py-3 px-4 text-right">
+                    <button type="button" onclick="App.deleteClientAccount('${acc.id}')" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold transition-colors">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    },
+
+    addNewClientAccount: function() {
+        const nameEl = document.getElementById('admin-new-client-name');
+        const ownerEl = document.getElementById('admin-new-client-owner');
+        const userEl = document.getElementById('admin-new-client-username');
+        const passEl = document.getElementById('admin-new-client-password');
+        const gstinEl = document.getElementById('admin-new-client-gstin');
+        const phoneEl = document.getElementById('admin-new-client-phone');
+        const schemeEl = document.getElementById('admin-new-client-scheme');
+
+        const name = nameEl ? nameEl.value.trim() : '';
+        const user = userEl ? userEl.value.trim().toLowerCase() : '';
+        const pass = passEl ? passEl.value.trim() : '';
+        const gstin = gstinEl ? gstinEl.value.trim().toUpperCase() : '';
+        const owner = ownerEl ? ownerEl.value.trim() : '';
+        const phone = phoneEl ? phoneEl.value.trim() : '';
+        const scheme = schemeEl ? schemeEl.value : 'Regular (Monthly GSTR-1/3B)';
+
+        if (!name || !user || !pass) {
+            this.showToast('Please fill Business Name, Username, and Password.', 'error');
+            return;
+        }
+
+        const accounts = this.getClientAccounts();
+        if (accounts.some(a => a.username.toLowerCase() === user)) {
+            this.showToast(`Username "${user}" already exists! Please choose another.`, 'error');
+            return;
+        }
+
+        const newAccount = {
+            id: 'CL-' + Date.now().toString().slice(-4),
+            businessName: name,
+            ownerName: owner,
+            username: user,
+            password: pass,
+            gstin: gstin || 'Pending',
+            phone: phone,
+            scheme: scheme,
+            createdDate: new Date().toLocaleDateString()
+        };
+
+        accounts.push(newAccount);
+        localStorage.setItem('tkj_client_accounts', JSON.stringify(accounts));
+
+        this.showToast(`Client account "${name}" created successfully! Login ID: ${user} | Password: ${pass}`, 'success');
+
+        // Clear input fields
+        if (nameEl) nameEl.value = '';
+        if (ownerEl) ownerEl.value = '';
+        if (userEl) userEl.value = '';
+        if (passEl) passEl.value = '';
+        if (gstinEl) gstinEl.value = '';
+        if (phoneEl) phoneEl.value = '';
+
+        this.renderAdminClients();
+    },
+
+    deleteClientAccount: function(id) {
+        if (!confirm('Are you sure you want to delete this client account?')) return;
+        let accounts = this.getClientAccounts();
+        accounts = accounts.filter(a => a.id !== id);
+        localStorage.setItem('tkj_client_accounts', JSON.stringify(accounts));
+        this.renderAdminClients();
+        this.showToast('Client account deleted.', 'info');
+    },
+
+    renderAdminSalesSubmissions: function() {
+        const container = document.getElementById('admin-submissions-table-body');
+        const countBadge = document.getElementById('admin-submissions-count');
+        if (!container) return;
+
+        const records = this.getSalesRecords();
+        if (countBadge) countBadge.textContent = `${records.length} Reports Submitted`;
+
+        if (records.length === 0) {
+            container.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center py-8 text-slate-400 text-xs font-medium">
+                        No client sales reports submitted yet. When clients submit reports from their portal, they will appear here live!
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        container.innerHTML = records.map(r => `
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                <td class="py-3 px-4 text-xs font-bold text-navy-950">
+                    ${r.clientName}
+                    <span class="block text-[10px] text-slate-400 font-mono">${r.gstin || '-'}</span>
+                </td>
+                <td class="py-3 px-4 text-xs font-semibold text-slate-800">${r.period}</td>
+                <td class="py-3 px-4 text-xs font-extrabold text-navy-900">₹${Number(r.totalSales).toLocaleString('en-IN')}</td>
+                <td class="py-3 px-4 text-xs font-bold text-saffron-600">₹${Math.round(r.estTax).toLocaleString('en-IN')}</td>
+                <td class="py-3 px-4 text-xs text-slate-600">
+                    <span class="block text-[11px]">B2B Bills: <strong>${r.b2bCount || 0}</strong></span>
+                    <span class="block text-[10px] text-slate-400">${r.notes ? `Note: ${r.notes.slice(0, 35)}...` : 'No notes'}</span>
+                </td>
+                <td class="py-3 px-4">
+                    <select onchange="App.updateSubmissionStatus('${r.id}', this.value)" class="px-2 py-1 rounded-lg border border-slate-200 text-[11px] font-bold bg-white focus:ring-1 focus:ring-saffron-500">
+                        <option value="Submitted (Under Review)" ${r.status === 'Submitted (Under Review)' ? 'selected' : ''}>Under Review</option>
+                        <option value="GSTR-1 Filed" ${r.status === 'GSTR-1 Filed' ? 'selected' : ''}>GSTR-1 Filed</option>
+                        <option value="GSTR-3B Filed & Tax Paid" ${r.status === 'GSTR-3B Filed & Tax Paid' ? 'selected' : ''}>GSTR-3B Filed</option>
+                        <option value="Completed" ${r.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                    </select>
+                </td>
+                <td class="py-3 px-4 text-right">
+                    <button type="button" onclick="App.deleteSalesRecord('${r.id}')" class="text-slate-400 hover:text-red-600 p-1">
+                        🗑️
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    },
+
+    updateSubmissionStatus: function(recordId, newStatus) {
+        const records = this.getSalesRecords();
+        const rec = records.find(r => r.id === recordId);
+        if (rec) {
+            rec.status = newStatus;
+            localStorage.setItem('tkj_client_sales_records', JSON.stringify(records));
+            this.showToast(`Status updated to "${newStatus}"! Client can now see this in their portal.`, 'success');
+            const client = this.getCurrentClient();
+            if (client) this.renderClientHistoryTable(client.id);
+        }
+    },
+
+    switchAdminTab: function(tabName) {
+        document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+            btn.classList.remove('bg-navy-900', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-700');
+        });
+
+        const targetContent = document.getElementById(`admin-tab-${tabName}-content`);
+        const targetBtn = document.getElementById(`admin-tab-${tabName}-btn`);
+
+        if (targetContent) targetContent.classList.remove('hidden');
+        if (targetBtn) {
+            targetBtn.classList.add('bg-navy-900', 'text-white');
+            targetBtn.classList.remove('bg-slate-100', 'text-slate-700');
+        }
+    },
+
+    deleteSalesRecord: function(recordId) {
+        if (!confirm('Are you sure you want to delete this sales submission record?')) return;
+        let records = this.getSalesRecords();
+        records = records.filter(r => r.id !== recordId);
+        localStorage.setItem('tkj_client_sales_records', JSON.stringify(records));
+        this.renderAdminSalesSubmissions();
+        this.showToast('Sales record deleted.', 'info');
     },
 
     showToast: function(message, type = 'success') {

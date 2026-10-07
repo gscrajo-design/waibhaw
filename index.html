@@ -117,6 +117,12 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
 
+                    <!-- Client Portal Button -->
+                    <a href="#portal" class="px-3.5 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-saffron-700 border border-saffron-300 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs">
+                        <i data-lucide="user-check" class="w-4 h-4 text-saffron-600"></i>
+                        <span>Client Portal (GST Login)</span>
+                    </a>
+
                     <a href="mailto:gsc@taxkijankari.com" class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors">
                         <i data-lucide="mail" class="w-4 h-4 text-saffron-600"></i>
                         <span>gsc@taxkijankari.com</span>
@@ -132,9 +138,9 @@
                     <button type="button" onclick="App.toggleTheme()" class="theme-toggle-btn p-2 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center" aria-label="Toggle Theme">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
-                    <a href="#contact" class="p-2 rounded-lg bg-orange-50 text-saffron-600 border border-orange-200 text-xs font-bold flex items-center gap-1">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        <span>Inquire</span>
+                    <a href="#portal" class="p-2 rounded-lg bg-orange-50 text-saffron-600 border border-orange-200 text-xs font-bold flex items-center gap-1">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                        <span>Portal</span>
                     </a>
                     <button id="mobile-menu-toggle" type="button" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="Open Navigation">
                         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -160,6 +166,10 @@
                 </button>
             </div>
             <nav class="p-4 space-y-1">
+                <a href="#portal" class="block px-4 py-2.5 rounded-xl text-sm font-bold text-saffron-800 bg-orange-100/70 border border-saffron-300 flex items-center gap-2 mb-2">
+                    <i data-lucide="user-check" class="w-4 h-4 text-saffron-600"></i>
+                    <span>Client Portal (GST Sale Entry)</span>
+                </a>
                 <a href="#home" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">Home</a>
                 <a href="#gst" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">GST Information Hub</a>
                 <a href="#itr" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-saffron-600">ITR & Income Tax Hub</a>
@@ -1383,62 +1393,437 @@
         </section>
 
         <!-- =====================================================================
-             VIEW 12: ADMIN CHAT & INQUIRY INBOX
+             VIEW 12: ADMIN MANAGEMENT & INBOX PANEL
              ===================================================================== -->
         <section id="view-admin" class="view-section hidden py-12">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
+                    
+                    <!-- Admin Panel Header & Tabs -->
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                         <div>
                             <div class="flex items-center gap-2 mb-1">
-                                <span class="px-3 py-1 bg-navy-900 text-white text-xs font-bold rounded-full">
-                                    Admin Inbox Desk
+                                <span class="px-3 py-1 bg-navy-950 text-white text-xs font-bold rounded-full">
+                                    Tax Ki Jankari – Admin Workspace
                                 </span>
-                                <span class="text-xs text-emerald-600 font-bold">● Live Monitoring Active</span>
+                                <span class="text-xs text-emerald-600 font-bold">● Active Controller</span>
                             </div>
-                            <h1 class="text-3xl font-black text-navy-950">Visitor Inquiries & Chat Logs</h1>
-                            <p class="text-xs text-slate-500 mt-1">Yahan website visitors ke dwara pooche gaye sabhi sawal aur chatbot messages live dikhayi dete hain.</p>
+                            <h1 class="text-2xl sm:text-3xl font-black text-navy-950">Tax Consultant & Client Administration</h1>
+                            <p class="text-xs text-slate-500 mt-1">Manage client login credentials, inspect submitted GST sales records, update filing statuses, and view live visitor chats.</p>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
-                            <button type="button" onclick="App.renderAdminLogs()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors">
-                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh Inbox
+                            <a href="#portal" class="px-4 py-2 bg-orange-50 hover:bg-orange-100 text-saffron-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-saffron-200">
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Open Client Portal View
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Admin Navigation Tabs -->
+                    <div class="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto">
+                        <button id="admin-tab-reports-btn" type="button" onclick="App.switchAdminTab('reports')" class="admin-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 bg-navy-900 text-white transition-colors">
+                            <span>📊</span> Client Sales Reports
+                        </button>
+                        <button id="admin-tab-clients-btn" type="button" onclick="App.switchAdminTab('clients')" class="admin-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+                            <span>👥</span> Manage Client Accounts (ID/Pass)
+                        </button>
+                        <button id="admin-tab-inbox-btn" type="button" onclick="App.switchAdminTab('inbox')" class="admin-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+                            <span>📩</span> Visitor Inquiries & Chat Logs
+                        </button>
+                    </div>
+
+                    <!-- TAB 1 CONTENT: Client GST Sales Reports -->
+                    <div id="admin-tab-reports-content" class="admin-tab-content space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <h2 class="text-lg font-extrabold text-navy-950 flex items-center gap-2">
+                                    <span>📑</span> Client GST Monthly/Quarterly Sales Submissions
+                                </h2>
+                                <p class="text-xs text-slate-500">Clients submit their sales figures from their portal. Review details and update return filing status in real-time.</p>
+                            </div>
+                            <span id="admin-submissions-count" class="px-3 py-1 bg-saffron-100 text-saffron-800 rounded-full text-xs font-bold self-start sm:self-auto">
+                                0 Reports Submitted
+                            </span>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                        <th class="py-3.5 px-4">Client & GSTIN</th>
+                                        <th class="py-3.5 px-4">Period</th>
+                                        <th class="py-3.5 px-4">Taxable Sales</th>
+                                        <th class="py-3.5 px-4">Est. Tax</th>
+                                        <th class="py-3.5 px-4">B2B / Client Notes</th>
+                                        <th class="py-3.5 px-4">Filing Status</th>
+                                        <th class="py-3.5 px-4 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-submissions-table-body">
+                                    <!-- Populated dynamically via App.renderAdminSalesSubmissions() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2 CONTENT: Manage Client Accounts (Create ID & Password) -->
+                    <div id="admin-tab-clients-content" class="admin-tab-content hidden space-y-8">
+                        <!-- Add New Client Form Card -->
+                        <div class="p-6 rounded-2xl bg-orange-50/50 border border-saffron-200 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-base font-extrabold text-navy-950 flex items-center gap-2">
+                                        <span>➕</span> Create New Client Login ID & Password
+                                    </h3>
+                                    <p class="text-xs text-slate-600">Apne naye client ke liye yahan ID aur Password generate karein taaki wo portal par login karke apni GST sale enter kar sakein.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Business / Firm Name *</label>
+                                    <input type="text" id="admin-new-client-name" placeholder="e.g. Agarwal Trading Co." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Authorized Person / Owner Name</label>
+                                    <input type="text" id="admin-new-client-owner" placeholder="e.g. Ramesh Agarwal" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Client Login ID (Username) *</label>
+                                    <input type="text" id="admin-new-client-username" placeholder="e.g. agarwal99 or mobile" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-mono font-bold focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Client Password *</label>
+                                    <input type="text" id="admin-new-client-password" placeholder="e.g. tax@2026" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-mono font-bold focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">GSTIN Number (Optional)</label>
+                                    <input type="text" id="admin-new-client-gstin" placeholder="07AAAAA0000A1Z5" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-mono uppercase focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Mobile / WhatsApp Number</label>
+                                    <input type="tel" id="admin-new-client-phone" placeholder="10-digit mobile" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                </div>
+                                <div class="sm:col-span-2 lg:col-span-2">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Filing Scheme</label>
+                                    <select id="admin-new-client-scheme" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs bg-white font-medium focus:ring-2 focus:ring-saffron-500">
+                                        <option value="Regular (Monthly GSTR-1/3B)">Regular Scheme (Monthly GSTR-1 & 3B)</option>
+                                        <option value="Regular (QRMP Quarterly)">Regular Scheme (QRMP Quarterly + IFF)</option>
+                                        <option value="Composition (Quarterly CMP-08)">Composition Scheme (Quarterly CMP-08)</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-end">
+                                    <button type="button" onclick="App.addNewClientAccount()" class="w-full py-2.5 px-4 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                                        <i data-lucide="user-plus" class="w-4 h-4"></i> Create & Save Client ID
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Existing Clients Table -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-base font-extrabold text-navy-950 flex items-center gap-2">
+                                    <span>🔑</span> Active Client Credentials List
+                                </h3>
+                                <span id="admin-clients-count" class="px-3 py-1 bg-slate-100 text-slate-800 rounded-full text-xs font-bold">
+                                    0 Registered Clients
+                                </span>
+                            </div>
+
+                            <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                            <th class="py-3.5 px-4">Business / Client Name</th>
+                                            <th class="py-3.5 px-4">Login Username</th>
+                                            <th class="py-3.5 px-4">Password</th>
+                                            <th class="py-3.5 px-4">GSTIN</th>
+                                            <th class="py-3.5 px-4">Filing Scheme</th>
+                                            <th class="py-3.5 px-4 text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-clients-table-body">
+                                        <!-- Populated dynamically via App.renderAdminClients() -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3 CONTENT: Visitor Inquiries & Chat Logs -->
+                    <div id="admin-tab-inbox-content" class="admin-tab-content hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <h2 class="text-lg font-extrabold text-navy-950 flex items-center gap-2">
+                                    <span>📥</span> Visitor Chats & Consultation Inquiries
+                                </h2>
+                                <p class="text-xs text-slate-500">Live monitoring of messages asked to Tax Mitra AI and leads submitted via consultation desk.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="App.renderAdminLogs()" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-slate-200">
+                                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+                                </button>
+                                <button type="button" onclick="App.clearAdminLogs()" class="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-red-200">
+                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Logs
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Column 1: Forwarded Consultation Inquiries -->
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-extrabold text-navy-950 flex items-center gap-2">
+                                        <span>📩</span> Forwarded Inquiries
+                                    </h3>
+                                    <span id="admin-inquiry-count" class="px-2.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold">0 Inquiries</span>
+                                </div>
+                                <div id="admin-inquiry-logs-container" class="space-y-3 max-h-[450px] overflow-y-auto pr-1">
+                                    <!-- Populated dynamically via App.renderAdminLogs() -->
+                                </div>
+                            </div>
+
+                            <!-- Column 2: Live AI Chatbot Questions Log -->
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-extrabold text-navy-950 flex items-center gap-2">
+                                        <span>🤖</span> Visitor Chat Messages
+                                    </h3>
+                                    <span id="admin-chat-count" class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">0 Chats</span>
+                                </div>
+                                <div id="admin-chat-logs-container" class="space-y-3 max-h-[450px] overflow-y-auto pr-1">
+                                    <!-- Populated dynamically via App.renderAdminLogs() -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             VIEW 13: CLIENT PORTAL (GST SALES DATA SUBMISSION & STATUS TRACKER)
+             ===================================================================== -->
+        <section id="view-portal" class="view-section hidden py-12">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <!-- CARD 1: CLIENT LOGIN CARD (Shown when logged out) -->
+                <div id="portal-login-card" class="max-w-md mx-auto bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+                    <div class="text-center space-y-2">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-saffron-500 to-orange-600 text-white flex items-center justify-center mx-auto shadow-md">
+                            <i data-lucide="shield-check" class="w-7 h-7"></i>
+                        </div>
+                        <h2 class="text-2xl font-black text-navy-950">Client Login Portal</h2>
+                        <p class="text-xs text-slate-500">
+                            Apne tax consultant dwara pradan kiye gaye <strong>Client ID & Password</strong> se login karein aur apni mahine ya quarter ki GST sale details submit karein.
+                        </p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); App.clientLogin(document.getElementById('portal-login-username').value, document.getElementById('portal-login-password').value);" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Client ID / Username / Phone *</label>
+                            <input type="text" id="portal-login-username" required placeholder="Enter Username (e.g. client1)" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-saffron-500 bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Password *</label>
+                            <input type="password" id="portal-login-password" required placeholder="Enter Password" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-saffron-500 bg-slate-50">
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient-saffron hover:opacity-95 text-white font-extrabold rounded-xl text-sm shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="log-in" class="w-4 h-4"></i> Login to Client Desk →
+                        </button>
+                    </form>
+
+                    <!-- Quick Demo Credentials Box for Easy Testing -->
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+                        <div class="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                            <span>🧪 Demo Client Credentials (1-Click Test):</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="App.fillDemoLogin('client1', 'tax123')" class="p-2 rounded-xl bg-white border border-slate-200 hover:border-saffron-400 text-left transition-colors">
+                                <span class="block text-[11px] font-bold text-navy-950">Sharma Traders</span>
+                                <span class="block text-[10px] text-slate-500 font-mono">client1 / tax123</span>
                             </button>
-                            <button type="button" onclick="App.clearAdminLogs()" class="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors border border-red-200">
-                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Logs
+                            <button type="button" onclick="App.fillDemoLogin('guptastore', 'gst2026')" class="p-2 rounded-xl bg-white border border-slate-200 hover:border-saffron-400 text-left transition-colors">
+                                <span class="block text-[11px] font-bold text-navy-950">Gupta Store</span>
+                                <span class="block text-[10px] text-slate-500 font-mono">guptastore / gst2026</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- Column 1: Forwarded Consultation Inquiries -->
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-base font-extrabold text-navy-950 flex items-center gap-2">
-                                    <span>📩</span> Forwarded Inquiries
-                                </h3>
-                                <span id="admin-inquiry-count" class="px-2.5 py-1 rounded-full bg-saffron-100 text-saffron-800 text-xs font-bold">0 Inquiries</span>
-                            </div>
-                            <p class="text-xs text-slate-500">Contact details and questions submitted for direct follow-up:</p>
-                            <div id="admin-inquiry-logs-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-                                <!-- Populated dynamically via App.renderAdminLogs() -->
-                            </div>
-                        </div>
-
-                        <!-- Column 2: Live AI Chatbot Questions Log -->
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-base font-extrabold text-navy-950 flex items-center gap-2">
-                                    <span>🤖</span> Visitor Chat Messages
-                                </h3>
-                                <span id="admin-chat-count" class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">0 Chats</span>
-                            </div>
-                            <p class="text-xs text-slate-500">Live stream of questions asked to Tax Mitra AI:</p>
-                            <div id="admin-chat-logs-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-                                <!-- Populated dynamically via App.renderAdminLogs() -->
-                            </div>
-                        </div>
+                    <div class="text-center pt-2">
+                        <a href="#admin" class="text-xs font-bold text-saffron-700 hover:underline">
+                            🔐 Are you the Tax Consultant? Go to Admin Panel →
+                        </a>
                     </div>
                 </div>
+
+                <!-- CARD 2: CLIENT DASHBOARD (Shown when logged in) -->
+                <div id="portal-dashboard-card" class="hidden space-y-8">
+                    
+                    <!-- Client Profile Banner -->
+                    <div class="bg-gradient-to-r from-navy-900 to-navy-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-extrabold border border-emerald-500/30">
+                                    Client Verified
+                                </span>
+                                <span id="portal-client-scheme" class="px-3 py-0.5 rounded-full bg-saffron-500/20 text-saffron-400 text-xs font-bold border border-saffron-500/30">
+                                    Regular Scheme
+                                </span>
+                            </div>
+                            <h2 id="portal-client-name" class="text-2xl sm:text-3xl font-black text-white">Business Name</h2>
+                            <div class="flex items-center gap-4 text-xs text-slate-300 flex-wrap">
+                                <span id="portal-client-owner" class="font-medium"></span>
+                                <span>•</span>
+                                <span>GSTIN: <strong id="portal-client-gstin" class="font-mono text-white"></strong></span>
+                                <span>•</span>
+                                <span>Phone: <strong id="portal-client-phone" class="text-white"></strong></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="App.clientLogout()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center gap-2 transition-colors border border-white/20">
+                                <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- GST Sales Data Submission Form -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                        <div class="border-b border-slate-100 pb-4">
+                            <span class="px-3 py-1 bg-saffron-100 text-saffron-800 text-xs font-bold rounded-full uppercase">
+                                GST Return Data Filing Desk
+                            </span>
+                            <h3 class="text-xl font-extrabold text-navy-950 mt-2">Enter Monthly Sales & Purchase Details</h3>
+                            <p class="text-xs text-slate-500">Kripya apne billing data ke anusaar neeche di gayi details bharein. Hamare tax expert ise verify karke aapka GSTR-1 aur GSTR-3B file karenge.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Period Selection -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Return Period (Month) *</label>
+                                    <select id="portal-sale-month" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-slate-50 focus:ring-2 focus:ring-saffron-500">
+                                        <option value="September">September</option>
+                                        <option value="October" selected>October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Financial Year *</label>
+                                    <select id="portal-sale-year" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-slate-50 focus:ring-2 focus:ring-saffron-500">
+                                        <option value="2026-2027" selected>2026-2027</option>
+                                        <option value="2025-2026">2025-2026</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Total Sales & Purchase -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-2xl bg-orange-50/50 border border-saffron-200 space-y-1">
+                                    <label class="block text-xs font-extrabold text-navy-950">Total Gross Taxable Sales (₹) *</label>
+                                    <input type="number" id="portal-total-sales" placeholder="e.g. 500000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold bg-white focus:ring-2 focus:ring-saffron-500">
+                                    <span class="text-[10px] text-slate-500">Kripya kul taxable sale amount darj karein</span>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                                    <label class="block text-xs font-extrabold text-navy-950">Total Taxable Purchases / ITC (₹)</label>
+                                    <input type="number" id="portal-total-purchase" placeholder="e.g. 350000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold bg-white focus:ring-2 focus:ring-saffron-500">
+                                    <span class="text-[10px] text-slate-500">Khareediye gaye maal ka kul value (ITC claim ke liye)</span>
+                                </div>
+                            </div>
+
+                            <!-- GST Rate-wise Breakdown -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold text-slate-700">GST Rate-wise Sales Breakdown (Optional for precise tax computation):</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <span class="block text-[11px] font-bold text-slate-700 mb-1">5% Slab Sales (₹)</span>
+                                        <input type="number" id="portal-sales-5" placeholder="0" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold bg-white">
+                                    </div>
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <span class="block text-[11px] font-bold text-slate-700 mb-1">12% Slab Sales (₹)</span>
+                                        <input type="number" id="portal-sales-12" placeholder="0" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold bg-white">
+                                    </div>
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <span class="block text-[11px] font-bold text-slate-700 mb-1">18% Slab Sales (₹)</span>
+                                        <input type="number" id="portal-sales-18" placeholder="0" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold bg-white">
+                                    </div>
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <span class="block text-[11px] font-bold text-slate-700 mb-1">28% Slab Sales (₹)</span>
+                                        <input type="number" id="portal-sales-28" placeholder="0" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold bg-white">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Breakdown -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Total B2B Bills Count (Registered Buyers)</label>
+                                    <input type="number" id="portal-b2b-count" placeholder="e.g. 15" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium bg-slate-50">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">B2C Retail / Cash Sales (₹)</label>
+                                    <input type="number" id="portal-b2c-sales" placeholder="e.g. 150000" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium bg-slate-50">
+                                </div>
+                            </div>
+
+                            <!-- Notes / Remarks -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Notes / Instructions for Tax Consultant</label>
+                                <textarea id="portal-sale-notes" rows="2" placeholder="e.g. Purchase bills sent on email, please check RCM applicability or new purchase ITC..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium bg-slate-50 resize-none"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="button" onclick="App.submitGstSalesData()" class="w-full py-3.5 bg-gradient-saffron hover:opacity-95 text-white font-extrabold rounded-xl text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4"></i> Submit Sales Report to Tax Consultant →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Submission History & Filing Status Tracking -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-extrabold text-navy-950 flex items-center gap-2">
+                                    <span>📜</span> Your GST Filing History & Status
+                                </h3>
+                                <p class="text-xs text-slate-500">Track real-time filing progress of your monthly/quarterly returns.</p>
+                            </div>
+                            <span id="portal-history-count" class="px-3 py-1 bg-slate-100 text-slate-800 rounded-full text-xs font-bold">
+                                0 Submissions
+                            </span>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                        <th class="py-3 px-4">Period</th>
+                                        <th class="py-3 px-4">Total Sales</th>
+                                        <th class="py-3 px-4">Purchases</th>
+                                        <th class="py-3 px-4">Est. Tax</th>
+                                        <th class="py-3 px-4">Current Status</th>
+                                        <th class="py-3 px-4 text-right">Submitted On</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="portal-history-table-body">
+                                    <!-- Populated dynamically via App.renderClientHistoryTable() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </section>
 

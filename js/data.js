@@ -18,6 +18,34 @@ const TaxData = {
         embedUrl: "https://embed.tawk.to/6aab8bddf4f8c3344606889e/1k2n1kmt5"
     },
 
+    // Default Demo Client Accounts
+    defaultClients: [
+        {
+            id: "CL-101",
+            username: "client1",
+            password: "tax123",
+            businessName: "Sharma Traders & Electronics",
+            ownerName: "Rajesh Sharma",
+            gstin: "07AAAAA1234A1Z5",
+            phone: "9876543210",
+            email: "sharma.traders@example.com",
+            scheme: "Regular (Monthly GSTR-1/3B)",
+            createdDate: "01/10/2026"
+        },
+        {
+            id: "CL-102",
+            username: "guptastore",
+            password: "gst2026",
+            businessName: "Gupta Kirana & General Store",
+            ownerName: "Amit Gupta",
+            gstin: "07BBBBB5678B1Z2",
+            phone: "9811223344",
+            email: "gupta.store@example.com",
+            scheme: "Composition (Quarterly CMP-08)",
+            createdDate: "05/10/2026"
+        }
+    ],
+
     services: [
         {
             id: "gst-registration",
