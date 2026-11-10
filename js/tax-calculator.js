@@ -1,13 +1,13 @@
 /**
  * Tax Ki Jankari (taxkijankari.com) - Interactive Tax Calculators
- * 1. Income Tax Calculator (Old vs New Tax Regime Comparison)
+ * 1. Income Tax Calculator (Old vs New Tax Regime Comparison for FY 2026-27 / AY 2027-28)
  * 2. GST Calculator (Exclusive & Inclusive with CGST/SGST/IGST breakdown)
  */
 
 const TaxCalculator = {
     // Format currency in Indian numbering system
     formatINR: function(amount) {
-        if (isNaN(amount)) return '₹0';
+        if (isNaN(amount) || amount === null || amount === undefined) return '₹0';
         return new Intl.NumberFormat('en-IN', {
             style: 'currency',
             currency: 'INR',
@@ -17,112 +17,300 @@ const TaxCalculator = {
 
     /**
      * Compute Income Tax under New Tax Regime
-     * FY 2024-25 / FY 2025-26 (AY 2025-26 & AY 2026-27)
+     * Financial Year 2026-27 (Assessment Year 2027-28)
+     * 
+     * Slabs:
+     * - Up to ₹4,00,000: Nil (0%)
+     * - ₹4,00,001 - ₹8,00,000: 5%
+     * - ₹8,00,001 - ₹12,00,000: 10%
+     * - ₹12,00,001 - ₹16,00,000: 15%
+     * - ₹16,00,001 - ₹20,00,000: 20%
+     * - ₹20,00,001 - ₹24,00,000: 25%
+     * - Above ₹24,00,000: 30%
+     * 
+     * Standard Deduction: ₹75,000 for salaried & pensioners
+     * Section 87A Rebate: 100% rebate (max ₹60,000) for taxable income up to ₹12,00,000
+     * Marginal Relief u/s 87A: Tax before cess cannot exceed (Taxable Income - ₹12,00,000)
      */
-    calculateNewRegime: function(grossIncome, isSalaried) {
-        const standardDeduction = isSalaried ? 75000 : 0;
+    calculateNewRegime: function(grossIncome, isSalaried, opts) {
+        grossIncome = Math.max(0, Number(grossIncome) || 0);
+        opts = opts || {};
+
+        // Standard deduction: ₹75,000 for salaried/pensioners (capped at gross income)
+        const standardDeduction = isSalaried ? Math.min(grossIncome, 75000) : 0;
         const taxableIncome = Math.max(0, grossIncome - standardDeduction);
-        let tax = 0;
 
-        // Revised Budget Slabs
-        // 0 to 3L: Nil
-        // 3L to 7L: 5%
-        // 7L to 10L: 10%
-        // 10L to 12L: 15%
-        // 12L to 15L: 20%
-        // Above 15L: 30%
-
-        if (taxableIncome <= 300000) {
-            tax = 0;
-        } else if (taxableIncome <= 700000) {
-            tax = (taxableIncome - 300000) * 0.05;
-        } else if (taxableIncome <= 1000000) {
-            tax = (400000 * 0.05) + ((taxableIncome - 700000) * 0.10);
+        // Slab calculation
+        let slabTax = 0;
+        if (taxableIncome <= 400000) {
+            slabTax = 0;
+        } else if (taxableIncome <= 800000) {
+            slabTax = (taxableIncome - 400000) * 0.05;
         } else if (taxableIncome <= 1200000) {
-            tax = (400000 * 0.05) + (300000 * 0.10) + ((taxableIncome - 1000000) * 0.15);
-        } else if (taxableIncome <= 1500000) {
-            tax = (400000 * 0.05) + (300000 * 0.10) + (200000 * 0.15) + ((taxableIncome - 1200000) * 0.20);
+            slabTax = 20000 + (taxableIncome - 800000) * 0.10;
+        } else if (taxableIncome <= 1600000) {
+            slabTax = 60000 + (taxableIncome - 1200000) * 0.15;
+        } else if (taxableIncome <= 2000000) {
+            slabTax = 120000 + (taxableIncome - 1600000) * 0.20;
+        } else if (taxableIncome <= 2400000) {
+            slabTax = 200000 + (taxableIncome - 2000000) * 0.25;
         } else {
-            tax = (400000 * 0.05) + (300000 * 0.10) + (200000 * 0.15) + (300000 * 0.20) + ((taxableIncome - 1500000) * 0.30);
+            slabTax = 300000 + (taxableIncome - 2400000) * 0.30;
         }
 
-        // Section 87A Rebate (Zero tax if taxable income <= 7,00,000)
+        // Section 87A Rebate & Marginal Relief
         let rebate87A = 0;
-        if (taxableIncome <= 700000) {
-            rebate87A = tax;
-            tax = 0;
+        let netSlabTax = slabTax;
+
+        if (taxableIncome <= 1200000) {
+            // Full rebate up to ₹60,000 (tax becomes 0)
+            rebate87A = slabTax;
+            netSlabTax = 0;
+        } else {
+            // Marginal relief for taxable income exceeding ₹12,00,000
+            // Tax payable before cess shall not exceed the excess of taxable income over ₹12,00,000
+            const excessIncome = taxableIncome - 1200000;
+            if (slabTax > excessIncome) {
+                rebate87A = slabTax - excessIncome;
+                netSlabTax = excessIncome;
+            } else {
+                rebate87A = 0;
+                netSlabTax = slabTax;
+            }
         }
 
-        const cess = tax * 0.04;
-        const totalTax = tax + cess;
+        // Surcharge & Surcharge Marginal Relief (New Regime)
+        // Thresholds: >50L: 10%, >1Cr: 15%, >2Cr: 25% (max rate under New Regime)
+        const surchargeInfo = this._calculateSurchargeNewRegime(taxableIncome, netSlabTax);
+        const surcharge = surchargeInfo.surcharge;
+
+        // Health & Education Cess: 4% on (Tax after rebate + Surcharge)
+        const cess = (netSlabTax + surcharge) * 0.04;
+        const totalTax = netSlabTax + surcharge + cess;
 
         return {
             regime: "New Tax Regime",
+            financialYear: "FY 2026-27 (AY 2027-28)",
             grossIncome: grossIncome,
             standardDeduction: standardDeduction,
             otherDeductions: 0,
             totalDeductions: standardDeduction,
             taxableIncome: taxableIncome,
-            slabTax: tax + rebate87A,
-            rebate87A: rebate87A,
-            netSlabTax: tax,
-            cess: cess,
+            slabTax: Math.round(slabTax),
+            rebate87A: Math.round(rebate87A),
+            netSlabTax: Math.round(netSlabTax),
+            surcharge: Math.round(surcharge),
+            surchargeRelief: Math.round(surchargeInfo.marginalRelief),
+            cess: Math.round(cess),
             totalTax: Math.round(totalTax)
         };
     },
 
     /**
      * Compute Income Tax under Old Tax Regime
+     * Financial Year 2026-27 (Assessment Year 2027-28)
+     * 
+     * Slabs:
+     * - General (<60 yrs): 0-2.5L: Nil, 2.5L-5L: 5%, 5L-10L: 20%, Above 10L: 30%
+     * - Senior (60 to <80 yrs): 0-3L: Nil, 3L-5L: 5%, 5L-10L: 20%, Above 10L: 30%
+     * - Super Senior (80+ yrs): 0-5L: Nil, 5L-10L: 20%, Above 10L: 30%
+     * 
+     * Standard Deduction: ₹50,000 for salaried & pensioners
+     * Deductions: 80C (max 1.5L), 80D (max 75k general / 1L senior), 24b (max 2L), HRA, Other
+     * Section 87A Rebate: Max ₹12,500 for taxable income up to ₹5,00,000
      */
-    calculateOldRegime: function(grossIncome, isSalaried, deductions, ageGroup) {
-        let standardDeduction = isSalaried ? 50000 : 0;
-        let sec80C = Math.min(150000, Number(deductions.sec80C) || 0);
-        let sec80D = Number(deductions.sec80D) || 0;
-        let sec24b = Math.min(200000, Number(deductions.sec24b) || 0);
-        let hra = Number(deductions.hra) || 0;
-        let otherDeductions = Number(deductions.other) || 0;
+    calculateOldRegime: function(grossIncome, isSalaried, deductions, ageGroup, opts) {
+        grossIncome = Math.max(0, Number(grossIncome) || 0);
+        deductions = deductions || {};
+        ageGroup = ageGroup || 'general';
+        opts = opts || {};
 
-        let totalEligibleDeductions = standardDeduction + sec80C + sec80D + sec24b + hra + otherDeductions;
-        let taxableIncome = Math.max(0, grossIncome - totalEligibleDeductions);
+        // Standard deduction: ₹50,000 for salaried/pensioners (capped at gross income)
+        const standardDeduction = isSalaried ? Math.min(grossIncome, 50000) : 0;
+
+        // Deductions under Chapter VI-A & Section 24(b)
+        const sec80C = Math.min(150000, Math.max(0, Number(deductions.sec80C) || 0));
+        const max80D = (ageGroup === 'senior' || ageGroup === 'super-senior') ? 100000 : 75000;
+        const sec80D = Math.min(max80D, Math.max(0, Number(deductions.sec80D) || 0));
+        const sec24b = Math.min(200000, Math.max(0, Number(deductions.sec24b) || 0));
+        const hra = Math.max(0, Number(deductions.hra) || 0);
+        const otherDeductions = Math.max(0, Number(deductions.other) || 0);
+
+        const totalEligibleDeductions = standardDeduction + sec80C + sec80D + sec24b + hra + otherDeductions;
+        const taxableIncome = Math.max(0, grossIncome - totalEligibleDeductions);
 
         let exemptionLimit = 250000;
-        if (ageGroup === 'senior') exemptionLimit = 300000; // 60 to 80
-        if (ageGroup === 'super-senior') exemptionLimit = 500000; // 80+
+        if (ageGroup === 'senior') exemptionLimit = 300000;
+        if (ageGroup === 'super-senior') exemptionLimit = 500000;
 
-        let tax = 0;
+        let slabTax = 0;
         if (taxableIncome <= exemptionLimit) {
-            tax = 0;
+            slabTax = 0;
         } else if (taxableIncome <= 500000) {
-            tax = (taxableIncome - exemptionLimit) * 0.05;
+            slabTax = (taxableIncome - exemptionLimit) * 0.05;
         } else if (taxableIncome <= 1000000) {
-            tax = ((500000 - exemptionLimit) * 0.05) + ((taxableIncome - 500000) * 0.20);
+            slabTax = ((500000 - exemptionLimit) * 0.05) + ((taxableIncome - 500000) * 0.20);
         } else {
-            tax = ((500000 - exemptionLimit) * 0.05) + (500000 * 0.20) + ((taxableIncome - 1000000) * 0.30);
+            slabTax = ((500000 - exemptionLimit) * 0.05) + (500000 * 0.20) + ((taxableIncome - 1000000) * 0.30);
         }
 
-        // Section 87A Rebate for Old Regime (taxable income <= 5,00,000)
+        // Section 87A Rebate for Old Regime (Max ₹12,500 if taxable income <= 5,00,000)
         let rebate87A = 0;
         if (taxableIncome <= 500000) {
-            rebate87A = tax;
-            tax = 0;
+            rebate87A = Math.min(slabTax, 12500);
         }
+        const netSlabTax = Math.max(0, slabTax - rebate87A);
 
-        const cess = tax * 0.04;
-        const totalTax = tax + cess;
+        // Surcharge & Surcharge Marginal Relief (Old Regime)
+        // Thresholds: >50L: 10%, >1Cr: 15%, >2Cr: 25%, >5Cr: 37%
+        const surchargeInfo = this._calculateSurchargeOldRegime(taxableIncome, netSlabTax, ageGroup);
+        const surcharge = surchargeInfo.surcharge;
+
+        // Health & Education Cess: 4% on (Tax after rebate + Surcharge)
+        const cess = (netSlabTax + surcharge) * 0.04;
+        const totalTax = netSlabTax + surcharge + cess;
 
         return {
             regime: "Old Tax Regime",
+            financialYear: "FY 2026-27 (AY 2027-28)",
             grossIncome: grossIncome,
             standardDeduction: standardDeduction,
             otherDeductions: totalEligibleDeductions - standardDeduction,
             totalDeductions: totalEligibleDeductions,
             taxableIncome: taxableIncome,
-            slabTax: tax + rebate87A,
-            rebate87A: rebate87A,
-            netSlabTax: tax,
-            cess: cess,
+            slabTax: Math.round(slabTax),
+            rebate87A: Math.round(rebate87A),
+            netSlabTax: Math.round(netSlabTax),
+            surcharge: Math.round(surcharge),
+            surchargeRelief: Math.round(surchargeInfo.marginalRelief),
+            cess: Math.round(cess),
             totalTax: Math.round(totalTax)
         };
+    },
+
+    /**
+     * Internal helper to compute New Regime slab tax at any taxable income amount
+     */
+    _computeNewRegimeRawTax: function(ti) {
+        if (ti <= 400000) return 0;
+        if (ti <= 800000) return (ti - 400000) * 0.05;
+        if (ti <= 1200000) return 20000 + (ti - 800000) * 0.10;
+        if (ti <= 1600000) return 60000 + (ti - 1200000) * 0.15;
+        if (ti <= 2000000) return 120000 + (ti - 1600000) * 0.20;
+        if (ti <= 2400000) return 200000 + (ti - 2000000) * 0.25;
+        return 300000 + (ti - 2400000) * 0.30;
+    },
+
+    /**
+     * Calculate Surcharge and statutory Marginal Relief for New Regime
+     */
+    _calculateSurchargeNewRegime: function(taxableIncome, taxBeforeSurcharge) {
+        if (taxableIncome <= 5000000 || taxBeforeSurcharge <= 0) {
+            return { surcharge: 0, marginalRelief: 0 };
+        }
+
+        let rate = 0;
+        let threshold = 5000000;
+        let prevSurchargeRate = 0;
+
+        if (taxableIncome > 20000000) {
+            rate = 0.25;
+            threshold = 20000000;
+            prevSurchargeRate = 0.15;
+        } else if (taxableIncome > 10000000) {
+            rate = 0.15;
+            threshold = 10000000;
+            prevSurchargeRate = 0.10;
+        } else if (taxableIncome > 5000000) {
+            rate = 0.10;
+            threshold = 5000000;
+            prevSurchargeRate = 0;
+        }
+
+        const unadjustedSurcharge = taxBeforeSurcharge * rate;
+        const totalTaxWithSurcharge = taxBeforeSurcharge + unadjustedSurcharge;
+
+        // Marginal Relief Calculation:
+        // Tax + Surcharge at threshold
+        const taxAtThreshold = this._computeNewRegimeRawTax(threshold);
+        const surchargeAtThreshold = taxAtThreshold * prevSurchargeRate;
+        const totalAtThreshold = taxAtThreshold + surchargeAtThreshold;
+
+        // Maximum permissible Tax + Surcharge is total at threshold + income exceeding threshold
+        const excessIncome = taxableIncome - threshold;
+        const maxPermissibleTax = totalAtThreshold + excessIncome;
+
+        if (totalTaxWithSurcharge > maxPermissibleTax) {
+            const relief = totalTaxWithSurcharge - maxPermissibleTax;
+            const adjustedSurcharge = Math.max(0, unadjustedSurcharge - relief);
+            return { surcharge: adjustedSurcharge, marginalRelief: relief };
+        }
+
+        return { surcharge: unadjustedSurcharge, marginalRelief: 0 };
+    },
+
+    /**
+     * Internal helper to compute Old Regime slab tax at any taxable income amount
+     */
+    _computeOldRegimeRawTax: function(ti, ageGroup) {
+        let exemptionLimit = 250000;
+        if (ageGroup === 'senior') exemptionLimit = 300000;
+        if (ageGroup === 'super-senior') exemptionLimit = 500000;
+
+        if (ti <= exemptionLimit) return 0;
+        if (ti <= 500000) return (ti - exemptionLimit) * 0.05;
+        if (ti <= 1000000) return ((500000 - exemptionLimit) * 0.05) + ((ti - 500000) * 0.20);
+        return ((500000 - exemptionLimit) * 0.05) + (500000 * 0.20) + ((ti - 1000000) * 0.30);
+    },
+
+    /**
+     * Calculate Surcharge and statutory Marginal Relief for Old Regime
+     */
+    _calculateSurchargeOldRegime: function(taxableIncome, taxBeforeSurcharge, ageGroup) {
+        if (taxableIncome <= 5000000 || taxBeforeSurcharge <= 0) {
+            return { surcharge: 0, marginalRelief: 0 };
+        }
+
+        let rate = 0;
+        let threshold = 5000000;
+        let prevSurchargeRate = 0;
+
+        if (taxableIncome > 50000000) {
+            rate = 0.37;
+            threshold = 50000000;
+            prevSurchargeRate = 0.25;
+        } else if (taxableIncome > 20000000) {
+            rate = 0.25;
+            threshold = 20000000;
+            prevSurchargeRate = 0.15;
+        } else if (taxableIncome > 10000000) {
+            rate = 0.15;
+            threshold = 10000000;
+            prevSurchargeRate = 0.10;
+        } else if (taxableIncome > 5000000) {
+            rate = 0.10;
+            threshold = 5000000;
+            prevSurchargeRate = 0;
+        }
+
+        const unadjustedSurcharge = taxBeforeSurcharge * rate;
+        const totalTaxWithSurcharge = taxBeforeSurcharge + unadjustedSurcharge;
+
+        // Marginal Relief Calculation
+        const taxAtThreshold = this._computeOldRegimeRawTax(threshold, ageGroup);
+        const surchargeAtThreshold = taxAtThreshold * prevSurchargeRate;
+        const totalAtThreshold = taxAtThreshold + surchargeAtThreshold;
+
+        const excessIncome = taxableIncome - threshold;
+        const maxPermissibleTax = totalAtThreshold + excessIncome;
+
+        if (totalTaxWithSurcharge > maxPermissibleTax) {
+            const relief = totalTaxWithSurcharge - maxPermissibleTax;
+            const adjustedSurcharge = Math.max(0, unadjustedSurcharge - relief);
+            return { surcharge: adjustedSurcharge, marginalRelief: relief };
+        }
+
+        return { surcharge: unadjustedSurcharge, marginalRelief: 0 };
     },
 
     /**
@@ -166,4 +354,8 @@ const TaxCalculator = {
 
 if (typeof window !== 'undefined') {
     window.TaxCalculator = TaxCalculator;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = TaxCalculator;
 }

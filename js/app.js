@@ -552,23 +552,26 @@ const App = {
             const newRegime = TaxCalculator.calculateNewRegime(income, isSalaried);
             const oldRegime = TaxCalculator.calculateOldRegime(income, isSalaried, deductions, age);
 
+            const formatDeduction = (amt) => amt > 0 ? ('- ' + TaxCalculator.formatINR(amt)) : '₹0';
+            const formatRebate = (amt) => amt > 0 ? ('- ' + TaxCalculator.formatINR(amt)) : '₹0';
+
             // Update New Regime Card
             document.getElementById('res-new-gross').textContent = TaxCalculator.formatINR(newRegime.grossIncome);
-            document.getElementById('res-new-deductions').textContent = TaxCalculator.formatINR(newRegime.totalDeductions);
+            document.getElementById('res-new-deductions').textContent = formatDeduction(newRegime.totalDeductions);
             document.getElementById('res-new-taxable').textContent = TaxCalculator.formatINR(newRegime.taxableIncome);
             document.getElementById('res-new-slabtax').textContent = TaxCalculator.formatINR(newRegime.slabTax);
-            document.getElementById('res-new-rebate').textContent = TaxCalculator.formatINR(newRegime.rebate87A);
+            document.getElementById('res-new-rebate').textContent = formatRebate(newRegime.rebate87A);
             document.getElementById('res-new-cess').textContent = TaxCalculator.formatINR(newRegime.cess);
-            document.getElementById('res-new-total').textContent = TaxCalculator.formatINR(newRegime.totalTax);
+            document.getElementById('res-new-total').textContent = newRegime.totalTax === 0 ? '₹0 Tax Payable' : TaxCalculator.formatINR(newRegime.totalTax);
 
             // Update Old Regime Card
             document.getElementById('res-old-gross').textContent = TaxCalculator.formatINR(oldRegime.grossIncome);
-            document.getElementById('res-old-deductions').textContent = TaxCalculator.formatINR(oldRegime.totalDeductions);
+            document.getElementById('res-old-deductions').textContent = formatDeduction(oldRegime.totalDeductions);
             document.getElementById('res-old-taxable').textContent = TaxCalculator.formatINR(oldRegime.taxableIncome);
             document.getElementById('res-old-slabtax').textContent = TaxCalculator.formatINR(oldRegime.slabTax);
-            document.getElementById('res-old-rebate').textContent = TaxCalculator.formatINR(oldRegime.rebate87A);
+            document.getElementById('res-old-rebate').textContent = formatRebate(oldRegime.rebate87A);
             document.getElementById('res-old-cess').textContent = TaxCalculator.formatINR(oldRegime.cess);
-            document.getElementById('res-old-total').textContent = TaxCalculator.formatINR(oldRegime.totalTax);
+            document.getElementById('res-old-total').textContent = oldRegime.totalTax === 0 ? '₹0 Tax Payable' : TaxCalculator.formatINR(oldRegime.totalTax);
 
             // Recommendation Banner
             const banner = document.getElementById('tax-recommendation-banner');
@@ -580,7 +583,7 @@ const App = {
                         <div class="flex items-center gap-2 font-bold text-sm">
                             <span class="text-emerald-600 text-lg">🎉</span> New Tax Regime is Better for You!
                         </div>
-                        <p class="text-xs text-emerald-800 mt-1">You save <strong>${TaxCalculator.formatINR(diff)}</strong> in tax by opting for the New Tax Regime.</p>
+                        <p class="text-xs text-emerald-800 mt-1">You save <strong>${TaxCalculator.formatINR(diff)}</strong> in tax by opting for the New Tax Regime (FY 2026-27).</p>
                     `;
                 } else if (oldRegime.totalTax < newRegime.totalTax) {
                     banner.className = "p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-900";
@@ -602,9 +605,19 @@ const App = {
         };
 
         if (calcBtn) calcBtn.addEventListener('click', runTaxCalc);
-        if (incomeInput) incomeInput.addEventListener('input', runTaxCalc);
+        
+        // Dynamic recalculation on any input change
+        const dynamicInputs = ['calc-income', 'calc-80c', 'calc-80d', 'calc-24b', 'calc-hra', 'calc-other'];
+        dynamicInputs.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', runTaxCalc);
+                el.addEventListener('change', runTaxCalc);
+            }
+        });
         if (salariedCheck) salariedCheck.addEventListener('change', runTaxCalc);
         if (ageSelect) ageSelect.addEventListener('change', runTaxCalc);
+
         document.querySelectorAll('.income-preset-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.income-preset-btn').forEach(b => {
